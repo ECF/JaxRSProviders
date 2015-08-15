@@ -186,16 +186,15 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 			Method methodToInvoke = null;
 			synchronized (JaxProxyClientRemoteService.this) {
 				if (proxy == null)
-					throw new ECFException("Underlying jax proxy is null");
-				String methodName = call.getMethod();
-				methodToInvoke = methodMap.get(methodName);
+					throw new ECFException("jax proxy is null");
+				methodToInvoke = methodMap.get(call.getMethod());
 				if (methodToInvoke == null)
-					throw new ECFException("method '" + methodToInvoke + " on jax proxy");
+					throw new ECFException("method '" + methodToInvoke + " on jax proxy could not be found");
 			}
 			// Now invoke method
 			// invoke
 			try {
-				return methodToInvoke.invoke(proxy, call.getParameters());
+				return methodToInvoke.invoke(this.proxy, call.getParameters());
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				throw new ECFException("Invoke failed on jaxrs proxy", e);
 			}
@@ -204,19 +203,28 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 		private Object proxy;
 		private Map<String, Method> methodMap = new HashMap<String, Method>();
 
+		protected Map<String, Method> createMethodMap(@SuppressWarnings("rawtypes") Class interfaceClass)
+				throws ECFException {
+			Map<String, Method> results = new HashMap<String, Method>();
+			for (Method method : interfaceClass.getMethods())
+				if (isJaxRSAnnotated(method))
+					results.put(method.getName(), method);
+			return results;
+		}
+
 		@Override
 		public Object getProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class[] interfaces) throws ECFException {
 			try {
 				synchronized (JaxProxyClientRemoteService.this) {
 					if (proxy == null) {
 						if (interfaces.length > 1)
-							throw new ECFException("Cannot have more than a single JaxRS interface");
+							throw new ECFException("getProxy:  Cannot have more than a single service interface");
 						proxy = createJaxRSProxy(cl, interfaces[0]);
 						if (this.proxy == null)
-							throw new ECFException("createJaxRSProxy returned null.  Cannot create proxy");
-						for (Method method : interfaces[0].getMethods())
-							if (isJaxRSAnnotated(method))
-								methodMap.put(method.getName(), method);
+							throw new ECFException("getProxy:  CreateJaxRSProxy returned null.  Cannot create proxy");
+						this.methodMap = createMethodMap(interfaces[0]);
+						if (this.methodMap == null || this.methodMap.size() == 0)
+							throw new ECFException("getProxy:  methodMap is null or of size=0");
 					}
 				}
 				return super.createProxy(cl, interfaces);
