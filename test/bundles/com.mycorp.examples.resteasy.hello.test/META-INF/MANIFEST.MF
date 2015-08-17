@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: com.mycorp.examples.resteasy.hello.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: MYCORP
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.mycorp.examples.resteasy.hello.test.Activator
+Import-Package: com.javacodegeeks.resteasy,
+ com.javacodegeeks.resteasy.model,
+ org.osgi.framework,
+ org.osgi.util.tracker
