@@ -23,3 +23,8 @@ Bundle-ClassPath: lib/resteasy-client-3.0.9.Final.jar,
  lib/resteasy-jaxrs-3.0.9.Final.jar,
  lib/jaxrs-api-3.0.9.Final.jar
 Bundle-Activator: org.eclipse.ecf.provider.resteasy.client.Activator
+Export-Package: javax.ws.rs,
+ javax.ws.rs.client,
+ javax.ws.rs.container,
+ javax.ws.rs.core,
+ javax.ws.rs.ext

@@ -28,7 +28,8 @@ public class ResteasyClientContainer extends JaxRSClientContainer {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		ProxyBuilder proxyBuilder = target.proxyBuilder(interfaceClass);
 		proxyBuilder.classloader(cl);
-		return proxyBuilder.build();
+		Object result = proxyBuilder.build();
+		return result;
 	}
 
 }

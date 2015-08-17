@@ -9,19 +9,14 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jaxrs.client;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
-
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.Path;
 
 import org.eclipse.ecf.core.ContainerConnectException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
@@ -150,19 +145,6 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 				this.registry);
 	}
 
-	public static boolean isJaxRSAnnotated(Method method) {
-		HashSet<String> methods = new HashSet<String>();
-		for (Annotation annotation : method.getAnnotations()) {
-			HttpMethod http = annotation.annotationType().getAnnotation(HttpMethod.class);
-			if (http != null)
-				methods.add(http.value());
-		}
-		if (methods.size() > 0 || ((methods.size() == 0) && method.isAnnotationPresent(Path.class)
-				&& method.getReturnType().isInterface()))
-			return true;
-		return false;
-	}
-
 	@Override
 	public IRemoteServiceReference[] getRemoteServiceReferences(ID target, ID[] idFilter, String clazz, String filter)
 			throws InvalidSyntaxException, ContainerConnectException {
@@ -179,6 +161,16 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 		public JaxProxyClientRemoteService(AbstractClientContainer container,
 				RemoteServiceClientRegistration registration) {
 			super(container, registration);
+		}
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			synchronized (JaxProxyClientRemoteService.this) {
+				this.methodMap.clear();
+				this.proxy = null;
+			}
+			this.proxy = null;
 		}
 
 		@Override
@@ -207,8 +199,7 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 				throws ECFException {
 			Map<String, Method> results = new HashMap<String, Method>();
 			for (Method method : interfaceClass.getMethods())
-				if (isJaxRSAnnotated(method))
-					results.put(method.getName(), method);
+				results.put(interfaceClass.getName() + "." + method.getName(), method);
 			return results;
 		}
 
@@ -229,7 +220,9 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 				}
 				return super.createProxy(cl, interfaces);
 			} catch (Throwable t) {
-				throw new ECFException("Cannot create jaxrs proxy");
+				ECFException e = new ECFException(t.getMessage());
+				e.setStackTrace(t.getStackTrace());
+				throw e;
 			}
 		}
 	}
