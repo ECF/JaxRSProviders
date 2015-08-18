@@ -11,4 +11,3 @@ Import-Package: com.javacodegeeks.resteasy,
  com.javacodegeeks.resteasy.model,
  org.osgi.framework,
  org.osgi.util.tracker
-DynamicImport-Package: *
