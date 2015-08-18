@@ -37,7 +37,9 @@ public class Activator implements BundleActivator, ServiceTrackerCustomizer<ISam
 		// Call hello
 		if (service != null)
 			try {
-				System.out.println("Hello returns="+service.hello());
+				System.out.println("hello() returns="+service.hello());
+				System.out.println("listEmployees() returns="+service.listEmployees());
+				System.out.println("listEmployeesJSON() returns="+service.listEmployeesJSON());
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}

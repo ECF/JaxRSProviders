@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ECF Remote Service Distribution Provider based upon RestEasy
-Bundle-SymbolicName: org.eclipse.ecf.provider.resteasy.client
-Bundle-Version: 3.0.9.qualifier
+Bundle-Name: ECF Jersey Remote Services Client
+Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.client
+Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.equinox.common;bundle-version="3.7.0",
- org.eclipse.ecf;bundle-version="3.5.0"
-Import-Package: javax.activation,
- javax.ws.rs;version="2.0.1",
+Bundle-Activator: org.eclipse.ecf.provider.jersey.client.Activator
+Require-Bundle: org.eclipse.equinox.common,
+ org.eclipse.ecf
+Import-Package: javax.ws.rs;version="2.0.1",
  javax.ws.rs.client;version="2.0.1",
  javax.ws.rs.container;version="2.0.1",
  javax.ws.rs.core;version="2.0.1",
@@ -17,6 +17,5 @@ Import-Package: javax.activation,
  org.eclipse.ecf.provider.jaxrs.client,
  org.eclipse.ecf.remoteservice.client,
  org.eclipse.equinox.concurrent.future,
+ org.glassfish.jersey.client.proxy,
  org.osgi.framework
-Bundle-ClassPath: .
-Bundle-Activator: org.eclipse.ecf.provider.resteasy.client.Activator
