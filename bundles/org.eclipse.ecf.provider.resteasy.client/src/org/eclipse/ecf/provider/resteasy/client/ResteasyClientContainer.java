@@ -19,12 +19,13 @@ import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 //import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 //import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 //import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainerInstantiator;
 
 public class ResteasyClientContainer extends JaxRSClientContainer {
 
 	public static final String CONTAINER_TYPE_NAME = "ecf.container.client.resteasy";
 
-	public static class Instantiator extends JaxRSClientContainer.Instantiator {
+	public static class Instantiator extends JaxRSClientContainerInstantiator {
 		@Override
 		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
 			return new ResteasyClientContainer();
