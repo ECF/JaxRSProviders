@@ -7,14 +7,6 @@ Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.ecf.provider.jersey.client.Activator
-Require-Bundle: org.eclipse.equinox.common,
- org.eclipse.ecf
-Import-Package: javax.ws.rs;version="2.0.1",
- javax.ws.rs.client;version="2.0.1",
- javax.ws.rs.container;version="2.0.1",
- javax.ws.rs.core;version="2.0.1",
- javax.ws.rs.ext;version="2.0.1",
- org.eclipse.ecf.provider.jaxrs.client,
- org.eclipse.ecf.remoteservice.client,
- org.eclipse.equinox.concurrent.future,
+Import-Package: org.eclipse.ecf.provider.jaxrs.client,
+ org.eclipse.ecf.remoteservice.provider;version="1.0.0",
  org.osgi.framework

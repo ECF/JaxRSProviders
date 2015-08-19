@@ -4,6 +4,6 @@ import org.eclipse.ecf.core.ContainerTypeDescription;
 
 public class JaxRSContainerTypeDescription extends ContainerTypeDescription {
 	public JaxRSContainerTypeDescription(String name) {
-		super(name, new JaxRSClientContainerInstantiator(), "JaxRS Container");
+		super(name, new JaxRSClientContainerInstantiator(), "JaxRS Container '"+name+"'");
 	}
 }

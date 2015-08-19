@@ -13,9 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -164,14 +162,6 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 		}
 
 		private Object proxy;
-
-		protected Map<String, Method> createMethodMap(@SuppressWarnings("rawtypes") Class interfaceClass)
-				throws ECFException {
-			Map<String, Method> results = new HashMap<String, Method>();
-			for (Method method : interfaceClass.getMethods())
-				results.put(interfaceClass.getName() + "." + method.getName(), method);
-			return results;
-		}
 
 		protected Client createAndConfigureJaxRSClient() throws ECFException {
 			ClientBuilder cb = ClientBuilder.newBuilder();
