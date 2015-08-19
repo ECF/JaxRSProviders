@@ -10,12 +10,13 @@
 package org.eclipse.ecf.provider.jersey.client;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
-import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
+
+	public static final String PROVIDER_NAME = "ecf.container.client.jersey";
 
 	private static BundleContext context;
 
@@ -25,13 +26,8 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
-		bundleContext.registerService(ContainerTypeDescription.class, new ContainerTypeDescription(
-				JerseyClientContainer.CONTAINER_TYPE_NAME, new JaxRSClientContainer.JaxRSContainerInstantiator() {
-					@Override
-					public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
-						return new JerseyClientContainer();
-					}
-				}, "Jersey Remote Service Distribution Provider"), null);
+		bundleContext.registerService(ContainerTypeDescription.class,
+				new ContainerTypeDescription(PROVIDER_NAME, new JaxRSClientContainer.Instantiator()), null);
 	}
 
 	/*

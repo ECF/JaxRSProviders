@@ -18,6 +18,10 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+
 import org.eclipse.ecf.core.ContainerConnectException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
@@ -26,10 +30,13 @@ import org.eclipse.ecf.core.identity.Namespace;
 import org.eclipse.ecf.core.provider.BaseContainerInstantiator;
 import org.eclipse.ecf.core.provider.IRemoteServiceContainerInstantiator;
 import org.eclipse.ecf.core.util.ECFException;
+import org.eclipse.ecf.provider.internal.jaxrs.client.WebResourceFactory;
 import org.eclipse.ecf.remoteservice.IRemoteCall;
+import org.eclipse.ecf.remoteservice.IRemoteCallListener;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.IRemoteServiceCallPolicy;
 import org.eclipse.ecf.remoteservice.IRemoteServiceReference;
+import org.eclipse.ecf.remoteservice.RemoteCall;
 import org.eclipse.ecf.remoteservice.RemoteServiceID;
 import org.eclipse.ecf.remoteservice.client.AbstractClientContainer;
 import org.eclipse.ecf.remoteservice.client.AbstractClientService;
@@ -39,10 +46,9 @@ import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistry;
 import org.osgi.framework.InvalidSyntaxException;
 
-public abstract class JaxRSClientContainer extends AbstractClientContainer {
+public class JaxRSClientContainer extends AbstractClientContainer {
 
-	public abstract static class JaxRSContainerInstantiator extends BaseContainerInstantiator
-			implements IRemoteServiceContainerInstantiator {
+	public static class Instantiator extends BaseContainerInstantiator implements IRemoteServiceContainerInstantiator {
 
 		public String[] getImportedConfigs(ContainerTypeDescription description, String[] exporterSupportedConfigs) {
 			if (Arrays.asList(exporterSupportedConfigs).contains(description.getName()))
@@ -56,9 +62,6 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 			return null;
 		}
 
-		@Override
-		public abstract IContainer createInstance(ContainerTypeDescription description, Object[] parameters);
-
 		@SuppressWarnings("rawtypes")
 		public Dictionary getPropertiesForImportedConfigs(ContainerTypeDescription description,
 				String[] importedConfigs, Dictionary exportedProperties) {
@@ -69,16 +72,21 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 			return restIntents;
 		}
 
+		@Override
+		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
+			return new JaxRSClientContainer();
+		}
+
 	}
 
 	private IRemoteCallable callable;
 
-	protected JaxRSClientContainer(ID id) {
+	public JaxRSClientContainer(ID id) {
 		super(id);
 		this.callable = RemoteCallableFactory.createCallable(getID().getName());
 	}
 
-	protected JaxRSClientContainer() {
+	public JaxRSClientContainer() {
 		this(JaxRSClientNamespace.INSTANCE
 				.createInstance(new Object[] { URI.create("uuid:" + java.util.UUID.randomUUID().toString()) }));
 	}
@@ -156,9 +164,9 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 		return refs;
 	}
 
-	protected class JaxProxyClientRemoteService extends AbstractClientService {
+	protected class JaxRSProxyClientRemoteService extends AbstractClientService {
 
-		public JaxProxyClientRemoteService(AbstractClientContainer container,
+		public JaxRSProxyClientRemoteService(AbstractClientContainer container,
 				RemoteServiceClientRegistration registration) {
 			super(container, registration);
 		}
@@ -166,25 +174,24 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 		@Override
 		public void dispose() {
 			super.dispose();
-			synchronized (JaxProxyClientRemoteService.this) {
-				this.methodMap.clear();
+			synchronized (JaxRSProxyClientRemoteService.this) {
 				this.proxy = null;
 			}
-			this.proxy = null;
 		}
 
 		@Override
 		protected Object invokeRemoteCall(IRemoteCall call, IRemoteCallable callable) throws ECFException {
 			Method methodToInvoke = null;
-			synchronized (JaxProxyClientRemoteService.this) {
+			synchronized (JaxRSProxyClientRemoteService.this) {
 				if (proxy == null)
-					throw new ECFException("jax proxy is null");
-				methodToInvoke = methodMap.get(call.getMethod());
+					throw new ECFException("invokeRemoteCall:  proxy is null");
+				if (!(call instanceof JaxRSRemoteCall))
+					throw new ECFException("invokeRemoteCall call must be of type JaxRSRemoteCall");
+				methodToInvoke = ((JaxRSRemoteCall) call).getJavaMethod();
 				if (methodToInvoke == null)
-					throw new ECFException("method '" + methodToInvoke + " on jax proxy could not be found");
+					throw new ECFException("method '" + methodToInvoke + " on jax rs proxy could not be found");
 			}
 			// Now invoke method
-			// invoke
 			try {
 				return methodToInvoke.invoke(this.proxy, call.getParameters());
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -193,7 +200,6 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 		}
 
 		private Object proxy;
-		private Map<String, Method> methodMap = new HashMap<String, Method>();
 
 		protected Map<String, Method> createMethodMap(@SuppressWarnings("rawtypes") Class interfaceClass)
 				throws ECFException {
@@ -203,43 +209,132 @@ public abstract class JaxRSClientContainer extends AbstractClientContainer {
 			return results;
 		}
 
+		protected Client createAndConfigureJaxRSClient() throws ECFException {
+			ClientBuilder cb = ClientBuilder.newBuilder();
+			Client client = cb.build();
+			return client;
+		}
+
+		protected WebTarget getJaxRSWebTarget(Client client) throws ECFException {
+			return client.target(getConnectedTarget());
+		}
+
+		protected String getConnectedTarget() {
+			ID targetID = getConnectedID();
+			if (targetID == null)
+				return null;
+			return targetID.getName();
+		}
+
 		@Override
 		public Object getProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class[] interfaces) throws ECFException {
+			if (interfaces.length == 0)
+				throw new ECFException("At least one interface must be provided to create a proxy");
 			try {
-				synchronized (JaxProxyClientRemoteService.this) {
+				synchronized (JaxRSProxyClientRemoteService.this) {
 					if (proxy == null) {
-						if (interfaces.length > 1)
-							throw new ECFException("getProxy:  Cannot have more than a single service interface");
-						proxy = createJaxRSProxy(cl, interfaces[0]);
+						Client client = createAndConfigureJaxRSClient();
+						WebTarget webtarget = getJaxRSWebTarget(client);
+						proxy = createJaxRSProxy(cl, interfaces[0], webtarget);
 						if (this.proxy == null)
 							throw new ECFException("getProxy:  CreateJaxRSProxy returned null.  Cannot create proxy");
-						this.methodMap = createMethodMap(interfaces[0]);
-						if (this.methodMap == null || this.methodMap.size() == 0)
-							throw new ECFException("getProxy:  methodMap is null or of size=0");
 					}
+					return super.createProxy(cl, interfaces);
 				}
-				return super.createProxy(cl, interfaces);
 			} catch (Throwable t) {
 				ECFException e = new ECFException(t.getMessage());
 				e.setStackTrace(t.getStackTrace());
 				throw e;
 			}
 		}
-	}
 
-	protected abstract Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass)
-			throws ECFException;
+		protected class JaxRSRemoteCall extends RemoteCall {
+			private final Method method;
 
-	protected String getConnectedTarget() {
-		ID targetID = getConnectedID();
-		if (targetID == null)
-			return null;
-		return targetID.getName();
+			public JaxRSRemoteCall(Method method, String methodName, Object[] methodArgs, long timeout) {
+				super(methodName, methodArgs, timeout);
+				this.method = method;
+			}
+
+			public Method getJavaMethod() {
+				return method;
+			}
+		}
+
+		protected IRemoteCall createRemoteCall(Method method, String callMethod, Object[] callParameters,
+				long callTimeout) {
+			return new JaxRSRemoteCall(method, callMethod, callParameters, callTimeout);
+		}
+
+		protected RemoteCall getAsyncRemoteCall(Method method, String callMethod, Object[] callParameters) {
+			return new JaxRSRemoteCall(method, callMethod, callParameters, IRemoteCall.DEFAULT_TIMEOUT);
+		}
+
+		protected Object invokeAsync(final Method method, final Object[] args) throws Throwable {
+			final String invokeMethodName = getAsyncInvokeMethodName(method);
+			final AsyncArgs asyncArgs = getAsyncArgs(method, args);
+			RemoteCall remoteCall = getAsyncRemoteCall(method, invokeMethodName, asyncArgs.getArgs());
+			IRemoteCallListener listener = asyncArgs.getListener();
+			return (listener != null) ? callAsyncWithResult(remoteCall, listener)
+					: callFuture(remoteCall, asyncArgs.getReturnType());
+		}
+
+		@Override
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+			Object resultObject = null;
+			try {
+				// If the method is from Class Object, or from
+				// IRemoteServiceProxy
+				// then return result by directly invoking on the proxy
+				resultObject = invokeObject(proxy, method, args);
+			} catch (Throwable t) {
+				handleProxyException(
+						"Exception invoking local Object method on remote service proxy=" + getRemoteServiceID(), t); //$NON-NLS-1$
+			}
+			if (resultObject != null)
+				return resultObject;
+
+			try {
+				if (isAsync(proxy, method, args))
+					return invokeAsync(method, args);
+			} catch (Throwable t) {
+				handleProxyException("Exception invoking async method on remote service proxy=" + getRemoteServiceID(), //$NON-NLS-1$
+						t);
+			}
+			// Get the callMethod, callParameters, and callTimeout
+			final String callMethod = getCallMethodNameForProxyInvoke(method, args);
+			final Object[] callParameters = getCallParametersForProxyInvoke(callMethod, method, args);
+			final long callTimeout = getCallTimeoutForProxyInvoke(callMethod, method, args);
+			// Create IRemoteCall instance from method, parameters, and timeout
+			final IRemoteCall remoteCall = createRemoteCall(method, callMethod, callParameters, callTimeout);
+
+			// Invoke synchronously
+			try {
+				return invokeSync(remoteCall);
+			} catch (ECFException e) {
+				handleInvokeSyncException(method.getName(), e);
+				// If the above method doesn't throw as it should, we return
+				// null
+				return null;
+			}
+		}
+
 	}
 
 	@Override
 	protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
-		return new JaxProxyClientRemoteService(this, registration);
+		return new JaxRSProxyClientRemoteService(this, registration);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass,
+			WebTarget webTarget) throws ECFException {
+		try {
+			return WebResourceFactory.newResource(interfaceClass, webTarget);
+		} catch (Throwable t) {
+			t.printStackTrace();
+			throw new ECFException("client could not be create", t);
+		}
 	}
 
 }

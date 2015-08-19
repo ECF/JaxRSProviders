@@ -17,5 +17,4 @@ Import-Package: javax.ws.rs;version="2.0.1",
  org.eclipse.ecf.provider.jaxrs.client,
  org.eclipse.ecf.remoteservice.client,
  org.eclipse.equinox.concurrent.future,
- org.glassfish.jersey.client.proxy,
  org.osgi.framework

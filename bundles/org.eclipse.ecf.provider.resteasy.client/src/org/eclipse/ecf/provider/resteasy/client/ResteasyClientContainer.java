@@ -9,10 +9,10 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.resteasy.client;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
+import org.eclipse.ecf.core.ContainerTypeDescription;
+import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 //import org.jboss.resteasy.client.jaxrs.ProxyBuilder;
@@ -23,6 +23,13 @@ import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 public class ResteasyClientContainer extends JaxRSClientContainer {
 
 	public static final String CONTAINER_TYPE_NAME = "ecf.container.client.resteasy";
+
+	public static class Instantiator extends JaxRSClientContainer.Instantiator {
+		@Override
+		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
+			return new ResteasyClientContainer();
+		}
+	}
 
 	public class MyClassLoader extends ClassLoader {
 
@@ -49,15 +56,12 @@ public class ResteasyClientContainer extends JaxRSClientContainer {
 	}
 
 	@Override
-	protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass)
-			throws ECFException {
+	protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass,
+			WebTarget webTarget) throws ECFException {
 		Thread currentThread = Thread.currentThread();
 		ClassLoader ccl = currentThread.getContextClassLoader();
 		try {
 			currentThread.setContextClassLoader(ResteasyClientContainer.class.getClassLoader());
-			Client client = ClientBuilder.newClient();
-			@SuppressWarnings("unused")
-			WebTarget target = client.target(getConnectedTarget());
 			Object result = null;
 			// ResteasyWebTarget rtarget = (ResteasyWebTarget)target;
 			// @SuppressWarnings({ "unchecked", "rawtypes" })
