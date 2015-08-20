@@ -6,7 +6,7 @@ public class JaxRSDistributionProvider extends RemoteServiceDistributionProvider
 
 	public JaxRSDistributionProvider(String name) {
 		super(name, new JaxRSClientContainerInstantiator());
-		setDescription("JaxRS Distribution Provider '"+name+"'");
+		setDescription("JaxRS Distribution Provider '" + name + "'");
 	}
 
 }

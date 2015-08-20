@@ -18,6 +18,7 @@ import java.util.Hashtable;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Configuration;
 
 import org.eclipse.ecf.core.ContainerConnectException;
 import org.eclipse.ecf.core.identity.ID;
@@ -163,23 +164,6 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 
 		private Object proxy;
 
-		protected Client createAndConfigureJaxRSClient() throws ECFException {
-			ClientBuilder cb = ClientBuilder.newBuilder();
-			Client client = cb.build();
-			return client;
-		}
-
-		protected WebTarget getJaxRSWebTarget(Client client) throws ECFException {
-			return client.target(getConnectedTarget());
-		}
-
-		protected String getConnectedTarget() {
-			ID targetID = getConnectedID();
-			if (targetID == null)
-				return null;
-			return targetID.getName();
-		}
-
 		@Override
 		public Object getProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class[] interfaces) throws ECFException {
 			if (interfaces.length == 0)
@@ -187,7 +171,8 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			try {
 				synchronized (JaxRSProxyClientRemoteService.this) {
 					if (proxy == null) {
-						Client client = createAndConfigureJaxRSClient();
+						Configuration config = createJaxRSClientConfiguration();
+						Client client = createJaxRSClient(config);
 						WebTarget webtarget = getJaxRSWebTarget(client);
 						proxy = createJaxRSProxy(cl, interfaces[0], webtarget);
 						if (this.proxy == null)
@@ -289,6 +274,28 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			t.printStackTrace();
 			throw new ECFException("client could not be create", t);
 		}
+	}
+
+	protected Configuration createJaxRSClientConfiguration() throws ECFException {
+		return null;
+	}
+
+	protected Client createJaxRSClient(Configuration configuration) throws ECFException {
+		ClientBuilder cb = ClientBuilder.newBuilder();
+		if (configuration != null)
+			cb.withConfig(configuration);
+		return cb.build();
+	}
+
+	protected WebTarget getJaxRSWebTarget(Client client) throws ECFException {
+		return client.target(getConnectedTarget());
+	}
+
+	protected String getConnectedTarget() {
+		ID targetID = getConnectedID();
+		if (targetID == null)
+			return null;
+		return targetID.getName();
 	}
 
 }

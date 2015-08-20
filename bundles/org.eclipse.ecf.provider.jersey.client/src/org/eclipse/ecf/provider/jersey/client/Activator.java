@@ -9,7 +9,6 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jersey.client;
 
-import org.eclipse.ecf.provider.jaxrs.client.JaxRSDistributionProvider;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -19,7 +18,10 @@ public class Activator implements BundleActivator {
 	public static final String PROVIDER_NAME = "ecf.container.client.jersey";
 
 	public void start(BundleContext bundleContext) throws Exception {
-		bundleContext.registerService(IRemoteServiceDistributionProvider.class, new JaxRSDistributionProvider(PROVIDER_NAME),null);
+		// Register the JersyRSDistributionProvider as a remote service
+		// distribution provider
+		bundleContext.registerService(IRemoteServiceDistributionProvider.class,
+				new JerseyRSDistributionProvider(PROVIDER_NAME), null);
 	}
 
 	@Override
