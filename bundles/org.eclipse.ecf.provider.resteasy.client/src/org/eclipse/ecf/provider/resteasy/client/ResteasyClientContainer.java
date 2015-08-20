@@ -20,6 +20,8 @@ import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 //import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 //import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainerInstantiator;
+import org.eclipse.ecf.remoteservice.IRemoteService;
+import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 
 public class ResteasyClientContainer extends JaxRSClientContainer {
 
@@ -57,25 +59,32 @@ public class ResteasyClientContainer extends JaxRSClientContainer {
 	}
 
 	@Override
-	protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass,
-			WebTarget webTarget) throws ECFException {
-		Thread currentThread = Thread.currentThread();
-		ClassLoader ccl = currentThread.getContextClassLoader();
-		try {
-			currentThread.setContextClassLoader(ResteasyClientContainer.class.getClassLoader());
-			Object result = null;
-			// ResteasyWebTarget rtarget = (ResteasyWebTarget)target;
-			// @SuppressWarnings({ "unchecked", "rawtypes" })
-			// ProxyBuilder proxyBuilder = rtarget.proxyBuilder(interfaceClass);
-			// //proxyBuilder.classloader(cl);
-			// Object result = proxyBuilder.build();
-			return result;
-		} catch (Throwable t) {
-			t.printStackTrace();
-			throw new ECFException("client could not be create", t);
-		} finally {
-			currentThread.setContextClassLoader(ccl);
-		}
+	protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
+		return new JaxRSClientRemoteService(this, registration) {
+			@Override
+			protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass,
+					WebTarget webTarget) throws ECFException {
+				Thread currentThread = Thread.currentThread();
+				ClassLoader ccl = currentThread.getContextClassLoader();
+				try {
+					currentThread.setContextClassLoader(ResteasyClientContainer.class.getClassLoader());
+					Object result = null;
+					// ResteasyWebTarget rtarget = (ResteasyWebTarget)target;
+					// @SuppressWarnings({ "unchecked", "rawtypes" })
+					// ProxyBuilder proxyBuilder =
+					// rtarget.proxyBuilder(interfaceClass);
+					// //proxyBuilder.classloader(cl);
+					// Object result = proxyBuilder.build();
+					return result;
+				} catch (Throwable t) {
+					t.printStackTrace();
+					throw new ECFException("client could not be create", t);
+				} finally {
+					currentThread.setContextClassLoader(ccl);
+				}
+			}
+
+		};
 	}
 
 }

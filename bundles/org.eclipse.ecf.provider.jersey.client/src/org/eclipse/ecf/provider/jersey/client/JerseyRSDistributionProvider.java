@@ -18,6 +18,8 @@ import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSDistributionProvider;
+import org.eclipse.ecf.remoteservice.IRemoteService;
+import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -27,23 +29,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JerseyRSDistributionProvider extends JaxRSDistributionProvider {
 	public JerseyRSDistributionProvider(String name) {
 		super(name);
-		// We create a new container instantiator 
+		// We create a new container instantiator
 		// so we can override the createJaxRSClientConfiguratio below
 		setInstantiator(new JaxRSClientContainerInstantiator() {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
 				return new JaxRSClientContainer() {
-					// Overriding this method allows us to configure the JaxRS
-					// client
 					@Override
-					protected Configuration createJaxRSClientConfiguration() throws ECFException {
-						ClientConfig config = new ClientConfig();
-						// Configure for Jackson json generation/parsing
-						config.register(JacksonFeature.class);
-						// Configure to use ObjectMapper that is configured
-						// to ignore unknown properties
-						config.register(ObjectMapperContextResolver.class);
-						return config;
+					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
+						return new JaxRSClientRemoteService(this, registration) {
+							// Overriding this method allows us to configure the
+							// JaxRS
+							// client
+							@Override
+							protected Configuration createJaxRSClientConfiguration() throws ECFException {
+								ClientConfig config = new ClientConfig();
+								// Configure for Jackson json generation/parsing
+								config.register(JacksonFeature.class);
+								// Configure to use ObjectMapper that is
+								// configured
+								// to ignore unknown properties
+								config.register(ObjectMapperContextResolver.class);
+								return config;
+							}
+						};
 					}
 				};
 			}

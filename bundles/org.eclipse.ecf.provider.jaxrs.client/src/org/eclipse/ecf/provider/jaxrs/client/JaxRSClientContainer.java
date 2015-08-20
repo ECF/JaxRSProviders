@@ -127,9 +127,9 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 		return refs;
 	}
 
-	protected class JaxRSProxyClientRemoteService extends AbstractClientService {
+	protected class JaxRSClientRemoteService extends AbstractClientService {
 
-		public JaxRSProxyClientRemoteService(AbstractClientContainer container,
+		public JaxRSClientRemoteService(AbstractClientContainer container,
 				RemoteServiceClientRegistration registration) {
 			super(container, registration);
 		}
@@ -137,7 +137,7 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 		@Override
 		public void dispose() {
 			super.dispose();
-			synchronized (JaxRSProxyClientRemoteService.this) {
+			synchronized (JaxRSClientRemoteService.this) {
 				this.proxy = null;
 			}
 		}
@@ -145,7 +145,7 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 		@Override
 		protected Object invokeRemoteCall(IRemoteCall call, IRemoteCallable callable) throws ECFException {
 			Method methodToInvoke = null;
-			synchronized (JaxRSProxyClientRemoteService.this) {
+			synchronized (JaxRSClientRemoteService.this) {
 				if (proxy == null)
 					throw new ECFException("invokeRemoteCall:  proxy is null");
 				if (!(call instanceof JaxRSRemoteCall))
@@ -169,7 +169,7 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			if (interfaces.length == 0)
 				throw new ECFException("At least one interface must be provided to create a proxy");
 			try {
-				synchronized (JaxRSProxyClientRemoteService.this) {
+				synchronized (JaxRSClientRemoteService.this) {
 					if (proxy == null) {
 						Configuration config = createJaxRSClientConfiguration();
 						Client client = createJaxRSClient(config);
@@ -258,44 +258,44 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
+		protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass,
+				WebTarget webTarget) throws ECFException {
+			try {
+				return WebResourceFactory.newResource(interfaceClass, webTarget);
+			} catch (Throwable t) {
+				t.printStackTrace();
+				throw new ECFException("client could not be create", t);
+			}
+		}
+
+		protected Configuration createJaxRSClientConfiguration() throws ECFException {
+			return null;
+		}
+
+		protected Client createJaxRSClient(Configuration configuration) throws ECFException {
+			ClientBuilder cb = ClientBuilder.newBuilder();
+			if (configuration != null)
+				cb.withConfig(configuration);
+			return cb.build();
+		}
+
+		protected WebTarget getJaxRSWebTarget(Client client) throws ECFException {
+			return client.target(getConnectedTarget());
+		}
+
+		protected String getConnectedTarget() {
+			ID targetID = getConnectedID();
+			if (targetID == null)
+				return null;
+			return targetID.getName();
+		}
+
 	}
 
 	@Override
 	protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
-		return new JaxRSProxyClientRemoteService(this, registration);
-	}
-
-	@SuppressWarnings("unchecked")
-	protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass,
-			WebTarget webTarget) throws ECFException {
-		try {
-			return WebResourceFactory.newResource(interfaceClass, webTarget);
-		} catch (Throwable t) {
-			t.printStackTrace();
-			throw new ECFException("client could not be create", t);
-		}
-	}
-
-	protected Configuration createJaxRSClientConfiguration() throws ECFException {
-		return null;
-	}
-
-	protected Client createJaxRSClient(Configuration configuration) throws ECFException {
-		ClientBuilder cb = ClientBuilder.newBuilder();
-		if (configuration != null)
-			cb.withConfig(configuration);
-		return cb.build();
-	}
-
-	protected WebTarget getJaxRSWebTarget(Client client) throws ECFException {
-		return client.target(getConnectedTarget());
-	}
-
-	protected String getConnectedTarget() {
-		ID targetID = getConnectedID();
-		if (targetID == null)
-			return null;
-		return targetID.getName();
+		return new JaxRSClientRemoteService(this, registration);
 	}
 
 }
