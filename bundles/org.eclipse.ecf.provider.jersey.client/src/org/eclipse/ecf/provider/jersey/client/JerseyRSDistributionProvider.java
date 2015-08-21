@@ -39,16 +39,14 @@ public class JerseyRSDistributionProvider extends JaxRSDistributionProvider {
 					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
 						return new JaxRSClientRemoteService(this, registration) {
 							// Overriding this method allows us to configure the
-							// JaxRS
-							// client
+							// JaxRS client when a remote service instance is created
 							@Override
 							protected Configuration createJaxRSClientConfiguration() throws ECFException {
 								ClientConfig config = new ClientConfig();
 								// Configure for Jackson json generation/parsing
 								config.register(JacksonFeature.class);
 								// Configure to use ObjectMapper that is
-								// configured
-								// to ignore unknown properties
+								// configured to ignore unknown properties
 								config.register(ObjectMapperContextResolver.class);
 								return config;
 							}
