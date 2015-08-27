@@ -23,8 +23,8 @@ import com.mycorp.examples.student.StudentService;
 @Path("/studentservice")
 public class StudentResource implements StudentService {
 
-	private static Map<String,Student> students = Collections.synchronizedMap(new HashMap<String, Student>());
-	
+	private static Map<String, Student> students = Collections.synchronizedMap(new HashMap<String, Student>());
+
 	static {
 		Student s = new Student("Joe Senior");
 		s.setId(UUID.randomUUID().toString());
@@ -35,33 +35,37 @@ public class StudentResource implements StudentService {
 		a.setPostalCode("11111");
 		a.setStreet("111 Park Ave");
 		s.setAddress(a);
-		students.put(s.getId(),s);
+		students.put(s.getId(), s);
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	@Path("/students")
 	public List<Student> getStudents() {
 		return new ArrayList<Student>(students.values());
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	@Path("/students/{studentId}")
 	public Student getStudent(@PathParam("studentId") String id) {
 		return students.get(id);
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_XML)
 	@Path("/students/add/{studentName}")
 	public Student addStudent(@PathParam("studentName") String studentName) {
-		if (studentName == null) return null;
-		Student s = new Student(studentName);
-		s.setId(UUID.randomUUID().toString());
-		return s;
+		if (studentName == null)
+			return null;
+		synchronized (students) {
+			Student s = new Student(studentName);
+			s.setId(UUID.randomUUID().toString());
+			students.put(s.getId(), s);
+			return s;
+		}
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
@@ -86,11 +90,12 @@ public class StudentResource implements StudentService {
 		}
 		return results;
 	}
-	
+
 	@DELETE
 	@Path("/students/delete/{studentId}")
 	@Produces(MediaType.APPLICATION_XML)
-	public boolean deleteStudent(@PathParam("studentId") String studentId) {
-		return students.get(studentId) != null;
+	public Student deleteStudent(@PathParam("studentId") String studentId) {
+		Student result = students.remove(studentId);
+		return result;
 	}
 }

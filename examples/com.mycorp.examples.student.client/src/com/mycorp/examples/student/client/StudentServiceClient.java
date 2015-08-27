@@ -9,23 +9,27 @@ public class StudentServiceClient {
 
 	void bindStudentService(StudentService service) {
 		System.out.println("Discovered student service=" + service);
-		List<Student> students = service.getStudents();
-		System.out.println("students=" + students);
+		// Get students
+		List<Student> originalStudents = service.getStudents();
+		// Print list
+		System.out.println("students=" + originalStudents);
 		// Get first student
-		Student s = students.get(0);
+		Student s = originalStudents.get(0);
+		System.out.println("Student 0=" + s);
 		if (s != null) {
-			printStudent(s);
-			// Change grade to 7
-			s.setGrade("Seven");
-			s = service.updateStudent(s);
-			printStudent(s);
+			// Get this student via id
+			s = service.getStudent(s.getId());
+			System.out.println("Student with id=" + s.getId() + "=" + s);
 		}
+		// Add a new student
+		Student newStudent = service.addStudent("April Snow");
+		System.out.println("Created student=" + newStudent);
+		// Update with grade
+		newStudent.setGrade("First");
+		newStudent = service.updateStudent(newStudent);
+		System.out.println("Updated student=" + newStudent);
+		// Delete student
+		System.out.println("Deleted student=" + service.deleteStudent(newStudent.getId()));
 	}
 
-	void printStudent(Student s) {
-		if (s == null)
-			System.out.println("Student is null");
-		else
-			System.out.println("Student id=" + s.getId() + ";name=" + s.getName() + ";grade=" + s.getGrade());
-	}
 }
