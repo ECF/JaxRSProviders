@@ -38,5 +38,5 @@ public interface StudentService {
 	@DELETE
 	@Path("/students/delete/{studentId}")
 	@Produces(MediaType.APPLICATION_XML)
-	boolean deleteStudent(@PathParam("studentId") String studentId);
+	Student deleteStudent(@PathParam("studentId") String studentId);
 }
