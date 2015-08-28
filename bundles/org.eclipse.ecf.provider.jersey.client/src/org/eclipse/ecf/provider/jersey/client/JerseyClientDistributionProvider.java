@@ -17,21 +17,18 @@ import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainerInstantiator;
-import org.eclipse.ecf.provider.jaxrs.client.JaxRSDistributionProvider;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
+import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JerseyRSDistributionProvider extends JaxRSDistributionProvider {
-	public JerseyRSDistributionProvider(String name) {
-		super(name);
-		// We create a new container instantiator
-		// so we can override the createJaxRSClientConfiguratio below
-		setInstantiator(new JaxRSClientContainerInstantiator() {
+public class JerseyClientDistributionProvider extends RemoteServiceDistributionProvider {
+	public JerseyClientDistributionProvider(String clientContainerTypeName, String serverContainerTypeName) {
+		super(clientContainerTypeName, new JaxRSClientContainerInstantiator(serverContainerTypeName) {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
 				return new JaxRSClientContainer() {
@@ -39,7 +36,8 @@ public class JerseyRSDistributionProvider extends JaxRSDistributionProvider {
 					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
 						return new JaxRSClientRemoteService(this, registration) {
 							// Overriding this method allows us to configure the
-							// JaxRS client when a remote service instance is created
+							// JaxRS client when a remote service instance is
+							// created
 							@Override
 							protected Configuration createJaxRSClientConfiguration() throws ECFException {
 								ClientConfig config = new ClientConfig();

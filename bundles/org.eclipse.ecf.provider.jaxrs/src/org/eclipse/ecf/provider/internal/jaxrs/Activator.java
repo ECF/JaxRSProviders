@@ -7,10 +7,10 @@
 * Contributors:
 *   Composent, Inc. - initial API and implementation
 ******************************************************************************/
-package org.eclipse.ecf.provider.internal.jaxrs.client;
+package org.eclipse.ecf.provider.internal.jaxrs;
 
 import org.eclipse.ecf.core.identity.Namespace;
-import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientNamespace;
+import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -24,7 +24,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
-		bundleContext.registerService(Namespace.class, new JaxRSClientNamespace(), null);
+		bundleContext.registerService(Namespace.class, new JaxRSNamespace(), null);
 	}
 
 	/*

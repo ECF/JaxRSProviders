@@ -7,7 +7,7 @@
 * Contributors:
 *   Composent, Inc. - initial API and implementation
 ******************************************************************************/
-package org.eclipse.ecf.provider.jaxrs.client;
+package org.eclipse.ecf.provider.jaxrs;
 
 import java.net.URI;
 
@@ -16,14 +16,14 @@ import org.eclipse.ecf.core.identity.IDCreateException;
 import org.eclipse.ecf.core.identity.Namespace;
 import org.eclipse.ecf.core.identity.URIID;
 
-public class JaxRSClientNamespace extends Namespace {
+public class JaxRSNamespace extends Namespace {
 
-	private static final long serialVersionUID = -2786574853592613670L;
-	public static final String NAME = "ecf.namespace.client.jaxrs";
-	public static JaxRSClientNamespace INSTANCE;
+	private static final long serialVersionUID = -3848279615939604280L;
+	public static final String NAME = "ecf.namespace.jaxrs";
+	public static JaxRSNamespace INSTANCE;
 
-	public JaxRSClientNamespace() {
-		super(NAME, "JaxRS Client Namespace");
+	public JaxRSNamespace() {
+		super(NAME, "JaxRS Namespace");
 		INSTANCE = this;
 	}
 
@@ -45,7 +45,7 @@ public class JaxRSClientNamespace extends Namespace {
 
 	@Override
 	public String getScheme() {
-		return "ecf.jaxrs.client";
+		return "ecf.jaxrs";
 	}
 
 }

@@ -25,6 +25,7 @@ import org.eclipse.ecf.core.identity.ID;
 import org.eclipse.ecf.core.identity.Namespace;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.internal.jaxrs.client.WebResourceFactory;
+import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
 import org.eclipse.ecf.remoteservice.IRemoteCall;
 import org.eclipse.ecf.remoteservice.IRemoteCallListener;
 import org.eclipse.ecf.remoteservice.IRemoteService;
@@ -50,13 +51,13 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 	}
 
 	public JaxRSClientContainer() {
-		this(JaxRSClientNamespace.INSTANCE
+		this(JaxRSNamespace.INSTANCE
 				.createInstance(new Object[] { URI.create("uuid:" + java.util.UUID.randomUUID().toString()) }));
 	}
 
 	@Override
 	public Namespace getConnectNamespace() {
-		return JaxRSClientNamespace.INSTANCE;
+		return JaxRSNamespace.INSTANCE;
 	}
 
 	@Override
