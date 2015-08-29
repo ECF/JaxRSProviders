@@ -86,6 +86,13 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 		}
 	}
 
+	protected void unregisterResource(String servletAlias) {
+		if (httpService != null) {
+			System.out.println("registering JaxRS servlet.  alias="+servletAlias);
+			httpService.unregister(servletAlias);
+		}
+	}
+	
 	private JaxRSRemoteServiceContainerAdapter adapterImpl;
 
 	protected ID createServerID() {

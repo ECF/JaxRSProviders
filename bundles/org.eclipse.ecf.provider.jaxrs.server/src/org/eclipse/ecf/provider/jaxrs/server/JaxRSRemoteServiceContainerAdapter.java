@@ -61,9 +61,14 @@ public class JaxRSRemoteServiceContainerAdapter extends RemoteServiceContainerAd
 
 		private String servletAlias;
 
+		String getServletAlias() {
+			return servletAlias;
+		}
+		
 		public JaxRSRemoteServiceRegistration() {
 			super(new IRegistrationListener() {
 				public void unregister(RemoteServiceRegistrationImpl registration) {
+					jaxRSServerContainer.unregisterResource(((JaxRSRemoteServiceRegistration) registration).servletAlias);
 					handleServiceUnregister(registration);
 				}
 			});
