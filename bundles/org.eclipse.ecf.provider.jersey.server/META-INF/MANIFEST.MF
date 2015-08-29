@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jersey-Based Jax RS Server
+Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse.org - ECF
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: javax.servlet,
+ javax.ws.rs;version="2.0.1",
+ javax.ws.rs.core;version="2.0.1",
+ org.eclipse.ecf.provider.jaxrs;version="1.0.0",
+ org.eclipse.ecf.provider.jaxrs.server;version="1.0.0",
+ org.eclipse.ecf.remoteservice,
+ org.eclipse.ecf.remoteservice.provider;version="1.0.0",
+ org.eclipse.equinox.concurrent.future,
+ org.glassfish.jersey.server;version="2.14.0",
+ org.glassfish.jersey.server.spi;version="2.14.0",
+ org.glassfish.jersey.servlet;version="2.14.0",
+ org.osgi.framework,
+ org.osgi.service.http;version="1.2.1"
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.eclipse.ecf.provider.jersey.server.Activator
+Require-Bundle: org.eclipse.ecf,
+ org.eclipse.equinox.common
+Service-Component: OSGI-INF/httpservice.xml
