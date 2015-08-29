@@ -16,8 +16,8 @@ import org.osgi.framework.ServiceRegistration;
 
 public class Activator implements BundleActivator {
 
-	public static final String CLIENT_PROVIDER_NAME = "ecf.container.client.jersey";
-	public static final String SERVER_PROVIDER_NAME = "ecf.container.server.jersey";
+	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
+	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.jersey.server";
 
 	private ServiceRegistration<IRemoteServiceDistributionProvider> sr;
 

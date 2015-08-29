@@ -15,7 +15,7 @@
     </property>
     <property name="remote.configs.supported" value-type="String">
       <array>
-        <value>ecf.container.server.jersey</value>
+        <value>ecf.jaxrs.jersey.server</value>
       </array>
     </property>
     <property name="remote.intents.supported" value-type="String">
@@ -30,7 +30,7 @@
     <property name="service.imported" value-type="String" value="true"/>
     <property name="service.imported.configs" value-type="String">
       <array>
-        <value>ecf.container.server.jersey</value>
+        <value>ecf.jaxrs.jersey.server</value>
       </array>
     </property>
   </endpoint-description>
