@@ -30,6 +30,8 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 	public static class Instantiator extends JaxRSServerContainerInstantiator {
 		@Override
 		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
+			// XXX TODO
+			
 			return new JerseyServerContainer(HttpServiceComponent.getHttpService(), "http://localhost:8080/",
 					"/jersey");
 		}
@@ -54,10 +56,16 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 		super(httpService, urlContext, alias);
 	}
 
+	protected ResourceConfig createResourceConfig(IRemoteServiceRegistration registration, Object serviceObject,
+			@SuppressWarnings("rawtypes") Dictionary properties) {
+		return ResourceConfig.forApplication(new JerseyApplication(serviceObject.getClass()));
+	}
+
 	@Override
 	protected Servlet createServlet(IRemoteServiceRegistration registration, Object serviceObject,
 			@SuppressWarnings("rawtypes") Dictionary properties) {
-		return new ServletContainer(ResourceConfig.forApplication(new JerseyApplication(serviceObject.getClass())));
+		ResourceConfig rc = createResourceConfig(registration, serviceObject, properties);
+		return (rc != null) ? new ServletContainer(rc) : new ServletContainer();
 	}
 
 }

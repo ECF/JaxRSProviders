@@ -33,6 +33,7 @@ import org.eclipse.equinox.concurrent.future.IExecutor;
 import org.eclipse.equinox.concurrent.future.IFuture;
 import org.eclipse.equinox.concurrent.future.ThreadsExecutor;
 import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
@@ -62,18 +63,24 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 
 	protected String createServletAlias(IRemoteServiceRegistration registration, Object serviceObject,
 			@SuppressWarnings("rawtypes") Dictionary properties) {
-		return getAlias();
+		return getAlias() + SLASH + registration.getID().getContainerRelativeID();
 	}
 
 	protected abstract Servlet createServlet(IRemoteServiceRegistration registration, Object serviceObject,
 			@SuppressWarnings("rawtypes") Dictionary properties);
 
-	protected void registerResource(IRemoteServiceRegistration registration, Object serviceObject,
-			@SuppressWarnings("rawtypes") Dictionary properties) throws RuntimeException {
+	protected HttpContext createServletContext(IRemoteServiceRegistration registration, Object service,
+			@SuppressWarnings("rawtypes") Dictionary properties) {
+		return null;
+	}
+
+	protected void registerResource(String servletAlias, Servlet servlet,
+			@SuppressWarnings("rawtypes") Dictionary servletProperties, HttpContext servletContext) throws RuntimeException {
 		try {
-			httpService.registerServlet(createServletAlias(registration, serviceObject, properties),
-					createServlet(registration, serviceObject, properties),
-					createServletProperties(registration, serviceObject, properties), null);
+			System.out.println("registering JaxRS servlet.  alias="+servletAlias+";servlet="+servlet+";props="+servletProperties+";context="+servletContext);
+			httpService.registerServlet(servletAlias,
+					servlet,
+					servletProperties, servletContext);
 		} catch (ServletException | NamespaceException e) {
 			throw new RuntimeException("Cannot register servlet with alias=" + getAlias(), e);
 		}
