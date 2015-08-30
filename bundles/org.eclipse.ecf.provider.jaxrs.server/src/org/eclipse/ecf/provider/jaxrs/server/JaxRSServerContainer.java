@@ -10,6 +10,7 @@
 package org.eclipse.ecf.provider.jaxrs.server;
 
 import java.util.Dictionary;
+import java.util.Enumeration;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -39,11 +40,40 @@ import org.osgi.service.http.NamespaceException;
 
 public abstract class JaxRSServerContainer extends AbstractContainer implements IRemoteServiceContainerAdapter {
 
-	static private final String SLASH = "/";
+	public static final String SERVLET_PROPERTIES_PARAM = ".servletProperties";  // expected value type=Dictionary
+	public static final String SERVLET_HTTPCONTEXT_PARAM = ".servletHttpContext"; // expected value type = HttpContext
+	
+	
+	protected static final String SLASH = "/";
 
 	private final String urlContext;
 	private final String alias;
 	private final ID serverID;
+
+	private JaxRSRemoteServiceContainerAdapter adapterImpl;
+
+	public JaxRSServerContainer(String urlContext, String alias, IExecutor executor) {
+		Assert.isNotNull(urlContext);
+		// remove any trailing slashes on urlContext
+		while (urlContext.endsWith(SLASH))
+			urlContext = urlContext.substring(0, urlContext.length() - 1);
+		this.urlContext = urlContext;
+		// remove any leading slashes on alias
+		while (alias.startsWith("/"))
+			alias = alias.substring(1);
+		// Then make sure it starts with slash
+		alias = SLASH + alias;
+		this.alias = alias;
+		// Create serverID
+		this.serverID = JaxRSNamespace.INSTANCE.createInstance(new Object[] { this.urlContext + this.alias });
+		if (executor == null)
+			executor = new ThreadsExecutor();
+		this.adapterImpl = new JaxRSRemoteServiceContainerAdapter(this, executor);
+	}
+
+	public JaxRSServerContainer(String urlContext, String alias) {
+		this(urlContext, alias, null);
+	}
 
 	protected String getAlias() {
 		return alias;
@@ -56,6 +86,17 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 	@SuppressWarnings("rawtypes")
 	protected Dictionary createServletProperties(IRemoteServiceRegistration registration, Object serviceObject,
 			Dictionary properties) {
+		for(Enumeration e = properties.keys(); e.hasMoreElements(); ) {
+			Object k = e.nextElement();
+			if (k instanceof String) {
+				String key = (String) k;
+				if (key.endsWith(SERVLET_PROPERTIES_PARAM)) {
+					Object v = properties.get(key);
+					if (v instanceof Dictionary) 
+						return (Dictionary) v;
+				}
+			}
+		}
 		return properties;
 	}
 
@@ -69,6 +110,18 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 
 	protected HttpContext createServletContext(IRemoteServiceRegistration registration, Object service,
 			@SuppressWarnings("rawtypes") Dictionary properties) {
+		for(@SuppressWarnings("rawtypes")
+		Enumeration e = properties.keys(); e.hasMoreElements(); ) {
+			Object k = e.nextElement();
+			if (k instanceof String) {
+				String key = (String) k;
+				if (key.endsWith(SERVLET_HTTPCONTEXT_PARAM)) {
+					Object v = properties.get(key);
+					if (v instanceof HttpContext) 
+						return (HttpContext) v;
+				}
+			}
+		}
 		return null;
 	}
 
@@ -87,36 +140,10 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 	}
 
 	protected void unregisterResource(String servletAlias) {
-		System.out.println("registering JaxRS servlet.  alias="+servletAlias);
+		System.out.println("unregistering JaxRS servlet with alias="+servletAlias);
 		getHttpService().unregister(servletAlias);
 	}
 	
-	private JaxRSRemoteServiceContainerAdapter adapterImpl;
-
-	protected ID createServerID() {
-		return JaxRSNamespace.INSTANCE.createInstance(new Object[] { this.urlContext + this.alias });
-	}
-
-	public JaxRSServerContainer(String urlContext, String alias, IExecutor executor) {
-		Assert.isNotNull(urlContext);
-		while (urlContext.endsWith(SLASH))
-			urlContext = urlContext.substring(0, urlContext.length() - 1);
-		this.urlContext = urlContext;
-		while (alias.startsWith("/"))
-			alias = alias.substring(1);
-		alias = SLASH + alias;
-		this.alias = alias;
-		// Create serverID
-		this.serverID = createServerID();
-		if (executor == null)
-			executor = new ThreadsExecutor();
-		this.adapterImpl = new JaxRSRemoteServiceContainerAdapter(this, executor);
-	}
-
-	public JaxRSServerContainer(String urlContext, String alias) {
-		this(urlContext, alias, null);
-	}
-
 	@Override
 	public Namespace getConnectNamespace() {
 		return serverID.getNamespace();
