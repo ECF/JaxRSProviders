@@ -15,6 +15,7 @@ import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Configuration;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
@@ -28,12 +29,21 @@ import org.osgi.service.http.HttpService;
 public class JerseyServerContainer extends JaxRSServerContainer {
 
 	public static class Instantiator extends JaxRSServerContainerInstantiator {
+
+		public static final String URL_CONTEXT_PARAM = "urlContext";
+		public static final String URL_CONTEXT_DEFAULT = System
+				.getProperty(JerseyServerContainer.class.getName() + ".defaultUrlContext", "http://localhost:8080");
+		public static final String ALIAS_PARAM = "alias";
+		public static final String ALIAS_PARAM_DEFAULT = "/" + JerseyServerContainer.class.getName();
+
 		@Override
-		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
-			// XXX TODO
-			
-			return new JerseyServerContainer(HttpServiceComponent.getHttpService(), "http://localhost:8080/",
-					"/jersey");
+		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters,
+				Configuration configuration) {
+			String urlContext = getMapParameterString(parameters, URL_CONTEXT_PARAM,
+					URL_CONTEXT_DEFAULT);
+			String alias = getMapParameterString(parameters, ALIAS_PARAM, ALIAS_PARAM_DEFAULT);
+			return new JerseyServerContainer(urlContext, alias,
+					(ResourceConfig) ((configuration instanceof ResourceConfig) ? configuration : null));
 		}
 	}
 
@@ -52,13 +62,17 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 		}
 	}
 
-	public JerseyServerContainer(HttpService httpService, String urlContext, String alias) {
-		super(httpService, urlContext, alias);
+	private ResourceConfig configuration;
+
+	public JerseyServerContainer(String urlContext, String alias, ResourceConfig configuration) {
+		super(urlContext, alias);
+		this.configuration = configuration;
 	}
 
 	protected ResourceConfig createResourceConfig(IRemoteServiceRegistration registration, Object serviceObject,
 			@SuppressWarnings("rawtypes") Dictionary properties) {
-		return ResourceConfig.forApplication(new JerseyApplication(serviceObject.getClass()));
+		return (this.configuration != null) ? this.configuration
+				: ResourceConfig.forApplication(new JerseyApplication(serviceObject.getClass()));
 	}
 
 	@Override
@@ -66,6 +80,11 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 			@SuppressWarnings("rawtypes") Dictionary properties) {
 		ResourceConfig rc = createResourceConfig(registration, serviceObject, properties);
 		return (rc != null) ? new ServletContainer(rc) : new ServletContainer();
+	}
+
+	@Override
+	protected HttpService getHttpService() {
+		return HttpServiceComponent.getHttpService();
 	}
 
 }

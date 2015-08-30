@@ -10,6 +10,7 @@
 package org.eclipse.ecf.provider.resteasy.client;
 
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Configuration;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
@@ -29,7 +30,8 @@ public class ResteasyClientContainer extends JaxRSClientContainer {
 
 	public static class Instantiator extends JaxRSClientContainerInstantiator {
 		@Override
-		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
+		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters,
+				Configuration configuration) {
 			return new ResteasyClientContainer();
 		}
 	}

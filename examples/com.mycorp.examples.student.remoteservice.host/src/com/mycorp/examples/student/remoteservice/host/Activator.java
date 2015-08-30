@@ -26,6 +26,7 @@ public class Activator implements BundleActivator {
 		Dictionary props = new Hashtable();
 		props.put("service.exported.interfaces", "*");
 		props.put("service.exported.configs", "ecf.jaxrs.jersey.server");
+		props.put("ecf.jaxrs.jersey.server.alias", "/jersey/is/good");
 		context.registerService(StudentService.class, new StudentResource(), props);
 	}
 

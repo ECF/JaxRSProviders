@@ -10,6 +10,9 @@
 package org.eclipse.ecf.provider.jaxrs;
 
 import java.util.Dictionary;
+import java.util.Map;
+
+import javax.ws.rs.core.Configuration;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
@@ -18,6 +21,8 @@ import org.eclipse.ecf.core.provider.IRemoteServiceContainerInstantiator;
 
 public abstract class JaxRSAbstractContainerInstantiator extends BaseContainerInstantiator
 		implements IRemoteServiceContainerInstantiator {
+
+	public static final String CONFIG_PARAM = ".configuration";
 
 	@Override
 	public abstract String[] getImportedConfigs(ContainerTypeDescription description,
@@ -34,11 +39,31 @@ public abstract class JaxRSAbstractContainerInstantiator extends BaseContainerIn
 		return null;
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Class[][] getSupportedParameterTypes(ContainerTypeDescription description) {
+		return new Class[][] { { Map.class } };
+	}
+
+	@Override
+	public String[] getSupportedAdapterTypes(ContainerTypeDescription description) {
+		return new String[] { org.eclipse.ecf.remoteservice.IRemoteServiceContainerAdapter.class.getName() };
+	}
+
 	public String[] getSupportedIntents(ContainerTypeDescription description) {
 		return restIntents;
 	}
 
+	protected Configuration getConfigurationFromParams(ContainerTypeDescription description, Object[] parameters) {
+		return getMapParameter(parameters, description.getName() + CONFIG_PARAM, Configuration.class, null);
+	}
+
+	public abstract IContainer createInstance(ContainerTypeDescription description, Object[] parameters,
+			Configuration configuration);
+
 	@Override
-	public abstract IContainer createInstance(ContainerTypeDescription description, Object[] parameters);
+	public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
+		return createInstance(description, parameters, getConfigurationFromParams(description, parameters));
+	}
 
 }

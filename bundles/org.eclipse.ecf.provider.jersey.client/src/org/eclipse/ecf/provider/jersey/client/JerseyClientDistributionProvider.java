@@ -30,7 +30,7 @@ public class JerseyClientDistributionProvider extends RemoteServiceDistributionP
 	public JerseyClientDistributionProvider(String clientContainerTypeName, String serverContainerTypeName) {
 		super(clientContainerTypeName, new JaxRSClientContainerInstantiator(serverContainerTypeName) {
 			@Override
-			public IContainer createInstance(ContainerTypeDescription description, Object[] parameters) {
+			public IContainer createInstance(ContainerTypeDescription description, Object[] parameters, final Configuration configuration) {
 				return new JaxRSClientContainer() {
 					@Override
 					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
@@ -40,7 +40,10 @@ public class JerseyClientDistributionProvider extends RemoteServiceDistributionP
 							// created
 							@Override
 							protected Configuration createJaxRSClientConfiguration() throws ECFException {
-								ClientConfig config = new ClientConfig();
+								// If we are provided a configuration via service property, and it's appropriate
+								// type (ClientConfig), then use it, otherwise create new ClientConfig
+								ClientConfig config = (ClientConfig) ((configuration instanceof ClientConfig)
+										? configuration : new ClientConfig());
 								// Configure for Jackson json generation/parsing
 								config.register(JacksonFeature.class);
 								// Configure to use ObjectMapper that is

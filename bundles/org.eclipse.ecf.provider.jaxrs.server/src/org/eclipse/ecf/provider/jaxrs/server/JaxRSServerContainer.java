@@ -45,8 +45,6 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 	private final String alias;
 	private final ID serverID;
 
-	private HttpService httpService;
-
 	protected String getAlias() {
 		return alias;
 	}
@@ -74,11 +72,13 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 		return null;
 	}
 
+	protected abstract HttpService getHttpService(); 
+	
 	protected void registerResource(String servletAlias, Servlet servlet,
 			@SuppressWarnings("rawtypes") Dictionary servletProperties, HttpContext servletContext) throws RuntimeException {
 		try {
 			System.out.println("registering JaxRS servlet.  alias="+servletAlias+";servlet="+servlet+";props="+servletProperties+";context="+servletContext);
-			httpService.registerServlet(servletAlias,
+			getHttpService().registerServlet(servletAlias,
 					servlet,
 					servletProperties, servletContext);
 		} catch (ServletException | NamespaceException e) {
@@ -87,10 +87,8 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 	}
 
 	protected void unregisterResource(String servletAlias) {
-		if (httpService != null) {
-			System.out.println("registering JaxRS servlet.  alias="+servletAlias);
-			httpService.unregister(servletAlias);
-		}
+		System.out.println("registering JaxRS servlet.  alias="+servletAlias);
+		getHttpService().unregister(servletAlias);
 	}
 	
 	private JaxRSRemoteServiceContainerAdapter adapterImpl;
@@ -99,9 +97,7 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 		return JaxRSNamespace.INSTANCE.createInstance(new Object[] { this.urlContext + this.alias });
 	}
 
-	public JaxRSServerContainer(HttpService httpService, String urlContext, String alias, IExecutor executor) {
-		Assert.isNotNull(httpService);
-		this.httpService = httpService;
+	public JaxRSServerContainer(String urlContext, String alias, IExecutor executor) {
 		Assert.isNotNull(urlContext);
 		while (urlContext.endsWith(SLASH))
 			urlContext = urlContext.substring(0, urlContext.length() - 1);
@@ -117,8 +113,8 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 		this.adapterImpl = new JaxRSRemoteServiceContainerAdapter(this, executor);
 	}
 
-	public JaxRSServerContainer(HttpService httpService, String urlContext, String alias) {
-		this(httpService, urlContext, alias, null);
+	public JaxRSServerContainer(String urlContext, String alias) {
+		this(urlContext, alias, null);
 	}
 
 	@Override
