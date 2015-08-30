@@ -28,6 +28,8 @@ import org.osgi.service.http.HttpService;
 
 public class JerseyServerContainer extends JaxRSServerContainer {
 
+	public static final String NAME = "ecf.jaxrs.jersey.server";
+	
 	public static class Instantiator extends JaxRSServerContainerInstantiator {
 
 		public static final String URL_CONTEXT_PARAM = "urlContext";

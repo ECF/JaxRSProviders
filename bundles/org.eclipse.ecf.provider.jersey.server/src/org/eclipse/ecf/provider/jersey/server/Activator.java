@@ -19,8 +19,9 @@ public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		context.registerService(IRemoteServiceDistributionProvider.class,
-				new RemoteServiceDistributionProvider.Builder().setName("ecf.jaxrs.jersey.server")
-						.setInstantiator(new JerseyServerContainer.Instantiator()).build(),
+				new RemoteServiceDistributionProvider.Builder().setName(JerseyServerContainer.NAME)
+						.setInstantiator(new JerseyServerContainer.Instantiator())
+						.setDescription("Jersey Remote Service Distribution Provider").build(),
 				null);
 	}
 
