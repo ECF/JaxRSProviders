@@ -40,10 +40,15 @@ import org.osgi.service.http.NamespaceException;
 
 public abstract class JaxRSServerContainer extends AbstractContainer implements IRemoteServiceContainerAdapter {
 
-	public static final String SERVLET_PROPERTIES_PARAM = ".servletProperties";  // expected value type=Dictionary
-	public static final String SERVLET_HTTPCONTEXT_PARAM = ".servletHttpContext"; // expected value type = HttpContext
-	
-	
+	public static final String SERVLET_PROPERTIES_PARAM = ".servletProperties"; // expected
+																				// value
+																				// type=Dictionary
+	public static final String SERVLET_HTTPCONTEXT_PARAM = ".servletHttpContext"; // expected
+																					// value
+																					// type
+																					// =
+																					// HttpContext
+
 	protected static final String SLASH = "/";
 
 	private final String urlContext;
@@ -86,18 +91,7 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 	@SuppressWarnings("rawtypes")
 	protected Dictionary createServletProperties(IRemoteServiceRegistration registration, Object serviceObject,
 			Dictionary properties) {
-		for(Enumeration e = properties.keys(); e.hasMoreElements(); ) {
-			Object k = e.nextElement();
-			if (k instanceof String) {
-				String key = (String) k;
-				if (key.endsWith(SERVLET_PROPERTIES_PARAM)) {
-					Object v = properties.get(key);
-					if (v instanceof Dictionary) 
-						return (Dictionary) v;
-				}
-			}
-		}
-		return properties;
+		return getKeyEndsWithPropertyValue(properties, SERVLET_PROPERTIES_PARAM, Dictionary.class);
 	}
 
 	protected String createServletAlias(IRemoteServiceRegistration registration, Object serviceObject,
@@ -108,42 +102,48 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 	protected abstract Servlet createServlet(IRemoteServiceRegistration registration, Object serviceObject,
 			@SuppressWarnings("rawtypes") Dictionary properties);
 
-	protected HttpContext createServletContext(IRemoteServiceRegistration registration, Object service,
-			@SuppressWarnings("rawtypes") Dictionary properties) {
-		for(@SuppressWarnings("rawtypes")
-		Enumeration e = properties.keys(); e.hasMoreElements(); ) {
+	@SuppressWarnings("unchecked")
+	private <T> T getKeyEndsWithPropertyValue(@SuppressWarnings("rawtypes") Dictionary input, String keyEndsWith,
+			Class<T> valueType) {
+		for (@SuppressWarnings("rawtypes")
+		Enumeration e = input.keys(); e.hasMoreElements();) {
 			Object k = e.nextElement();
 			if (k instanceof String) {
 				String key = (String) k;
-				if (key.endsWith(SERVLET_HTTPCONTEXT_PARAM)) {
-					Object v = properties.get(key);
-					if (v instanceof HttpContext) 
-						return (HttpContext) v;
+				if (key.endsWith(keyEndsWith)) {
+					Object v = input.get(key);
+					if (valueType.isInstance(v))
+						return (T) v;
 				}
 			}
 		}
 		return null;
 	}
 
-	protected abstract HttpService getHttpService(); 
-	
+	protected HttpContext createServletContext(IRemoteServiceRegistration registration, Object service,
+			@SuppressWarnings("rawtypes") Dictionary properties) {
+		return getKeyEndsWithPropertyValue(properties, SERVLET_HTTPCONTEXT_PARAM, HttpContext.class);
+	}
+
+	protected abstract HttpService getHttpService();
+
 	protected void registerResource(String servletAlias, Servlet servlet,
-			@SuppressWarnings("rawtypes") Dictionary servletProperties, HttpContext servletContext) throws RuntimeException {
+			@SuppressWarnings("rawtypes") Dictionary servletProperties, HttpContext servletContext)
+					throws RuntimeException {
 		try {
-			System.out.println("registering JaxRS servlet.  alias="+servletAlias+";servlet="+servlet+";props="+servletProperties+";context="+servletContext);
-			getHttpService().registerServlet(servletAlias,
-					servlet,
-					servletProperties, servletContext);
+			System.out.println("registering JaxRS servlet.  alias=" + servletAlias + ";servlet=" + servlet + ";props="
+					+ servletProperties + ";context=" + servletContext);
+			getHttpService().registerServlet(servletAlias, servlet, servletProperties, servletContext);
 		} catch (ServletException | NamespaceException e) {
 			throw new RuntimeException("Cannot register servlet with alias=" + getAlias(), e);
 		}
 	}
 
 	protected void unregisterResource(String servletAlias) {
-		System.out.println("unregistering JaxRS servlet with alias="+servletAlias);
+		System.out.println("unregistering JaxRS servlet with alias=" + servletAlias);
 		getHttpService().unregister(servletAlias);
 	}
-	
+
 	@Override
 	public Namespace getConnectNamespace() {
 		return serverID.getNamespace();
