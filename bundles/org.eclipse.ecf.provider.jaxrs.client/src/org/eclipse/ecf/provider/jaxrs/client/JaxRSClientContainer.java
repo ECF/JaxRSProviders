@@ -72,6 +72,22 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 
 	protected class JaxRemoteServiceClientRegistration extends RemoteServiceClientRegistration {
 
+		private Long getRSId(ID targetID) {
+			if (targetID == null)
+				return new Long(0);
+			String target = targetID.getName();
+			int slashIndex = target.lastIndexOf('/');
+			if (slashIndex < target.length()) {
+				String ids = target.substring(slashIndex + 1);
+				try {
+					return Long.decode(ids);
+				} catch (NumberFormatException e) {
+					return new Long(0);
+				}
+			}
+			return new Long(0);
+		}
+
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public JaxRemoteServiceClientRegistration(Namespace namespace, IRemoteCallable[] restCalls,
 				Dictionary properties, RemoteServiceClientRegistry registry) {
@@ -79,7 +95,7 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			ID cID = getConnectedID();
 			if (cID != null)
 				this.containerId = cID;
-			long rsId = 0;
+			long rsId = getRSId(this.containerId);
 			this.serviceID = new RemoteServiceID(namespace, containerId, rsId);
 			if (rsId > 0) {
 				if (this.properties == null)
@@ -95,7 +111,7 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			ID cID = getConnectedID();
 			if (cID != null)
 				this.containerId = cID;
-			long rsId = 0;
+			long rsId = getRSId(this.containerId);
 			this.serviceID = new RemoteServiceID(namespace, containerId, rsId);
 			if (rsId > 0) {
 				if (this.properties == null)

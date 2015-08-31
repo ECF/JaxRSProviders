@@ -8,15 +8,15 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 import com.javacodegeeks.resteasy.ISampleService;
 
-public class Activator implements BundleActivator, ServiceTrackerCustomizer<ISampleService,ISampleService> {
+public class Activator implements BundleActivator, ServiceTrackerCustomizer<ISampleService, ISampleService> {
 
-	private ServiceTracker<ISampleService,ISampleService> tracker;
+	private ServiceTracker<ISampleService, ISampleService> tracker;
 	private BundleContext context;
-	
+
 	@Override
 	public void start(BundleContext context) throws Exception {
 		this.context = context;
-		tracker = new ServiceTracker<ISampleService,ISampleService>(context,ISampleService.class, this);
+		tracker = new ServiceTracker<ISampleService, ISampleService>(context, ISampleService.class, this);
 		tracker.open();
 	}
 
@@ -31,15 +31,15 @@ public class Activator implements BundleActivator, ServiceTrackerCustomizer<ISam
 
 	@Override
 	public ISampleService addingService(ServiceReference<ISampleService> reference) {
-		System.out.println("Got service reference="+reference);
+		System.out.println("Got service reference=" + reference);
 		ISampleService service = context.getService(reference);
-		System.out.println("got service="+service);
+		System.out.println("got service=" + service);
 		// Call hello
 		if (service != null)
 			try {
-				System.out.println("hello() returns="+service.hello());
-				System.out.println("listEmployees() returns="+service.listEmployees());
-				System.out.println("listEmployeesJSON() returns="+service.listEmployeesJSON());
+				System.out.println("hello() returns=" + service.hello());
+				System.out.println("listEmployees() returns=" + service.listEmployees());
+				System.out.println("listEmployeesJSON() returns=" + service.listEmployeesJSON());
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
@@ -49,7 +49,7 @@ public class Activator implements BundleActivator, ServiceTrackerCustomizer<ISam
 	@Override
 	public void modifiedService(ServiceReference<ISampleService> reference, ISampleService service) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

@@ -64,11 +64,12 @@ public class JaxRSRemoteServiceContainerAdapter extends RemoteServiceContainerAd
 		String getServletAlias() {
 			return servletAlias;
 		}
-		
+
 		public JaxRSRemoteServiceRegistration() {
 			super(new IRegistrationListener() {
 				public void unregister(RemoteServiceRegistrationImpl registration) {
-					jaxRSServerContainer.unregisterResource(((JaxRSRemoteServiceRegistration) registration).servletAlias);
+					jaxRSServerContainer
+							.unregisterResource(((JaxRSRemoteServiceRegistration) registration).servletAlias);
 					handleServiceUnregister(registration);
 				}
 			});
@@ -164,7 +165,7 @@ public class JaxRSRemoteServiceContainerAdapter extends RemoteServiceContainerAd
 			}
 			throw e;
 		}
-		
+
 		fireRemoteServiceListeners(createRegisteredEvent(registration));
 		return registration;
 	}

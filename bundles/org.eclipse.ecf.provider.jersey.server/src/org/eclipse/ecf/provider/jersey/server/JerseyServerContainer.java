@@ -29,7 +29,7 @@ import org.osgi.service.http.HttpService;
 public class JerseyServerContainer extends JaxRSServerContainer {
 
 	public static final String NAME = "ecf.jaxrs.jersey.server";
-	
+
 	public static class Instantiator extends JaxRSServerContainerInstantiator {
 
 		public static final String URL_CONTEXT_PARAM = "urlContext";
@@ -41,8 +41,7 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 		@Override
 		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters,
 				Configuration configuration) {
-			String urlContext = getMapParameterString(parameters, URL_CONTEXT_PARAM,
-					URL_CONTEXT_DEFAULT);
+			String urlContext = getMapParameterString(parameters, URL_CONTEXT_PARAM, URL_CONTEXT_DEFAULT);
 			String alias = getMapParameterString(parameters, ALIAS_PARAM, ALIAS_PARAM_DEFAULT);
 			return new JerseyServerContainer(urlContext, alias,
 					(ResourceConfig) ((configuration instanceof ResourceConfig) ? configuration : null));
