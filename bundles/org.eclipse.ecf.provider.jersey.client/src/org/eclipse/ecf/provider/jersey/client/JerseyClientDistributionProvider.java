@@ -9,6 +9,8 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jersey.client;
 
+import java.util.Map;
+
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.ext.ContextResolver;
 
@@ -16,10 +18,10 @@ import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
-import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainerInstantiator;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
+import org.eclipse.ecf.provider.jaxrs.AbstractJaxRSContainerInstantiator;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -28,9 +30,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JerseyClientDistributionProvider extends RemoteServiceDistributionProvider {
 	public JerseyClientDistributionProvider(String clientContainerTypeName, String serverContainerTypeName) {
-		super(clientContainerTypeName, new JaxRSClientContainerInstantiator(serverContainerTypeName) {
+		super(clientContainerTypeName, new AbstractJaxRSContainerInstantiator(serverContainerTypeName, clientContainerTypeName) {
 			@Override
-			public IContainer createInstance(ContainerTypeDescription description, Object[] parameters,
+			public IContainer createInstance(ContainerTypeDescription description, @SuppressWarnings("rawtypes") Map parameters,
 					final Configuration configuration) {
 				return new JaxRSClientContainer() {
 					@Override

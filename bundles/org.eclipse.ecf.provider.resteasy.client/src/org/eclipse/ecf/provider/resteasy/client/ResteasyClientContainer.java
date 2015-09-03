@@ -9,18 +9,20 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.resteasy.client;
 
+import java.util.Map;
+
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Configuration;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
+import org.eclipse.ecf.provider.jaxrs.AbstractJaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 //import org.jboss.resteasy.client.jaxrs.ProxyBuilder;
 //import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 //import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 //import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainerInstantiator;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 
@@ -28,9 +30,13 @@ public class ResteasyClientContainer extends JaxRSClientContainer {
 
 	public static final String CONTAINER_TYPE_NAME = "ecf.container.client.resteasy";
 
-	public static class Instantiator extends JaxRSClientContainerInstantiator {
+	public static class Instantiator extends AbstractJaxRSContainerInstantiator {
+		protected Instantiator() {
+			super(CONTAINER_TYPE_NAME, CONTAINER_TYPE_NAME);
+		}
+
 		@Override
-		public IContainer createInstance(ContainerTypeDescription description, Object[] parameters,
+		public IContainer createInstance(ContainerTypeDescription description, Map parameters,
 				Configuration configuration) {
 			return new ResteasyClientContainer();
 		}
