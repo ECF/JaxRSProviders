@@ -24,3 +24,4 @@ Import-Package: com.fasterxml.jackson.databind;version="2.5.0",
  org.osgi.framework
 Require-Bundle: org.eclipse.ecf;bundle-version="3.5.100",
  org.eclipse.equinox.common;bundle-version="3.7.0"
+Provide-Capability: osgi.remoteserviceadmin.distribution; configs:List<String>="ecf.jaxrs.jersey.client"; version:Version=1.0
