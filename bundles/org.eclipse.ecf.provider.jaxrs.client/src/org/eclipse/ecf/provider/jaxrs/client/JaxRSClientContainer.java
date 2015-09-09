@@ -179,8 +179,9 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			}
 		}
 
-		private Object proxy;
+		protected Object proxy;
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public Object getProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class[] interfaces) throws ECFException {
 			if (interfaces.length == 0)
@@ -191,7 +192,7 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 						Configuration config = createJaxRSClientConfiguration();
 						Client client = createJaxRSClient(config);
 						WebTarget webtarget = getJaxRSWebTarget(client);
-						proxy = createJaxRSProxy(cl, interfaces[0], webtarget);
+						proxy = createJaxRSProxy(cl, (Class<Object>) interfaces[0], webtarget);
 						if (this.proxy == null)
 							throw new ECFException("getProxy:  CreateJaxRSProxy returned null.  Cannot create proxy");
 					}
@@ -275,8 +276,7 @@ public class JaxRSClientContainer extends AbstractClientContainer {
 			}
 		}
 
-		@SuppressWarnings("unchecked")
-		protected Object createJaxRSProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class interfaceClass,
+		protected <T> T createJaxRSProxy(ClassLoader cl, Class<T> interfaceClass,
 				WebTarget webTarget) throws ECFException {
 			try {
 				return WebResourceFactory.newResource(interfaceClass, webTarget);

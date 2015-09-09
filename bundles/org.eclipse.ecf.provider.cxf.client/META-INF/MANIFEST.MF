@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ECF CXF-based Jax-RS Client
+Bundle-SymbolicName: org.eclipse.ecf.provider.cxf.client
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse.org - ECF
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Import-Package: javax.ws.rs.client;version="2.0.1",
+ javax.ws.rs.core;version="2.0.1",
+ org.eclipse.ecf.provider.jaxrs;version="1.0.0",
+ org.eclipse.ecf.provider.jaxrs.client,
+ org.eclipse.ecf.remoteservice;version="7.2.0",
+ org.eclipse.ecf.remoteservice.asyncproxy,
+ org.eclipse.ecf.remoteservice.client;version="8.0.0",
+ org.eclipse.ecf.remoteservice.provider;version="1.0.0",
+ org.eclipse.equinox.concurrent.future;version="1.1.0",
+ org.osgi.framework
+Require-Bundle: org.eclipse.ecf;bundle-version="3.6.0",
+ org.eclipse.equinox.common
+Bundle-ClassPath: .,
+ lib/cxf-rt-rs-client-3.1.2.jar
+Service-Component: OSGI-INF/distributionprovider.xml

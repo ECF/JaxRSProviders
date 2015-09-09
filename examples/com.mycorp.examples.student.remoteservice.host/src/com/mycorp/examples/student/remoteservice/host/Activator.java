@@ -10,7 +10,9 @@
 package com.mycorp.examples.student.remoteservice.host;
 
 import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Properties;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -23,20 +25,21 @@ public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 
-		Dictionary props = new Hashtable();
-		props.put("service.exported.interfaces", "*");
-		props.put("service.exported.configs", "ecf.jaxrs.jersey.server");
-		props.put("ecf.jaxrs.jersey.server.alias", "/jersey/is/good");
-		Hashtable d = new Hashtable();
-		d.put("foo", "bar");
-		props.put("ecf.jaxrs.jersey.server.servletProperties", d);
-		context.registerService(StudentService.class, new StudentResource(), props);
+		Dictionary serviceProps = new Hashtable();
+		serviceProps.put("service.exported.interfaces", "*");
+		serviceProps.put("service.exported.configs", "ecf.jaxrs.jersey.server");
+		serviceProps.put("ecf.jaxrs.jersey.server.alias", "/jersey/is/good");
+		Properties systemProperties = System.getProperties();
+		for(Enumeration systemPropNames = systemProperties.propertyNames(); systemPropNames.hasMoreElements(); ) {
+			String systemPropName = (String) systemPropNames.nextElement();
+			if (systemPropName.startsWith("ecf.")) 
+				serviceProps.put(systemPropName, systemProperties.getProperty(systemPropName));
+		}
+		context.registerService(StudentService.class, new StudentResource(), serviceProps);
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 }
