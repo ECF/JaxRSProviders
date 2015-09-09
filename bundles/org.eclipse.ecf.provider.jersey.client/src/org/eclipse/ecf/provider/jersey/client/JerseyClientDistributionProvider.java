@@ -29,8 +29,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JerseyClientDistributionProvider extends RemoteServiceDistributionProvider {
-	public JerseyClientDistributionProvider(String clientContainerTypeName, String serverContainerTypeName) {
-		super(clientContainerTypeName, new AbstractJaxRSContainerInstantiator(serverContainerTypeName, clientContainerTypeName) {
+	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
+	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.jersey.server";
+
+	public JerseyClientDistributionProvider() {
+		super(CLIENT_PROVIDER_NAME, new AbstractJaxRSContainerInstantiator(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME) {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, @SuppressWarnings("rawtypes") Map parameters,
 					final Configuration configuration) {
