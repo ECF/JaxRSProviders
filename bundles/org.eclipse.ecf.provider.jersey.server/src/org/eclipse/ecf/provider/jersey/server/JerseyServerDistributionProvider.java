@@ -41,7 +41,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 					Configuration configuration) {
 				String urlContext = getParameterValue(parameters, URL_CONTEXT_PARAM, URL_CONTEXT_DEFAULT);
 				String alias = getParameterValue(parameters, ALIAS_PARAM, ALIAS_PARAM_DEFAULT);
-				return JerseyServerDistributionProvider.this.new JerseyServerContainer(urlContext, alias,
+				return new JerseyServerContainer(urlContext, alias,
 						(ResourceConfig) ((configuration instanceof ResourceConfig) ? configuration : null));
 			}});
 		setDescription("Jersey Jax-RS Server Provider");
@@ -56,25 +56,19 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			this.configuration = configuration;
 		}
 
-		public class JerseyApplication extends Application {
-			private Class<?> resourceClass;
-
-			public JerseyApplication(Class<?> resourceClass) {
-				this.resourceClass = resourceClass;
-			}
-
-			@Override
-			public Set<Class<?>> getClasses() {
-				Set<Class<?>> results = new HashSet<Class<?>>();
-				results.add(this.resourceClass);
-				return results;
-			}
-		}
-
-		protected ResourceConfig createResourceConfig(IRemoteServiceRegistration registration, Object serviceObject,
+		protected ResourceConfig createResourceConfig(IRemoteServiceRegistration registration, final Object serviceObject,
 				@SuppressWarnings("rawtypes") Dictionary properties) {
-			return (this.configuration != null) ? this.configuration
-					: ResourceConfig.forApplication(new JerseyApplication(serviceObject.getClass()));
+			if (this.configuration == null) {
+				return ResourceConfig.forApplication(new Application() {
+					@Override
+					public Set<Class<?>> getClasses() {
+						Set<Class<?>> results = new HashSet<Class<?>>();
+						results.add(serviceObject.getClass());
+						return results;
+					}
+				});
+			}
+			return this.configuration;
 		}
 
 		@Override

@@ -60,25 +60,17 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 			super(urlContext, alias);
 		}
 
-		class CXFServerApplication extends Application {
-			private Class<?> resourceClass;
-
-			public CXFServerApplication(Class<?> clazz) {
-				this.resourceClass = clazz;
-			}
-
-			@Override
-			public Set<Class<?>> getClasses() {
-				Set<Class<?>> results = new HashSet<Class<?>>();
-				results.add(this.resourceClass);
-				return results;
-			}
-		}
-
 		@Override
-		protected Servlet createServlet(IRemoteServiceRegistration registration, Object serviceObject,
+		protected Servlet createServlet(IRemoteServiceRegistration registration, final Object serviceObject,
 				@SuppressWarnings("rawtypes") Dictionary properties) {
-			return new CXFNonSpringJaxrsServlet(new CXFServerApplication(serviceObject.getClass()));
+			return new CXFNonSpringJaxrsServlet(new Application() {
+				@Override
+				public Set<Class<?>> getClasses() {
+					Set<Class<?>> results = new HashSet<Class<?>>();
+					results.add(serviceObject.getClass());
+					return results;
+				}
+			});
 		}
 
 		@Override
