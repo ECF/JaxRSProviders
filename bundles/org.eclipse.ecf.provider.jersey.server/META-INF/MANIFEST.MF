@@ -19,8 +19,7 @@ Import-Package: javax.servlet,
  org.osgi.framework,
  org.osgi.service.http;version="1.2.1"
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.eclipse.ecf.provider.jersey.server.Activator
 Require-Bundle: org.eclipse.ecf,
  org.eclipse.equinox.common
-Service-Component: OSGI-INF/httpservice.xml
+Service-Component: OSGI-INF/distributionprovider.xml
 Provide-Capability: osgi.remoteserviceadmin.distribution; configs:List<String>="ecf.jaxrs.jersey.server"; version:Version=1.0
