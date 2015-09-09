@@ -20,9 +20,9 @@ import org.osgi.service.http.HttpService;
 public class JaxRSServerDistributionProvider extends RemoteServiceDistributionProvider {
 
 	protected JaxRSServerDistributionProvider() {
-		
+
 	}
-	
+
 	protected JaxRSServerDistributionProvider(String name, IContainerInstantiator instantiator) {
 		super(name, instantiator);
 	}
@@ -37,19 +37,19 @@ public class JaxRSServerDistributionProvider extends RemoteServiceDistributionPr
 	}
 
 	private List<HttpService> httpServices = Collections.synchronizedList(new ArrayList<HttpService>());
-	
+
 	public void bindHttpService(HttpService httpService) {
 		if (httpService != null)
 			httpServices.add(httpService);
 	}
-	
+
 	public void unbindHttpService(HttpService httpService) {
-		if (httpService != null) 
+		if (httpService != null)
 			httpServices.remove(httpService);
 	}
-	
+
 	protected List<HttpService> getHttpServices() {
 		return httpServices;
 	}
-	
+
 }

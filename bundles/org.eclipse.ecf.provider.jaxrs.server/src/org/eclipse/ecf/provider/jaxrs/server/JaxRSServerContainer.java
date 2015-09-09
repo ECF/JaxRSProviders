@@ -59,15 +59,9 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 
 	public JaxRSServerContainer(String urlContext, String alias, IExecutor executor) {
 		Assert.isNotNull(urlContext);
-		// remove any trailing slashes on urlContext
-		while (urlContext.endsWith(SLASH))
-			urlContext = urlContext.substring(0, urlContext.length() - 1);
 		this.urlContext = urlContext;
 		// remove any leading slashes on alias
-		while (alias.startsWith("/"))
-			alias = alias.substring(1);
 		// Then make sure it starts with slash
-		alias = SLASH + alias;
 		this.alias = alias;
 		// Create serverID
 		this.serverID = JaxRSNamespace.INSTANCE.createInstance(new Object[] { this.urlContext + this.alias });
@@ -127,20 +121,19 @@ public abstract class JaxRSServerContainer extends AbstractContainer implements 
 
 	protected abstract HttpService getHttpService();
 
-	protected void registerResource(String servletAlias, Servlet servlet,
+	protected void registerJaxRSResource(String servletAlias, Servlet servlet,
 			@SuppressWarnings("rawtypes") Dictionary servletProperties, HttpContext servletContext)
 					throws RuntimeException {
 		try {
-			System.out.println("registering JaxRS servlet.  alias=" + servletAlias + ";servlet=" + servlet + ";props="
-					+ servletProperties + ";context=" + servletContext);
 			getHttpService().registerServlet(servletAlias, servlet, servletProperties, servletContext);
 		} catch (ServletException | NamespaceException e) {
 			throw new RuntimeException("Cannot register servlet with alias=" + getAlias(), e);
+		} catch (Exception e) {
+			throw new RuntimeException("Unexpected error registering servlet with alias=" + getAlias(), e);
 		}
 	}
 
 	protected void unregisterResource(String servletAlias) {
-		System.out.println("unregistering JaxRS servlet with alias=" + servletAlias);
 		getHttpService().unregister(servletAlias);
 	}
 

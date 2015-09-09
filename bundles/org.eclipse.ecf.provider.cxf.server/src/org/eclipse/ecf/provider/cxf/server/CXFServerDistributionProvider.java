@@ -35,7 +35,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 	public static final String URL_CONTEXT_DEFAULT = System
 			.getProperty(CXFServerContainer.class.getName() + ".defaultUrlContext", "http://localhost:8080");
 	public static final String ALIAS_PARAM = "alias";
-	public static final String ALIAS_PARAM_DEFAULT = "/" + CXFServerContainer.class.getName();
+	public static final String ALIAS_PARAM_DEFAULT = "/";
 
 	public CXFServerDistributionProvider() {
 	}

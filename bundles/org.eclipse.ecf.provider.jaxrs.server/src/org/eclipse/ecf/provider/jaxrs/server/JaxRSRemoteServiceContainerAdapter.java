@@ -158,7 +158,7 @@ public class JaxRSRemoteServiceContainerAdapter extends RemoteServiceContainerAd
 
 		try {
 			// Register the resource as a servlet
-			this.jaxRSServerContainer.registerResource(servletAlias, servlet, servletProps, servletContext);
+			this.jaxRSServerContainer.registerJaxRSResource(servletAlias, servlet, servletProps, servletContext);
 		} catch (Exception e) {
 			synchronized (registry) {
 				registry.unpublishService(registration);

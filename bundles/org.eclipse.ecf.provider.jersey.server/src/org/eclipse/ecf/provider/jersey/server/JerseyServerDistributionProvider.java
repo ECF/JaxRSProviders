@@ -22,17 +22,17 @@ import org.osgi.service.http.HttpService;
 public class JerseyServerDistributionProvider extends JaxRSServerDistributionProvider {
 
 	public static final String JERSEY_SERVER_CONFIG_NAME = "ecf.jaxrs.jersey.server";
-	
+
 	public static final String URL_CONTEXT_PARAM = "urlContext";
 	public static final String URL_CONTEXT_DEFAULT = System
 			.getProperty(JerseyServerContainer.class.getName() + ".defaultUrlContext", "http://localhost:8080");
 	public static final String ALIAS_PARAM = "alias";
-	public static final String ALIAS_PARAM_DEFAULT = "/" + JerseyServerContainer.class.getName();
+	public static final String ALIAS_PARAM_DEFAULT = "/org.eclipse.ecf.provider.jersey.server";
 
 	public JerseyServerDistributionProvider() {
 		super();
 	}
-	
+
 	public void activate() throws Exception {
 		setName(JERSEY_SERVER_CONFIG_NAME);
 		setInstantiator(new JaxRSContainerInstantiator(JERSEY_SERVER_CONFIG_NAME) {
@@ -43,7 +43,8 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 				String alias = getParameterValue(parameters, ALIAS_PARAM, ALIAS_PARAM_DEFAULT);
 				return new JerseyServerContainer(urlContext, alias,
 						(ResourceConfig) ((configuration instanceof ResourceConfig) ? configuration : null));
-			}});
+			}
+		});
 		setDescription("Jersey Jax-RS Server Provider");
 	}
 
@@ -56,8 +57,8 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			this.configuration = configuration;
 		}
 
-		protected ResourceConfig createResourceConfig(IRemoteServiceRegistration registration, final Object serviceObject,
-				@SuppressWarnings("rawtypes") Dictionary properties) {
+		protected ResourceConfig createResourceConfig(IRemoteServiceRegistration registration,
+				final Object serviceObject, @SuppressWarnings("rawtypes") Dictionary properties) {
 			if (this.configuration == null) {
 				return ResourceConfig.forApplication(new Application() {
 					@Override
