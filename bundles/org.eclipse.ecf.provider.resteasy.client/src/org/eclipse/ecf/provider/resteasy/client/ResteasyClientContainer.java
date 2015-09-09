@@ -17,7 +17,7 @@ import javax.ws.rs.core.Configuration;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
-import org.eclipse.ecf.provider.jaxrs.AbstractJaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 //import org.jboss.resteasy.client.jaxrs.ProxyBuilder;
 //import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -30,7 +30,7 @@ public class ResteasyClientContainer extends JaxRSClientContainer {
 
 	public static final String CONTAINER_TYPE_NAME = "ecf.container.client.resteasy";
 
-	public static class Instantiator extends AbstractJaxRSContainerInstantiator {
+	public static class Instantiator extends JaxRSContainerInstantiator {
 		protected Instantiator() {
 			super(CONTAINER_TYPE_NAME, CONTAINER_TYPE_NAME);
 		}

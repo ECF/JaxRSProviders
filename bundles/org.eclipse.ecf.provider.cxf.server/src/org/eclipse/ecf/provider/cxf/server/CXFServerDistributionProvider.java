@@ -21,7 +21,7 @@ import javax.ws.rs.core.Configuration;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.provider.jaxrs.AbstractJaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
 import org.eclipse.ecf.remoteservice.IRemoteServiceRegistration;
@@ -42,7 +42,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 
 	public void activate() throws Exception {
 		setName(SERVER_CONFIG_NAME);
-		setInstantiator(new AbstractJaxRSContainerInstantiator(SERVER_CONFIG_NAME) {
+		setInstantiator(new JaxRSContainerInstantiator(SERVER_CONFIG_NAME) {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
 					Configuration configuration) {

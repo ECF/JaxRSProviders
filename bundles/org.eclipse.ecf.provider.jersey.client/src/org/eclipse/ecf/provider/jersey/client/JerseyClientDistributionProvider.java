@@ -21,7 +21,7 @@ import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
-import org.eclipse.ecf.provider.jaxrs.AbstractJaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -33,7 +33,7 @@ public class JerseyClientDistributionProvider extends RemoteServiceDistributionP
 	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.jersey.server";
 
 	public JerseyClientDistributionProvider() {
-		super(CLIENT_PROVIDER_NAME, new AbstractJaxRSContainerInstantiator(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME) {
+		super(CLIENT_PROVIDER_NAME, new JaxRSContainerInstantiator(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME) {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, @SuppressWarnings("rawtypes") Map parameters,
 					final Configuration configuration) {

@@ -21,18 +21,18 @@ import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.provider.IRemoteServiceContainerInstantiator;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceContainerInstantiator;
 
-public abstract class AbstractJaxRSContainerInstantiator extends RemoteServiceContainerInstantiator
+public abstract class JaxRSContainerInstantiator extends RemoteServiceContainerInstantiator
 		implements IRemoteServiceContainerInstantiator {
 
 	public static final String CONFIG_PARAM = "configuration";
 
 	protected static final String[] jaxIntents = new String[] { "jaxrs" };
 
-	protected AbstractJaxRSContainerInstantiator(String serverConfigTypeName) {
+	protected JaxRSContainerInstantiator(String serverConfigTypeName) {
 		this.exporterConfigs.add(serverConfigTypeName);
 	}
 
-	protected AbstractJaxRSContainerInstantiator(String serverConfigTypeName, String clientConfigTypeName) {
+	protected JaxRSContainerInstantiator(String serverConfigTypeName, String clientConfigTypeName) {
 		this(serverConfigTypeName);
 		this.exporterConfigToImporterConfigs.put(serverConfigTypeName,
 				Arrays.asList(new String[] { clientConfigTypeName }));

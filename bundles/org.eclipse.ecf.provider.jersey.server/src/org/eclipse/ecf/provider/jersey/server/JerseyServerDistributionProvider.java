@@ -11,7 +11,7 @@ import javax.ws.rs.core.Configuration;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.provider.jaxrs.AbstractJaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
 import org.eclipse.ecf.remoteservice.IRemoteServiceRegistration;
@@ -35,7 +35,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	
 	public void activate() throws Exception {
 		setName(JERSEY_SERVER_CONFIG_NAME);
-		setInstantiator(new AbstractJaxRSContainerInstantiator(JERSEY_SERVER_CONFIG_NAME) {
+		setInstantiator(new JaxRSContainerInstantiator(JERSEY_SERVER_CONFIG_NAME) {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
 					Configuration configuration) {
