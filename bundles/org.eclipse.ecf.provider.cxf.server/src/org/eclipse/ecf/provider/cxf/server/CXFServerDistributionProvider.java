@@ -52,6 +52,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 			}
 		});
 		setDescription("CXF Jax-RS Distribution Provider");
+		setServer(true);
 	}
 
 	public class CXFServerContainer extends JaxRSServerContainer {
