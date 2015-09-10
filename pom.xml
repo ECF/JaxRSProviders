@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Copyright (c) 2015 Remain Software and others.
+ - All rights reserved. This program and the accompanying materials
+ - are made available under the terms of the Eclipse Public License v1.0
+ - which accompanies this distribution, and is available at
+ - http://www.eclipse.org/legal/epl-v10.html
+ -
+ - Contributors:
+ -    SAP SE - initial API and implementation
+ -    Remain - Adapted to ECF build
+ -->
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.eclipse.ecf.jaxrsproviders.group</groupId>
+	<artifactId>parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+    <properties>
+        <p2.eclipse.url>http://download.eclipse.org/eclipse/updates/4.5</p2.eclipse.url>
+	<p2.mars.url>http://download.eclipse.org/releases/mars/</p2.mars.url>
+	<p2.ecf.url>http://download.eclipse.org/rt/ecf/3.10.1/site.p2</p2.ecf.url>
+        <tycho-version>0.24.0-SNAPSHOT</tycho-version>
+    </properties>
+
+  
+  <pluginRepositories>
+		<pluginRepository>
+			<id>tycho-snapshots</id>
+			<url>${tycho-snapshots-url}</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+  
+	<repositories>
+		<repository>
+			<id>p2.ecf</id>
+			<url>${p2.ecf.url}</url>
+			<layout>p2</layout>
+		</repository>
+
+		<repository>
+			<id>p2.eclipse</id>
+			<url>${p2.eclipse.url}</url>
+			<layout>p2</layout>
+		</repository>	
+	
+		<repository>
+			<id>p2.mars</id>
+			<url>${p2.mars.url}</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>bundles/</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
