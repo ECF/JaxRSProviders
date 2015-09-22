@@ -23,7 +23,10 @@
     <properties>
         <p2.eclipse.url>http://download.eclipse.org/eclipse/updates/4.5</p2.eclipse.url>
 	<p2.mars.url>http://download.eclipse.org/releases/mars/</p2.mars.url>
-	<p2.ecf.url>http://download.eclipse.org/rt/ecf/3.10.1/site.p2</p2.ecf.url>
+	<p2.ecf.url>http://download.ecf-project.org/repo/C-HEAD-sdk.feature/lastSuccessful/archive/site.p2/</p2.ecf.url>
+	<p2.orbit.url>http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/</p2.orbit.url>
+	<p2.jax.url>http://hstaudacher.github.io/osgi-jax-rs-connector</p2.jax.url>
+	<p2.ecf.url.release>http://download.eclipse.org/rt/ecf/3.10.1/site.p2</p2.ecf.url.release>
         <tycho-version>0.24.0-SNAPSHOT</tycho-version>
     </properties>
 
@@ -57,6 +60,18 @@
 		<repository>
 			<id>p2.mars</id>
 			<url>${p2.mars.url}</url>
+			<layout>p2</layout>
+		</repository>
+
+		<repository>
+			<id>p2.jax</id>
+			<url>${p2.jax.url}</url>
+			<layout>p2</layout>
+		</repository>
+	
+		<repository>
+			<id>p2.orbit</id>
+			<url>${p2.orbit.url}</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
