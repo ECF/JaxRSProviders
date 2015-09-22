@@ -7,9 +7,9 @@ We use the new pom-less tycho feature. At the time of this writing this feature 
 [More information can be found here [1]](https://wiki.eclipse.org/Tycho/Release_Notes/0.24)
 
 ## Build
-git clone https://github.com/ECF/JaxRSProviders.git
-cd JaxRSProviders
-mvn verify
+* git clone https://github.com/ECF/JaxRSProviders.git
+* cd JaxRSProviders
+* mvn verify
 
 
 
