@@ -46,6 +46,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			}
 		});
 		setDescription("Jersey Jax-RS Server Provider");
+		setServer(true);
 	}
 
 	public class JerseyServerContainer extends JaxRSServerContainer {

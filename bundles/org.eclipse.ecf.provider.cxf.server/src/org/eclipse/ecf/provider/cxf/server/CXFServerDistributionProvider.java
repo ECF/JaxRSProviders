@@ -33,7 +33,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 
 	public static final String URL_CONTEXT_PARAM = "urlContext";
 	public static final String URL_CONTEXT_DEFAULT = System
-			.getProperty(CXFServerContainer.class.getName() + ".defaultUrlContext", "http://localhost:8080");
+			.getProperty("org.eclipse.ecf.provider.cxf.server.defaultUrlContext", "http://localhost:8080");
 	public static final String ALIAS_PARAM = "alias";
 	public static final String ALIAS_PARAM_DEFAULT = "/";
 
@@ -48,35 +48,28 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 					Configuration configuration) {
 				String urlContext = getParameterValue(parameters, URL_CONTEXT_PARAM, URL_CONTEXT_DEFAULT);
 				String alias = getParameterValue(parameters, ALIAS_PARAM, ALIAS_PARAM_DEFAULT);
-				return new CXFServerContainer(urlContext, alias);
+				return new JaxRSServerContainer(urlContext, alias) {
+					@Override
+					protected Servlet createServlet(IRemoteServiceRegistration registration, final Object serviceObject,
+							@SuppressWarnings("rawtypes") Dictionary properties) {
+						return new CXFNonSpringJaxrsServlet(new Application() {
+							@Override
+							public Set<Class<?>> getClasses() {
+								Set<Class<?>> results = new HashSet<Class<?>>();
+								results.add(serviceObject.getClass());
+								return results;
+							}
+						});
+					}
+					@Override
+					protected HttpService getHttpService() {
+						return getHttpServices().get(0);
+					}
+				};
 			}
 		});
 		setDescription("CXF Jax-RS Distribution Provider");
-	}
-
-	public class CXFServerContainer extends JaxRSServerContainer {
-
-		public CXFServerContainer(String urlContext, String alias) {
-			super(urlContext, alias);
-		}
-
-		@Override
-		protected Servlet createServlet(IRemoteServiceRegistration registration, final Object serviceObject,
-				@SuppressWarnings("rawtypes") Dictionary properties) {
-			return new CXFNonSpringJaxrsServlet(new Application() {
-				@Override
-				public Set<Class<?>> getClasses() {
-					Set<Class<?>> results = new HashSet<Class<?>>();
-					results.add(serviceObject.getClass());
-					return results;
-				}
-			});
-		}
-
-		@Override
-		protected HttpService getHttpService() {
-			return getHttpServices().get(0);
-		}
+		setServer(true);
 	}
 
 }
