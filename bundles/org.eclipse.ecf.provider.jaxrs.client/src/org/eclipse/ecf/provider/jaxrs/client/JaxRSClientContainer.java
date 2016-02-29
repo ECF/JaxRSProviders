@@ -52,44 +52,45 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 		protected Object invokeSync(RSARemoteCall remoteCall) throws ECFException {
 			Method methodToInvoke;
 			synchronized (JaxRSClientRemoteService.this) {
-				if (proxy == null)
-					throw new ECFException("invokeRemoteCall:  proxy is null");
+				if (jaxRSProxy == null)
+					throw new ECFException("invokeRemoteCall:  jaxRSProxy is null");
 				methodToInvoke = remoteCall.getReflectMethod();
 				if (methodToInvoke == null)
-					throw new ECFException("method '" + methodToInvoke + " on jax rs proxy could not be found");
+					throw new ECFException("method '" + methodToInvoke + " on jax rs jaxRSProxy could not be found");
 			}
 			// Now invoke method
 			try {
-				return methodToInvoke.invoke(this.proxy, remoteCall.getParameters());
+				return methodToInvoke.invoke(this.jaxRSProxy, remoteCall.getParameters());
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				throw new ECFException("Invoke failed on jaxrs proxy", e);
+				throw new ECFException("Invoke failed on jaxrs jaxRSProxy", e);
 			}
 		}
+
 
 		@Override
 		public void dispose() {
 			super.dispose();
 			synchronized (JaxRSClientRemoteService.this) {
-				this.proxy = null;
+				this.jaxRSProxy = null;
 			}
 		}
 
-		protected Object proxy;
+		protected Object jaxRSProxy;
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public Object getProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class[] interfaces) throws ECFException {
 			if (interfaces.length == 0)
-				throw new ECFException("At least one interface must be provided to create a proxy");
+				throw new ECFException("At least one interface must be provided to create a jaxRSProxy");
 			try {
 				synchronized (JaxRSClientRemoteService.this) {
-					if (proxy == null) {
+					if (jaxRSProxy == null) {
 						Configuration config = createJaxRSClientConfiguration();
 						Client client = createJaxRSClient(config);
 						WebTarget webtarget = getJaxRSWebTarget(client);
-						proxy = createJaxRSProxy(cl, (Class<Object>) interfaces[0], webtarget);
-						if (this.proxy == null)
-							throw new ECFException("getProxy:  CreateJaxRSProxy returned null.  Cannot create proxy");
+						jaxRSProxy = createJaxRSProxy(cl, (Class<Object>) interfaces[0], webtarget);
+						if (this.jaxRSProxy == null)
+							throw new ECFException("getProxy:  CreateJaxRSProxy returned null.  Cannot create jaxRSProxy");
 					}
 					return super.createProxy(cl, interfaces);
 				}
