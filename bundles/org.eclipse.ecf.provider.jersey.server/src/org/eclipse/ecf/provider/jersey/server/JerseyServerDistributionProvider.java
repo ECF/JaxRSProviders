@@ -1,6 +1,5 @@
 package org.eclipse.ecf.provider.jersey.server;
 
-import java.util.Dictionary;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -13,8 +12,9 @@ import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
+import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer.JaxRSServerRemoteServiceContainerAdapter.JaxRSServerRemoteServiceRegistration;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
-import org.eclipse.ecf.remoteservice.IRemoteServiceRegistration;
+import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.service.http.HttpService;
@@ -58,14 +58,13 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			this.configuration = configuration;
 		}
 
-		protected ResourceConfig createResourceConfig(IRemoteServiceRegistration registration,
-				final Object serviceObject, @SuppressWarnings("rawtypes") Dictionary properties) {
+		protected ResourceConfig createResourceConfig(final RSARemoteServiceRegistration registration) {
 			if (this.configuration == null) {
 				return ResourceConfig.forApplication(new Application() {
 					@Override
 					public Set<Class<?>> getClasses() {
 						Set<Class<?>> results = new HashSet<Class<?>>();
-						results.add(serviceObject.getClass());
+						results.add(registration.getService().getClass());
 						return results;
 					}
 				});
@@ -74,9 +73,8 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 		}
 
 		@Override
-		protected Servlet createServlet(IRemoteServiceRegistration registration, Object serviceObject,
-				@SuppressWarnings("rawtypes") Dictionary properties) {
-			ResourceConfig rc = createResourceConfig(registration, serviceObject, properties);
+		protected Servlet createServlet(JaxRSServerRemoteServiceRegistration registration) {
+			ResourceConfig rc = createResourceConfig(registration);
 			return (rc != null) ? new ServletContainer(rc) : new ServletContainer();
 		}
 
@@ -84,6 +82,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 		protected HttpService getHttpService() {
 			return getHttpServices().get(0);
 		}
+
 	}
 
 }

@@ -9,7 +9,6 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.cxf.server;
 
-import java.util.Dictionary;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -23,8 +22,8 @@ import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
+import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer.JaxRSServerRemoteServiceContainerAdapter.JaxRSServerRemoteServiceRegistration;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
-import org.eclipse.ecf.remoteservice.IRemoteServiceRegistration;
 import org.osgi.service.http.HttpService;
 
 public class CXFServerDistributionProvider extends JaxRSServerDistributionProvider {
@@ -50,13 +49,12 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 				String alias = getParameterValue(parameters, ALIAS_PARAM, ALIAS_PARAM_DEFAULT);
 				return new JaxRSServerContainer(urlContext, alias) {
 					@Override
-					protected Servlet createServlet(IRemoteServiceRegistration registration, final Object serviceObject,
-							@SuppressWarnings("rawtypes") Dictionary properties) {
+					protected Servlet createServlet(final JaxRSServerRemoteServiceRegistration registration) {
 						return new CXFNonSpringJaxrsServlet(new Application() {
 							@Override
 							public Set<Class<?>> getClasses() {
 								Set<Class<?>> results = new HashSet<Class<?>>();
-								results.add(serviceObject.getClass());
+								results.add(registration.getService().getClass());
 								return results;
 							}
 						});
