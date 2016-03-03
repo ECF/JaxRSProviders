@@ -43,9 +43,8 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 		}
 
 		@Override
-		protected Object invokeAsync(RSARemoteCall remoteCall) {
-			// TODO Auto-generated method stub
-			return null;
+		protected Object invokeAsync(RSARemoteCall remoteCall) throws ECFException {
+			throw new ECFException("invokeAsync not yet implemented implemented");
 		}
 
 		@Override
