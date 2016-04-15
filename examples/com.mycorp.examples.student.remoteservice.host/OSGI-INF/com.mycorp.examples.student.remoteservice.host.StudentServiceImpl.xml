@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.mycorp.examples.student.remoteservice.host.StudentServiceImpl">
+   <properties entry="rsexport.properties"/>
+   <service>
+      <provide interface="com.mycorp.examples.student.StudentService"/>
+   </service>
+   <implementation class="com.mycorp.examples.student.remoteservice.host.StudentServiceImpl"/>
+</scr:component>

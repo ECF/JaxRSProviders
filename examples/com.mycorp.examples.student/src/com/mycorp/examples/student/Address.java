@@ -24,6 +24,9 @@ public class Address implements Serializable {
 	private String state;
 	private String postalCode;
 
+	public Address() {
+		
+	}
 	@XmlElement
 	public String getStreet() {
 		return street;

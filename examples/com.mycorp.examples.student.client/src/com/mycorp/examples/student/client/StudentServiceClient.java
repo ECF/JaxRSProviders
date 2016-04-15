@@ -11,34 +11,57 @@ package com.mycorp.examples.student.client;
 
 import java.util.List;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+
+import com.mycorp.examples.student.Address;
 import com.mycorp.examples.student.Student;
 import com.mycorp.examples.student.StudentService;
 
+@Component()
 public class StudentServiceClient {
 
-	void bindStudentService(StudentService service) {
-		System.out.println("Discovered student service=" + service);
-		// Get students
-		List<Student> originalStudents = service.getStudents();
-		// Print list
-		System.out.println("students=" + originalStudents);
-		// Get first student
-		Student s = originalStudents.get(0);
-		System.out.println("Student 0=" + s);
-		if (s != null) {
-			// Get this student via id
-			s = service.getStudent(s.getId());
-			System.out.println("Student with id=" + s.getId() + "=" + s);
+	private StudentService studentService;
+
+	@Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC)
+	void bindStudentService(StudentService service) throws Exception {
+		this.studentService = service;
+		System.out.println("Discovered student service=" + this.studentService);
+		// Get all students
+		List<Student> students = studentService.getStudents();
+		// Get first student from list
+		Student s0 = students.get(0);
+		// Print out first student
+		System.out.println("Student0=" + s0);
+		// If there is anyone there, then update
+		if (s0 != null) {
+			s0.setGrade("Eighth");
+			// And update
+			System.out.println("Updated Student0=" + studentService.updateStudent(s0));
 		}
-		// Add a new student
-		Student newStudent = service.addStudent("April Snow");
-		System.out.println("Created student=" + newStudent);
-		// Update with grade
-		newStudent.setGrade("First");
-		newStudent = service.updateStudent(newStudent);
-		System.out.println("Updated student=" + newStudent);
-		// Delete student
-		System.out.println("Deleted student=" + service.deleteStudent(newStudent.getId()));
+
+		// Create a new student
+		Student newstudent = studentService.createStudent("April Snow");
+		System.out.println("Created student=" + newstudent);
+		// when done change the grade to first
+		newstudent.setGrade("First");
+		Address addr = new Address();
+		addr.setStreet("111 NE 1st");
+		addr.setCity("Austin");
+		addr.setState("Oregon");
+		addr.setPostalCode("97200");
+		newstudent.setAddress(addr);
+		// update 
+		Student updatednewstudent = studentService.updateStudent(newstudent);
+		System.out.println("Updated student=" + updatednewstudent);
+		// Then delete new student
+		Student deletedstudent = studentService.deleteStudent(updatednewstudent.getId());
+		System.out.println("Deleted student=" + deletedstudent);
 	}
 
+	void unbindStudentService(StudentService service) throws Exception {
+		this.studentService = null;
+	}
 }

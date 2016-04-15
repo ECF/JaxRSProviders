@@ -15,6 +15,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,17 +36,17 @@ public interface StudentService {
 
 	@POST
 	@Produces(MediaType.APPLICATION_XML)
-	@Path("/students/add/{studentName}")
-	Student addStudent(@PathParam("studentName") String studentName);
+	@Path("/students/{studentName}")
+	Student createStudent(@PathParam("studentName") String studentName);
 
-	@POST
+	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
-	@Path("/students/update")
+	@Path("/students")
 	Student updateStudent(Student student);
 
 	@DELETE
-	@Path("/students/delete/{studentId}")
+	@Path("/students/{studentId}")
 	@Produces(MediaType.APPLICATION_XML)
 	Student deleteStudent(@PathParam("studentId") String studentId);
 }
