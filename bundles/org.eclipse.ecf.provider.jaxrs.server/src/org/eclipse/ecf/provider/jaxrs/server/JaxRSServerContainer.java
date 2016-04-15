@@ -116,7 +116,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	protected abstract HttpService getHttpService();
 
 	@Override
-	protected Map<String, Object> registerEndpoint(RSARemoteServiceRegistration registration) {
+	protected Map<String, Object> exportRemoteService(RSARemoteServiceRegistration registration) {
 		
 		JaxRSServerRemoteServiceRegistration reg = (JaxRSServerRemoteServiceRegistration) registration;
 		// Create Servlet Alias
@@ -147,7 +147,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	}
 
 	@Override
-	protected void unregisterEndpoint(RSARemoteServiceRegistration registration) {
+	protected void unexportRemoteService(RSARemoteServiceRegistration registration) {
 		JaxRSServerRemoteServiceRegistration reg = (JaxRSServerRemoteServiceRegistration) registration;
 		String servletAlias = reg.getServletAlias();
 		if (servletAlias != null) {
