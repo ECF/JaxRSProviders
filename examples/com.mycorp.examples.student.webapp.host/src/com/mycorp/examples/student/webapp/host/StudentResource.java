@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -54,8 +55,8 @@ public class StudentResource implements StudentService {
 
 	@POST
 	@Produces(MediaType.APPLICATION_XML)
-	@Path("/students/add/{studentName}")
-	public Student addStudent(@PathParam("studentName") String studentName) {
+	@Path("/students/{studentName}")
+	public Student createStudent(@PathParam("studentName") String studentName) {
 		if (studentName == null)
 			return null;
 		synchronized (students) {
@@ -66,10 +67,10 @@ public class StudentResource implements StudentService {
 		}
 	}
 
-	@POST
+	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
-	@Path("/students/update")
+	@Path("/students/{studentId}")
 	public Student updateStudent(Student student) {
 		Student results = null;
 		if (student != null) {
@@ -92,7 +93,7 @@ public class StudentResource implements StudentService {
 	}
 
 	@DELETE
-	@Path("/students/delete/{studentId}")
+	@Path("/students/{studentId}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Student deleteStudent(@PathParam("studentId") String studentId) {
 		Student result = students.remove(studentId);
