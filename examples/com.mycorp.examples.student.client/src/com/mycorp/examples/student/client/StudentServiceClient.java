@@ -53,7 +53,7 @@ public class StudentServiceClient {
 		addr.setState("Oregon");
 		addr.setPostalCode("97200");
 		newstudent.setAddress(addr);
-		// update 
+		// update
 		Student updatednewstudent = studentService.updateStudent(newstudent);
 		System.out.println("Updated student=" + updatednewstudent);
 		// Then delete new student

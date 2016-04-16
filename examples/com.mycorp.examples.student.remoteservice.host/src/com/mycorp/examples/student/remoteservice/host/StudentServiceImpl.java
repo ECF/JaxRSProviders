@@ -37,18 +37,18 @@ import com.mycorp.examples.student.StudentService;
 
 // The jax-rs path annotation for this service
 @Path("/studentservice")
-// The OSGi DS (declarative services) component annotation.   Note that the
+// The OSGi DS (declarative services) component annotation. Note that the
 // /rsexport.properties file defines this service impl as a remote service
-// and configures the usage of the Jersey Jax-RS implementation as the 
-// desired distribution provider.  See /rsexport.properties
-@Component(immediate=true, service = StudentService.class, properties = "rsexport.properties")
+// and configures the usage of the Jersey Jax-RS implementation as the
+// desired distribution provider. See /rsexport.properties
+@Component(immediate = true, properties = "rsexport.properties")
 public class StudentServiceImpl implements StudentService {
 
 	void activate(BundleContext context) throws Exception {
-		// Setup debug output 
+		// Setup debug output
 		context.registerService(RemoteServiceAdminListener.class, new DebugRemoteServiceAdminListener(), null);
 	}
-	
+
 	// Provide a map-based storage of students
 	private static Map<String, Student> students = Collections.synchronizedMap(new HashMap<String, Student>());
 	// Create a single student and add to students map
