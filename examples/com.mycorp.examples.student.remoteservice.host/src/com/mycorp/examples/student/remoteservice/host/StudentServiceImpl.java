@@ -40,8 +40,8 @@ import com.mycorp.examples.student.StudentService;
 // The OSGi DS (declarative services) component annotation. Note that the
 // /rsexport.properties file defines this service impl as a remote service
 // and configures the usage of the Jersey Jax-RS implementation as the
-// desired distribution provider. See /rsexport.properties
-@Component(immediate = true, properties = "rsexport.properties")
+// desired distribution provider. See /rsexport.jersey.properties
+@Component(immediate = true, properties = "rsexport.jersey.properties")
 public class StudentServiceImpl implements StudentService {
 
 	void activate(BundleContext context) throws Exception {
