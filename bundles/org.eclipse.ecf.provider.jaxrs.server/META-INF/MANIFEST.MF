@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Jax-RS Server
+Bundle-Name: ECF RSA Distribution Provider - Jax-RS Server Support
 Bundle-SymbolicName: org.eclipse.ecf.provider.jaxrs.server
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
