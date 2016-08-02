@@ -3,8 +3,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="C:/Users/slewis/.m2/repository/org/apache/cxf/cxf-rt-frontend-jaxrs/3.1.7/cxf-rt-frontend-jaxrs-3.1.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/slewis/.m2/repository/org/apache/cxf/cxf-rt-transports-http/3.1.7/cxf-rt-transports-http-3.1.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/slewis/.m2/repository/org/apache/cxf/cxf-core/3.1.7/cxf-core-3.1.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -45,7 +45,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 						(ResourceConfig) ((configuration instanceof ResourceConfig) ? configuration : null));
 			}
 		});
-		setDescription("Jersey Jax-RS Server Provider");
+		setDescription("Jersey Jax-RS Server Distribution Provider");
 		setServer(true);
 	}
 

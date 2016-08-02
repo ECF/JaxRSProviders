@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Jersey-Based Jax RS Server
+Bundle-Name: ECF Dist Provider - Jersey Jax RS Server
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF

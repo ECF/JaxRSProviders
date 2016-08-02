@@ -34,7 +34,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 	public static final String URL_CONTEXT_DEFAULT = System
 			.getProperty("org.eclipse.ecf.provider.cxf.server.defaultUrlContext", "http://localhost:8080");
 	public static final String ALIAS_PARAM = "alias";
-	public static final String ALIAS_PARAM_DEFAULT = "/";
+	public static final String ALIAS_PARAM_DEFAULT = "/cxf";
 
 	public CXFServerDistributionProvider() {
 	}

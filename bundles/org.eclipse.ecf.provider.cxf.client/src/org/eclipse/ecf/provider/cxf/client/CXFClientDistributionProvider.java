@@ -35,11 +35,15 @@ public class CXFClientDistributionProvider extends RemoteServiceDistributionProv
 							protected Object createJaxRSProxy(ClassLoader cl,
 									@SuppressWarnings("rawtypes") Class interfaceClass, WebTarget webTarget)
 											throws ECFException {
-								return JAXRSClientFactory.create(getConnectedTarget(), interfaceClass, cl);
+								return JAXRSClientFactory.create(getConnectedTarget(), interfaceClass);
 							}
 
 							@Override
 							protected Client createJaxRSClient(Configuration configuration) throws ECFException {
+								return null;
+							}
+							@Override
+							protected WebTarget getJaxRSWebTarget(Client client) throws ECFException {
 								return null;
 							}
 						};
