@@ -9,4 +9,3 @@ Bundle-ActivationPolicy: lazy
 Import-Package: com.mycorp.examples.student;version="1.0.0",
  org.osgi.service.component.annotations;version="1.2.0"
 Service-Component: OSGI-INF/com.mycorp.examples.student.client.StudentServiceClient.xml
-Require-Capability: osgi.remoteserviceadmin.distribution;filter:="(&(configs=ecf.jaxrs.jersey.client)(version>=1.0))"
