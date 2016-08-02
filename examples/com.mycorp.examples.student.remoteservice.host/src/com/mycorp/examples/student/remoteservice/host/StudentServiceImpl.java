@@ -40,12 +40,22 @@ import com.mycorp.examples.student.StudentService;
 // The OSGi DS (declarative services) component annotation. Note that the
 // /rsexport.properties file defines this service impl as a remote service
 // and configures the usage of the Jersey Jax-RS implementation as the
-// desired distribution provider. See /rsexport.jersey.properties
+// desired distribution provider. See /rsexport.jersey.properties for the 
+// values.  See also rsexport.cxf.properties, and/or rsexport.generic.properties.
+// The value below should be changed to use the CXF provider properties in
+// order to run the StudentRSHost.cxf.product
 @Component(immediate = true, properties = "rsexport.jersey.properties")
 public class StudentServiceImpl implements StudentService {
 
 	void activate(BundleContext context) throws Exception {
-		// Setup debug output
+		// Setup debug output.   The DebugRemoteServiceAdminListener is only
+		// present so that the RSA export output can be seen on console.
+		// It is not required, but makes it easier to see what's happening
+		// with RSE remoting.  Note that the BundleContext, RemoteServiceAdminListener,
+		// DebugRemoteServiceAdminListener are the only ECF or OSGi class references
+		// in this impl, meaning that if this/these are removed, that
+		// there are only application dependencies, allowing all of this service
+		// (API and/or impl) to be used easily outside of OSGi environments.
 		context.registerService(RemoteServiceAdminListener.class, new DebugRemoteServiceAdminListener(), null);
 	}
 
