@@ -58,12 +58,11 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 				public Object run(IProgressMonitor arg0) throws Exception {
 					try {
 						Object[] params = remoteCall.getParameters();
-						params = (params == null)?new Object[] {}:params;
+						params = (params == null) ? new Object[] {} : params;
 						Class[] paramTypes = new Class[params.length];
 						for (int i = 0; i < params.length; i++)
 							paramTypes[i] = params[i].getClass();
-						cf.complete(
-								invokeMethod(getMethod(remoteCall.getMethod(), paramTypes),params));
+						cf.complete(invokeMethod(getMethod(remoteCall.getMethod(), paramTypes), params));
 					} catch (Exception e) {
 						cf.completeExceptionally(e);
 					}
@@ -80,22 +79,22 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 			try {
 				return proxyClass.getMethod(methodName, paramTypes);
 			} catch (NoSuchMethodException | SecurityException e) {
-				ECFException except = new ECFException("Could not get proxy method="+methodName,e);
+				ECFException except = new ECFException("Could not get proxy method=" + methodName, e);
 				except.setStackTrace(e.getStackTrace());
 				throw except;
 			}
 		}
-		
+
 		protected Object invokeMethod(Method method, Object[] params) throws ECFException {
 			try {
 				return method.invoke(this.jaxRSProxy, params);
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				ECFException except = new ECFException("Could not invoke method="+method+" on proxy", e);
+				ECFException except = new ECFException("Could not invoke method=" + method + " on proxy", e);
 				except.setStackTrace(e.getStackTrace());
 				throw except;
 			}
 		}
-		
+
 		@Override
 		protected Object invokeSync(RSARemoteCall remoteCall) throws ECFException {
 			Method methodToInvoke;
@@ -113,7 +112,6 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 				throw new ECFException("Invoke failed on jaxrs jaxRSProxy", e);
 			}
 		}
-
 
 		@Override
 		public void dispose() {
@@ -138,7 +136,8 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 						WebTarget webtarget = getJaxRSWebTarget(client);
 						jaxRSProxy = createJaxRSProxy(cl, (Class<Object>) interfaces[0], webtarget);
 						if (this.jaxRSProxy == null)
-							throw new ECFException("getProxy:  CreateJaxRSProxy returned null.  Cannot create jaxRSProxy");
+							throw new ECFException(
+									"getProxy:  CreateJaxRSProxy returned null.  Cannot create jaxRSProxy");
 					}
 					return super.createProxy(cl, interfaces);
 				}
@@ -149,8 +148,8 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 			}
 		}
 
-		protected <T> T createJaxRSProxy(ClassLoader cl, Class<T> interfaceClass,
-				WebTarget webTarget) throws ECFException {
+		protected <T> T createJaxRSProxy(ClassLoader cl, Class<T> interfaceClass, WebTarget webTarget)
+				throws ECFException {
 			try {
 				return WebResourceFactory.newResource(interfaceClass, webTarget);
 			} catch (Throwable t) {

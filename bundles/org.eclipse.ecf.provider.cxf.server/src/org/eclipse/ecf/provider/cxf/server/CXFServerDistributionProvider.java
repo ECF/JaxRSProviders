@@ -10,6 +10,7 @@
 package org.eclipse.ecf.provider.cxf.server;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,6 +38,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 	public static final String ALIAS_PARAM_DEFAULT = "/cxf";
 
 	public CXFServerDistributionProvider() {
+		super();
 	}
 
 	public void activate() throws Exception {
@@ -59,9 +61,11 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 							}
 						});
 					}
+
 					@Override
 					protected HttpService getHttpService() {
-						return getHttpServices().get(0);
+						List<HttpService> svcs = getHttpServices();
+						return (svcs == null || svcs.size() == 0) ? null : svcs.get(0);
 					}
 				};
 			}

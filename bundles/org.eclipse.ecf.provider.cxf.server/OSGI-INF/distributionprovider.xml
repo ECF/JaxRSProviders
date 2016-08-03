@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="org.eclipse.ecf.provider.cxf.server.distribution">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" immediate="true" enabled="true" name="org.eclipse.ecf.provider.cxf.server.distribution">
    <implementation class="org.eclipse.ecf.provider.cxf.server.CXFServerDistributionProvider"/>
+   <reference bind="bindHttpService" cardinality="1..1" interface="org.osgi.service.http.HttpService" name="HttpService" policy="dynamic" unbind="unbindHttpService"/>
    <service>
       <provide interface="org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider"/>
    </service>
-   <reference bind="bindHttpService" cardinality="1..1" interface="org.osgi.service.http.HttpService" name="HttpService" policy="static" unbind="unbindHttpService"/>
 </scr:component>

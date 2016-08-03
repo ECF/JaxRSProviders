@@ -99,7 +99,7 @@ public final class WebResourceFactory implements InvocationHandler {
 	private static final MultivaluedMap<String, Object> EMPTY_HEADERS = new MultivaluedHashMap<>();
 	private static final Form EMPTY_FORM = new Form();
 	@SuppressWarnings("rawtypes")
-	private static final List<Class> PARAM_ANNOTATION_CLASSES = Arrays.<Class> asList(PathParam.class, QueryParam.class,
+	private static final List<Class> PARAM_ANNOTATION_CLASSES = Arrays.<Class>asList(PathParam.class, QueryParam.class,
 			HeaderParam.class, CookieParam.class, MatrixParam.class, FormParam.class);
 
 	public static PrivilegedAction<ClassLoader> getClassLoaderPA(final Class<?> clazz) {
@@ -130,7 +130,7 @@ public final class WebResourceFactory implements InvocationHandler {
 	 *         be used for making requests to the server.
 	 */
 	public static <C> C newResource(final Class<C> resourceInterface, final WebTarget target) {
-		return newResource(resourceInterface, target, false, EMPTY_HEADERS, Collections.<Cookie> emptyList(),
+		return newResource(resourceInterface, target, false, EMPTY_HEADERS, Collections.<Cookie>emptyList(),
 				EMPTY_FORM);
 	}
 

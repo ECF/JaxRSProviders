@@ -35,8 +35,8 @@ public class JerseyClientDistributionProvider extends RemoteServiceDistributionP
 	public JerseyClientDistributionProvider() {
 		super(CLIENT_PROVIDER_NAME, new JaxRSContainerInstantiator(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME) {
 			@Override
-			public IContainer createInstance(ContainerTypeDescription description, @SuppressWarnings("rawtypes") Map parameters,
-					final Configuration configuration) {
+			public IContainer createInstance(ContainerTypeDescription description,
+					@SuppressWarnings("rawtypes") Map parameters, final Configuration configuration) {
 				return new JaxRSClientContainer() {
 					@Override
 					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
