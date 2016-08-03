@@ -59,17 +59,20 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			this.configuration = configuration;
 		}
 
+
 		protected ResourceConfig createResourceConfig(final RSARemoteServiceRegistration registration) {
+			final Class<?> svcClass = registration.getService().getClass();
 			if (this.configuration == null) {
-				return ResourceConfig.forApplication(new Application() {
+				this.configuration = ResourceConfig.forApplication(new Application() {
 					@Override
 					public Set<Class<?>> getClasses() {
 						Set<Class<?>> results = new HashSet<Class<?>>();
-						results.add(registration.getService().getClass());
+						results.add(svcClass);
 						return results;
 					}
 				});
-			}
+			} else 
+				this.configuration.registerClasses(svcClass);
 			return this.configuration;
 		}
 
