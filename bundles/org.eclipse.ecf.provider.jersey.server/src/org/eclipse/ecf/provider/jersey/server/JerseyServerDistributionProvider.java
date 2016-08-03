@@ -1,6 +1,7 @@
 package org.eclipse.ecf.provider.jersey.server;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -80,7 +81,8 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 
 		@Override
 		protected HttpService getHttpService() {
-			return getHttpServices().get(0);
+			List<HttpService> svcs = getHttpServices();
+			return (svcs == null || svcs.size() == 0)?null:svcs.get(0);
 		}
 
 	}
