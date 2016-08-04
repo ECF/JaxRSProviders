@@ -11,13 +11,20 @@ package org.eclipse.ecf.provider.jaxrs.server;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.ws.rs.ext.MessageBodyWriter;
 
 import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
 import org.osgi.service.http.HttpService;
 
 public class JaxRSServerDistributionProvider extends RemoteServiceDistributionProvider {
+	
+	private Set<MessageBodyWriter<Object>> messageBodyWriters = Collections
+			.synchronizedSet(new HashSet<MessageBodyWriter<Object>>());
 
 	protected JaxRSServerDistributionProvider() {
 
@@ -52,4 +59,15 @@ public class JaxRSServerDistributionProvider extends RemoteServiceDistributionPr
 		return httpServices;
 	}
 
+	public void addMessageBodyWriter(MessageBodyWriter<Object> writer) {
+		messageBodyWriters.add(writer);
+	}
+
+	public void removeMessageBodyWriter(MessageBodyWriter<Object> writer) {
+		messageBodyWriters.remove(writer);
+	}
+	
+	public Set<MessageBodyWriter<Object>> getMessageBodyWriters() {
+		return messageBodyWriters;
+	}
 }

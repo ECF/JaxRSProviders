@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Configuration;
+import javax.ws.rs.ext.MessageBodyWriter;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
@@ -29,7 +30,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			.getProperty(JerseyServerContainer.class.getName() + ".defaultUrlContext", "http://localhost:8080");
 	public static final String ALIAS_PARAM = "alias";
 	public static final String ALIAS_PARAM_DEFAULT = "/org.eclipse.ecf.provider.jersey.server";
-
+	
 	public JerseyServerDistributionProvider() {
 		super();
 	}
@@ -79,6 +80,9 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 		@Override
 		protected Servlet createServlet(JaxRSServerRemoteServiceRegistration registration) {
 			ResourceConfig rc = createResourceConfig(registration);
+			for (MessageBodyWriter<Object> messageBodyWriter : getMessageBodyWriters()) {
+				rc.register(messageBodyWriter, MessageBodyWriter.class);
+			}
 			return (rc != null) ? new ServletContainer(rc) : new ServletContainer();
 		}
 
@@ -87,7 +91,5 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			List<HttpService> svcs = getHttpServices();
 			return (svcs == null || svcs.size() == 0)?null:svcs.get(0);
 		}
-
 	}
-
 }
