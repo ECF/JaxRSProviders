@@ -5,4 +5,5 @@
    <service>
       <provide interface="org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider"/>
    </service>
+   <reference bind="addMessageBodyWriter" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyWriter" name="MessageBodyWriter" policy="dynamic" unbind="removeMessageBodyWriter"/>
 </scr:component>
