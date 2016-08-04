@@ -9,7 +9,7 @@
    <launcherArgs>
       <programArgs>-consoleLog -console
       </programArgs>
-      <vmArgs>-Xms40m -Xmx384m -Declipse.ignoreApp=true -Dosgi.noShutdown=true -Dorg.eclipse.equinox.http.jetty.http.port=8080
+      <vmArgs>-Xms40m -Xmx384m -Declipse.ignoreApp=true -Dosgi.noShutdown=true -Dorg.eclipse.equinox.http.jetty.http.port=8282
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
