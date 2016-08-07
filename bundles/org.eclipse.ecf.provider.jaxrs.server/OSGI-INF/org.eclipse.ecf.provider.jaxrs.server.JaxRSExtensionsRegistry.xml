@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="org.eclipse.ecf.provider.jaxrs.server.JaxRSExtensionsRegistry">
+   <service>
+      <provide interface="org.eclipse.ecf.provider.jaxrs.server.JaxRSExtensionsRegistry"/>
+   </service>
+   <reference bind="bindHttpService" cardinality="1..n" interface="org.osgi.service.http.HttpService" name="HttpService" policy="static" unbind="unbindHttpService"/>
+   <implementation class="org.eclipse.ecf.provider.jaxrs.server.JaxRSExtensionsRegistry"/>
+</scr:component>

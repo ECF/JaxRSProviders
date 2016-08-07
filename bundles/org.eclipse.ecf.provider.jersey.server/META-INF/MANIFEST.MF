@@ -18,10 +18,12 @@ Import-Package: javax.servlet,
  org.glassfish.jersey.server.spi;version="2.14.0",
  org.glassfish.jersey.servlet;version="2.14.0",
  org.osgi.framework,
+ org.osgi.service.component.annotations;version="1.2.0";resolution:=optional,
  org.osgi.service.http;version="1.2.1"
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ecf,
  org.eclipse.equinox.common
-Service-Component: OSGI-INF/distributionprovider.xml
+Service-Component: OSGI-INF/distributionprovider.xml,
+ OSGI-INF/org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider.xml
 Provide-Capability: osgi.remoteserviceadmin.distribution; configs:List<String>="ecf.jaxrs.jersey.server"; version:Version=1.0
 Export-Package: org.eclipse.ecf.provider.jersey.server;version="1.0.0"

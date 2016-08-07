@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" immediate="false" name="org.eclipse.ecf.provider.jersey.server.distributionprovider">
-   <implementation class="org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider"/>
-   <reference bind="bindHttpService" cardinality="1..1" interface="org.osgi.service.http.HttpService" name="HttpService" policy="static" unbind="unbindHttpService"/>
-   <service>
-      <provide interface="org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider"/>
-   </service>
-   <reference bind="addMessageBodyWriter" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyWriter" name="MessageBodyWriter" policy="dynamic" unbind="removeMessageBodyWriter"/>
-</scr:component>

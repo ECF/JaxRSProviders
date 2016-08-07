@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" immediate="true" name="org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider">
+   <service>
+      <provide interface="org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider"/>
+   </service>
+   <reference bind="setExtensionsComponent" cardinality="1..1" interface="org.eclipse.ecf.provider.jaxrs.server.JaxRSExtensionsRegistry" name="ExtensionsComponent" policy="static"/>
+   <implementation class="org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider"/>
+</scr:component>
