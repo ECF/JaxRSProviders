@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
@@ -11,12 +12,13 @@ import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
 
-public class CXFClientDistributionProvider extends RemoteServiceDistributionProvider {
+public class CXFClientDistributionProvider extends JaxRSDistributionProvider {
 
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.cxf.client";
 	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.cxf.server";
@@ -52,6 +54,12 @@ public class CXFClientDistributionProvider extends RemoteServiceDistributionProv
 				};
 			}
 		});
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	protected Configurable createConfigurable() {
+		return null;
 	}
 
 }

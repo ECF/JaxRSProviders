@@ -29,7 +29,7 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
 
-public class JaxRSDistributionProvider extends RemoteServiceDistributionProvider {
+public abstract class JaxRSDistributionProvider extends RemoteServiceDistributionProvider {
 
 	public static final String JAXRS_COMPONENT_PROPERTY = "jaxrs-component";
 	public static final String JAXRS_COMPONENT_PRIORITY_PROPERTY = "jaxrs-component-priority";
@@ -71,7 +71,7 @@ public class JaxRSDistributionProvider extends RemoteServiceDistributionProvider
 
 	protected JaxRSDistributionProvider() {
 	}
-
+	
 	@Override
 	protected RemoteServiceDistributionProvider setInstantiator(IContainerInstantiator instantiator) {
 		if (instantiator instanceof JaxRSContainerInstantiator)
@@ -184,9 +184,7 @@ public class JaxRSDistributionProvider extends RemoteServiceDistributionProvider
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected Configurable createConfigurable() {
-		return null;
-	}
+	protected abstract Configurable createConfigurable();
 
 	protected Configuration getConfiguration() {
 		@SuppressWarnings("rawtypes")

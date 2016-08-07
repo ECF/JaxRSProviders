@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
 
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
@@ -72,6 +73,12 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 		});
 		setDescription("CXF Jax-RS Distribution Provider");
 		setServer(true);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	protected Configurable createConfigurable() {
+		return null;
 	}
 
 }

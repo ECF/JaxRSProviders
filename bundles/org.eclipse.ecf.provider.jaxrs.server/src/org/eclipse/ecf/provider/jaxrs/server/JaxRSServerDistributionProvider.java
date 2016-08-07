@@ -17,7 +17,7 @@ import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 import org.osgi.service.http.HttpService;
 
-public class JaxRSServerDistributionProvider extends JaxRSDistributionProvider {
+public abstract class JaxRSServerDistributionProvider extends JaxRSDistributionProvider {
 	
 	protected JaxRSServerDistributionProvider() {
 		super();

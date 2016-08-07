@@ -105,7 +105,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
 			+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
 	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
-		this.bindMessageBodyReader(instance, serviceProps);
+		super.bindMessageBodyReader(instance, serviceProps);
 	}
 
 	@SuppressWarnings("rawtypes")
