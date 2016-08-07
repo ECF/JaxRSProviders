@@ -11,24 +11,30 @@ package org.eclipse.ecf.provider.jersey.client;
 
 import java.util.Map;
 
+import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
+import javax.ws.rs.core.Feature;
 import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.MessageBodyWriter;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
+import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
-import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
-import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
+import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
 import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public class JerseyClientDistributionProvider extends RemoteServiceDistributionProvider {
+@Component(service = IRemoteServiceDistributionProvider.class)
+public class JerseyClientDistributionProvider extends JaxRSDistributionProvider {
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
 	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.jersey.server";
 
@@ -46,18 +52,7 @@ public class JerseyClientDistributionProvider extends RemoteServiceDistributionP
 							// created
 							@Override
 							protected Configuration createJaxRSClientConfiguration() throws ECFException {
-								// If we are provided a configuration via
-								// service property, and it's appropriate
-								// type (ClientConfig), then use it, otherwise
-								// create new ClientConfig
-								ClientConfig config = (ClientConfig) ((configuration instanceof ClientConfig)
-										? configuration : new ClientConfig());
-								// Configure for Jackson json generation/parsing
-								config.register(JacksonFeature.class);
-								// Configure to use ObjectMapper that is
-								// configured to ignore unknown properties
-								config.register(ObjectMapperContextResolver.class);
-								return config;
+								return configuration;
 							}
 						};
 					}
@@ -66,19 +61,69 @@ public class JerseyClientDistributionProvider extends RemoteServiceDistributionP
 		});
 	}
 
-	public static class ObjectMapperContextResolver implements ContextResolver<ObjectMapper> {
-		private ObjectMapper mapper = null;
+	@SuppressWarnings("rawtypes")
+	@Override
+	protected Configurable createConfigurable() {
+		return new ClientConfig();
+	}
 
-		public ObjectMapperContextResolver() {
-			super();
-			// Set fail on unknown properties to false
-			mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		}
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+			+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
+		super.bindMessageBodyWriter(instance, serviceProps);
+	}
 
-		@Override
-		public ObjectMapper getContext(Class<?> type) {
-			return mapper;
-		}
+	@SuppressWarnings("rawtypes")
+	protected void unbindMessageBodyWriter(MessageBodyWriter instance) {
+		super.unbindMessageBodyWriter(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+			+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
+		this.bindMessageBodyReader(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindMessageBodyReader(MessageBodyReader instance) {
+		super.unbindMessageBodyReader(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+			+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
+		super.bindContextResolver(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindContextResolver(ContextResolver instance) {
+		super.unbindContextResolver(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+			+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
+		super.bindExceptionMapper(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindExceptionMapper(ExceptionMapper instance) {
+		super.unbindExceptionMapper(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+			+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindFeature(Feature instance, Map serviceProps) {
+		super.bindFeature(instance, serviceProps);
+	}
+
+	protected void unbindFeature(Feature instance) {
+		super.unbindFeature(instance);
 	}
 
 }

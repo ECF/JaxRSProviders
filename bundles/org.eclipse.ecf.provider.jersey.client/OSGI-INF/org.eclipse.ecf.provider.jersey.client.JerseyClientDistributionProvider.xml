@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider">
+   <service>
+      <provide interface="org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider"/>
+   </service>
+   <reference bind="bindContextResolver" cardinality="0..n" interface="javax.ws.rs.ext.ContextResolver" name="ContextResolver" policy="static" target="(jaxrs-component=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)" unbind="unbindContextResolver"/>
+   <reference bind="bindExceptionMapper" cardinality="0..n" interface="javax.ws.rs.ext.ExceptionMapper" name="ExceptionMapper" policy="static" target="(jaxrs-component=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)" unbind="unbindExceptionMapper"/>
+   <reference bind="bindFeature" cardinality="0..n" interface="javax.ws.rs.core.Feature" name="Feature" policy="static" target="(jaxrs-component=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)" unbind="unbindFeature"/>
+   <reference bind="bindMessageBodyReader" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyReader" name="MessageBodyReader" policy="static" target="(jaxrs-component=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)" unbind="unbindMessageBodyReader"/>
+   <reference bind="bindMessageBodyWriter" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyWriter" name="MessageBodyWriter" policy="static" target="(jaxrs-component=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)" unbind="unbindMessageBodyWriter"/>
+   <implementation class="org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider"/>
+</scr:component>

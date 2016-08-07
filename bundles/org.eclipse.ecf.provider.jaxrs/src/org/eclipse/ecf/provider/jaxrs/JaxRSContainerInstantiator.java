@@ -52,9 +52,18 @@ public abstract class JaxRSContainerInstantiator extends RemoteServiceContainerI
 	public abstract IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
 			Configuration configuration);
 
+	private JaxRSDistributionProvider distprovider;
+
 	@Override
 	public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters) {
-		return createInstance(description, parameters, getConfigurationFromParams(description, parameters));
+		Configuration configuration = getConfigurationFromParams(description, parameters);
+		if (configuration == null)
+			configuration = (this.distprovider == null) ? null : this.distprovider.getConfiguration();
+		return createInstance(description, parameters, configuration);
+	}
+
+	void setDistributionProvider(JaxRSDistributionProvider jaxRSDistributionProvider) {
+		this.distprovider = jaxRSDistributionProvider;
 	}
 
 }
