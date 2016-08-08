@@ -37,20 +37,20 @@ public abstract class JaxRSClientDistributionProvider extends JaxRSDistributionP
 
 	@SuppressWarnings("rawtypes")
 	protected void bindClientRequestFilter(ClientRequestFilter instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	protected void unbindClientRequestFilter(ClientRequestFilter instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void bindClientResponseFilter(ClientResponseFilter instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	protected void unbindClientResponseFilter(ClientResponseFilter instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 }

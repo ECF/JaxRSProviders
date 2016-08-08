@@ -16,7 +16,7 @@ import javax.ws.rs.core.FeatureContext;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.osgi.service.component.annotations.Component;
 
-@Component(property = "jaxrs-component=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider")
+@Component(property = "jaxrs-configurable-target=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider")
 public class JacksonFeatureComponent implements Feature {
 
 	private final Feature feature;

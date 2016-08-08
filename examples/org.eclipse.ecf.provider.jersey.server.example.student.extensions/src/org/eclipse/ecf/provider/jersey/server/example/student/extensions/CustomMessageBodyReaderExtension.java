@@ -14,7 +14,7 @@ import org.osgi.service.component.annotations.Component;
 
 import com.mycorp.examples.student.Student;
 
-@Component(property = "jaxrs-component=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider")
+@Component(property = "jaxrs-configurable-target=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider")
 public class CustomMessageBodyReaderExtension implements MessageBodyReader<Student> {
 
 	@Override

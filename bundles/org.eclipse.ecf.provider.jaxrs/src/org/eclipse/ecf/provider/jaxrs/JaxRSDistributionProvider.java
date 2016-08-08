@@ -33,7 +33,7 @@ import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
 
 public abstract class JaxRSDistributionProvider extends RemoteServiceDistributionProvider {
 
-	public static final String JAXRS_COMPONENT_PROPERTY = "jaxrs-component";
+	public static final String JAXRS_COMPONENT_TARGET_PROPERTY = "jaxrs-configurable-target";
 	public static final String JAXRS_COMPONENT_PRIORITY_PROPERTY = "jaxrs-component-priority";
 	public static final String JAXRS_COMPONENT_CONTRACT_PRIORITY_PROPERTY_ = "jaxrs-component-contract-priority_";
 
@@ -73,7 +73,7 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 
 	protected JaxRSDistributionProvider() {
 	}
-	
+
 	@Override
 	protected RemoteServiceDistributionProvider setInstantiator(IContainerInstantiator instantiator) {
 		if (instantiator instanceof JaxRSContainerInstantiator)
@@ -94,14 +94,14 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 		super(name, instantiator);
 	}
 
-	protected void addJaxRSExtension(JaxRSComponent extension) {
+	protected void addJaxComponent(JaxRSComponent extension) {
 		synchronized (components) {
 			components.add(extension);
 		}
 	}
 
 	protected void addJaxRSComponent(Object instance, Map<Class<?>, Integer> contracts) {
-		addJaxRSExtension(new JaxRSComponent(instance, contracts));
+		addJaxComponent(new JaxRSComponent(instance, contracts));
 	}
 
 	protected void addJaxRSComponent(Object instance, int priority, Class<?>... contracts) {
@@ -115,7 +115,7 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 		addJaxRSComponent(instance, NO_PRIORITY, contracts);
 	}
 
-	protected void removeJaxRSExtension(Object component) {
+	protected void removeJaxComponent(Object component) {
 		synchronized (components) {
 			for (Iterator<JaxRSComponent> it = components.iterator(); it.hasNext();) {
 				JaxRSComponent ext = it.next();
@@ -125,41 +125,65 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 		}
 	}
 
-	protected void bindJaxRSExtension(Object instance, @SuppressWarnings("rawtypes") Map serviceProps) {
-		// Get objectClass
-		List<String> serviceClassNames = Arrays
-				.asList((String[]) serviceProps.get(org.osgi.framework.Constants.OBJECTCLASS));
-		// Find contract classes and associated priorities (if any)
-		Map<Class<?>, Integer> contracts = new HashMap<Class<?>, Integer>();
-		Class<?>[] serviceInstanceClasses = instance.getClass().getInterfaces();
-		for (int i = 0; i < serviceInstanceClasses.length; i++) {
-			Class<?> serviceClass = serviceInstanceClasses[i];
-			String serviceClassName = serviceClass.getName();
-			// If the service class names list contains the serviceClass name,
-			// then
-			// we have a contract
-			if (serviceClassNames.contains(serviceClassName)) {
-				// Get priority for specific contract class
-				Object o = serviceProps.get(JAXRS_COMPONENT_CONTRACT_PRIORITY_PROPERTY_ + serviceClassName);
-				// If not there, then get priority for any/all classes
-				if (o == null)
-					o = serviceProps.get(JAXRS_COMPONENT_PRIORITY_PROPERTY);
-				// If not there, then no priority specified
-				if (o == null)
-					o = NO_PRIORITY;
-				// If we have a valid priority then put in contracts list.
-				if (o != null && o instanceof Integer)
-					contracts.put(serviceClass, (Integer) o);
-				else
-					contracts.put(serviceClass, DEFAULT_PRIORITY);
-			}
+	protected boolean isValidComponentTarget(Object componentTarget) {
+		if (componentTarget instanceof String) {
+			String val = (String) componentTarget;
+			if (val.equals(this.getClass().getName()))
+				return true;
+			else
+				return false;
 		}
-		if (contracts.size() > 0)
-			addJaxRSComponent(instance, contracts);
+		return false;
+	}
+	
+	protected boolean isValidComponent(Object instance, @SuppressWarnings("rawtypes") Map serviceProps) {
+		if (instance != null && serviceProps != null) {
+			Object o = serviceProps.get(JAXRS_COMPONENT_TARGET_PROPERTY);
+			if (o != null) 
+				return isValidComponentTarget(o);
+			return true;
+		}
+		return false;
 	}
 
-	protected void unbindJaxRSExtension(Object instance) {
-		removeJaxRSExtension(instance);
+	protected void bindJaxComponent(Object instance, @SuppressWarnings("rawtypes") Map serviceProps) {
+		if (isValidComponent(instance, serviceProps)) {
+			// Get objectClass
+			List<String> serviceClassNames = Arrays
+					.asList((String[]) serviceProps.get(org.osgi.framework.Constants.OBJECTCLASS));
+			// Find contract classes and associated priorities (if any)
+			Map<Class<?>, Integer> contracts = new HashMap<Class<?>, Integer>();
+			Class<?>[] serviceInstanceClasses = instance.getClass().getInterfaces();
+			for (int i = 0; i < serviceInstanceClasses.length; i++) {
+				Class<?> serviceClass = serviceInstanceClasses[i];
+				String serviceClassName = serviceClass.getName();
+				// If the service class names list contains the serviceClass
+				// name,
+				// then
+				// we have a contract
+				if (serviceClassNames.contains(serviceClassName)) {
+					// Get priority for specific contract class
+					Object o = serviceProps.get(JAXRS_COMPONENT_CONTRACT_PRIORITY_PROPERTY_ + serviceClassName);
+					// If not there, then get priority for any/all classes
+					if (o == null)
+						o = serviceProps.get(JAXRS_COMPONENT_PRIORITY_PROPERTY);
+					// If not there, then no priority specified
+					if (o == null)
+						o = NO_PRIORITY;
+					// If we have a valid priority then put in contracts list.
+					if (o != null && o instanceof Integer)
+						contracts.put(serviceClass, (Integer) o);
+					else
+						contracts.put(serviceClass, DEFAULT_PRIORITY);
+				}
+			}
+			if (contracts.size() > 0)
+				addJaxRSComponent(instance, contracts);
+		}
+	}
+
+	protected void unbindJaxRSComponent(Object instance) {
+		removeJaxComponent(instance);
 	}
 
 	protected Configurable<?> registerComponents(Configurable<?> configurable) {
@@ -200,69 +224,69 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 
 	@SuppressWarnings("rawtypes")
 	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void unbindMessageBodyWriter(MessageBodyWriter instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void unbindMessageBodyReader(MessageBodyReader instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void unbindContextResolver(ContextResolver instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void unbindExceptionMapper(ExceptionMapper instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void bindFeature(Feature instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	protected void unbindFeature(Feature instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		this.bindJaxComponent(instance, serviceProps);
 	}
 
 	protected void unbindWriterInterceptor(WriterInterceptor instance) {
-		this.removeJaxRSExtension(instance);
+		this.removeJaxComponent(instance);
 	}
 
 }

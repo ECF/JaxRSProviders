@@ -94,8 +94,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-			+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
 		super.bindMessageBodyWriter(instance, serviceProps);
 	}
@@ -106,8 +105,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-			+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
 		super.bindMessageBodyReader(instance, serviceProps);
 	}
@@ -118,8 +116,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-			+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
 		super.bindContextResolver(instance, serviceProps);
 	}
@@ -130,8 +127,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-			+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
 		super.bindExceptionMapper(instance, serviceProps);
 	}
@@ -142,8 +138,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-			+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindFeature(Feature instance, Map serviceProps) {
 		super.bindFeature(instance, serviceProps);
 	}
@@ -153,8 +148,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
 		super.bindReaderInterceptor(instance, serviceProps);
 	}
@@ -164,8 +158,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 	
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
 		super.bindWriterInterceptor(instance, serviceProps);
 	}
@@ -175,8 +168,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindContainerRequestFilter(ContainerRequestFilter instance, Map serviceProps) {
 		super.bindContainerRequestFilter(instance, serviceProps);
 	}
@@ -186,8 +178,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
-	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindContainerResponseFilter(ContainerResponseFilter instance, Map serviceProps) {
 		super.bindContainerResponseFilter(instance, serviceProps);
 	}

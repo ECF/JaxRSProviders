@@ -17,7 +17,7 @@ import org.osgi.service.component.annotations.Component;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Component(property = "jaxrs-component=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider")
+@Component(property = "jaxrs-configurable-target=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider")
 public class ObjectMapperContextResolverComponent implements ContextResolver<ObjectMapper> {
 
 	private ObjectMapper mapper = null;
