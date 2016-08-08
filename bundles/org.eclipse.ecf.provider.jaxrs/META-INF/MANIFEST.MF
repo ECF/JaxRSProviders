@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Dist Provider - Jax RS Support
 Bundle-SymbolicName: org.eclipse.ecf.provider.jaxrs
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
@@ -15,4 +15,4 @@ Import-Package: javax.ws.rs.core;version="2.0.1",
 Bundle-Activator: org.eclipse.ecf.provider.internal.jaxrs.Activator
 Require-Bundle: org.eclipse.ecf,
  org.eclipse.equinox.common
-Export-Package: org.eclipse.ecf.provider.jaxrs;version="1.0.0"
+Export-Package: org.eclipse.ecf.provider.jaxrs;version="1.1.0"
