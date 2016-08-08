@@ -152,7 +152,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	protected void unbindClientRequestFilter(ClientRequestFilter instance) {
-		this.unbindClientRequestFilter(instance);
+		super.unbindClientRequestFilter(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
