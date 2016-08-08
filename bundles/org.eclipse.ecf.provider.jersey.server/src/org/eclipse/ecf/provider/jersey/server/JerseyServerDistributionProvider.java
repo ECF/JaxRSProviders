@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.Servlet;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
@@ -24,6 +26,8 @@ import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.ReaderInterceptor;
+import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
@@ -146,6 +150,50 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 
 	protected void unbindFeature(Feature instance) {
 		super.unbindFeature(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
+		this.removeJaxRSExtension(instance);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindWriterInterceptor(WriterInterceptor instance) {
+		this.removeJaxRSExtension(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	protected void bindContainerRequestFilter(ContainerRequestFilter instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindContainerRequestFilter(ContainerRequestFilter instance) {
+		this.removeJaxRSExtension(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider)")
+	protected void bindContainerResponseFilter(ContainerResponseFilter instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindContainerResponseFilter(ContainerResponseFilter instance) {
+		this.removeJaxRSExtension(instance);
 	}
 
 	public class JerseyServerContainer extends JaxRSServerContainer {

@@ -25,6 +25,8 @@ import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.ReaderInterceptor;
+import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
@@ -242,6 +244,24 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 	}
 
 	protected void unbindFeature(Feature instance) {
+		this.removeJaxRSExtension(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
+		this.removeJaxRSExtension(instance);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindWriterInterceptor(WriterInterceptor instance) {
 		this.removeJaxRSExtension(instance);
 	}
 

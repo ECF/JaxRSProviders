@@ -9,6 +9,7 @@ Bundle-ActivationPolicy: lazy
 Import-Package: javax.servlet;version="2.6.0",
  javax.ws.rs;version="2.0.1",
  javax.ws.rs.client;version="2.0.1",
+ javax.ws.rs.container;version="2.0.1",
  javax.ws.rs.core;version="2.0.1",
  javax.ws.rs.ext;version="2.0.1",
  org.eclipse.ecf.provider.jaxrs;version="1.0.0",

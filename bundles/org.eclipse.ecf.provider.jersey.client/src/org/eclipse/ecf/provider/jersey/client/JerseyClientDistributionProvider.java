@@ -11,6 +11,8 @@ package org.eclipse.ecf.provider.jersey.client;
 
 import java.util.Map;
 
+import javax.ws.rs.client.ClientRequestFilter;
+import javax.ws.rs.client.ClientResponseFilter;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Feature;
@@ -18,13 +20,15 @@ import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.ReaderInterceptor;
+import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
-import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
+import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientDistributionProvider;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
@@ -34,7 +38,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 
 @Component(service = IRemoteServiceDistributionProvider.class)
-public class JerseyClientDistributionProvider extends JaxRSDistributionProvider {
+public class JerseyClientDistributionProvider extends JaxRSClientDistributionProvider {
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
 	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.jersey.server";
 
@@ -125,5 +129,50 @@ public class JerseyClientDistributionProvider extends JaxRSDistributionProvider 
 	protected void unbindFeature(Feature instance) {
 		super.unbindFeature(instance);
 	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
+		this.removeJaxRSExtension(instance);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindWriterInterceptor(WriterInterceptor instance) {
+		this.removeJaxRSExtension(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindClientRequestFilter(ClientRequestFilter instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindClientRequestFilter(ClientRequestFilter instance) {
+		this.removeJaxRSExtension(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
+	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
+	protected void bindClientResponseFilter(ClientResponseFilter instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindClientResponseFilter(ClientResponseFilter instance) {
+		this.removeJaxRSExtension(instance);
+	}
+
 
 }

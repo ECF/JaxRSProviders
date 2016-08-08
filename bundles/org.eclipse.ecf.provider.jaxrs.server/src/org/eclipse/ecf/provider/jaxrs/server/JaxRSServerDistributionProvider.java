@@ -12,6 +12,10 @@ package org.eclipse.ecf.provider.jaxrs.server;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.container.ContainerResponseFilter;
 
 import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
@@ -50,6 +54,24 @@ public abstract class JaxRSServerDistributionProvider extends JaxRSDistributionP
 
 	protected List<HttpService> getHttpServices() {
 		return httpServices;
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindContainerRequestFilter(ContainerRequestFilter instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindContainerRequestFilter(ContainerRequestFilter instance) {
+		this.removeJaxRSExtension(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindContainerResponseFilter(ContainerResponseFilter instance, Map serviceProps) {
+		this.bindJaxRSExtension(instance, serviceProps);
+	}
+
+	protected void unbindContainerResponseFilter(ContainerResponseFilter instance) {
+		this.removeJaxRSExtension(instance);
 	}
 
 }
