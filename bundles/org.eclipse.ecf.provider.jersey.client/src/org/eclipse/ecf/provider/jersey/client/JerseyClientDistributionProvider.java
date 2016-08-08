@@ -134,44 +134,44 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
 	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
 	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		super.bindReaderInterceptor(instance, serviceProps);
 	}
 
 	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
-		this.removeJaxRSExtension(instance);
+		super.unbindReaderInterceptor(instance);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
 	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
 	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		super.bindWriterInterceptor(instance, serviceProps);
 	}
 
 	protected void unbindWriterInterceptor(WriterInterceptor instance) {
-		this.removeJaxRSExtension(instance);
+		super.unbindWriterInterceptor(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
 	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
 	protected void bindClientRequestFilter(ClientRequestFilter instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		super.bindClientRequestFilter(instance, serviceProps);
 	}
 
 	protected void unbindClientRequestFilter(ClientRequestFilter instance) {
-		this.removeJaxRSExtension(instance);
+		this.unbindClientRequestFilter(instance);
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE, target = "(" + JAXRS_COMPONENT_PROPERTY
 	+ "=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider)")
 	protected void bindClientResponseFilter(ClientResponseFilter instance, Map serviceProps) {
-		this.bindJaxRSExtension(instance, serviceProps);
+		super.bindClientResponseFilter(instance, serviceProps);
 	}
 
 	protected void unbindClientResponseFilter(ClientResponseFilter instance) {
-		this.removeJaxRSExtension(instance);
+		super.unbindClientResponseFilter(instance);
 	}
 
 
