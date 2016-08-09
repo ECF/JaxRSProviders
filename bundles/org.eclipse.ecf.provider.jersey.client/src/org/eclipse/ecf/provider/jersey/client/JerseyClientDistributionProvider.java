@@ -25,12 +25,9 @@ import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientDistributionProvider;
-import org.eclipse.ecf.remoteservice.IRemoteService;
-import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
 import org.glassfish.jersey.client.ClientConfig;
 import org.osgi.service.component.annotations.Component;
@@ -47,20 +44,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description,
 					@SuppressWarnings("rawtypes") Map parameters, final Configuration configuration) {
-				return new JaxRSClientContainer() {
-					@Override
-					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
-						return new JaxRSClientRemoteService(this, registration) {
-							// Overriding this method allows us to configure the
-							// JaxRS client when a remote service instance is
-							// created
-							@Override
-							protected Configuration createJaxRSClientConfiguration() throws ECFException {
-								return configuration;
-							}
-						};
-					}
-				};
+				return new JaxRSClientContainer(configuration);
 			}
 		});
 	}

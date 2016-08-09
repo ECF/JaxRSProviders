@@ -34,9 +34,16 @@ import org.eclipse.equinox.concurrent.future.IProgressRunnable;
 
 public class JaxRSClientContainer extends AbstractRSAClientContainer {
 
-	public JaxRSClientContainer() {
+	Configuration configuration;
+	
+	public JaxRSClientContainer(Configuration configuration) {
 		super(JaxRSNamespace.INSTANCE
 				.createInstance(new Object[] { URI.create("uuid:" + java.util.UUID.randomUUID().toString()) }));
+		this.configuration = configuration;
+	}
+	
+	public JaxRSClientContainer() {
+		this(null);
 	}
 
 	protected class JaxRSClientRemoteService extends AbstractRSAClientService {
@@ -159,7 +166,7 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 		}
 
 		protected Configuration createJaxRSClientConfiguration() throws ECFException {
-			return null;
+			return configuration;
 		}
 
 		protected Client createJaxRSClient(Configuration configuration) throws ECFException {
