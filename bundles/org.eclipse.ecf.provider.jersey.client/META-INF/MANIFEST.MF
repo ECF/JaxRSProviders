@@ -21,7 +21,7 @@ Import-Package: com.fasterxml.jackson.databind;version="2.5.0",
  org.glassfish.jersey.client;version="2.14.0",
  org.glassfish.jersey.jackson;version="2.14.0",
  org.osgi.framework,
- org.osgi.service.component.annotations;version="1.2.0"
+ org.osgi.service.component.annotations;version="1.2.0";resolution:=optional
 Require-Bundle: org.eclipse.ecf,
  org.eclipse.equinox.common
 Provide-Capability: osgi.remoteserviceadmin.distribution; configs:List<String>="ecf.jaxrs.jersey.client"; version:Version=1.0

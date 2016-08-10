@@ -232,4 +232,18 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
          version="2.4.0.b09"
          unpack="false"/>
 
+   <plugin
+         id="javax.validation.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.osgi.services"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
