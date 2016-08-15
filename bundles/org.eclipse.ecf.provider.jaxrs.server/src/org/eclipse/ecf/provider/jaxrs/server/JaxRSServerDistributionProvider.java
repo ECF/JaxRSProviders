@@ -22,11 +22,11 @@ import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 import org.osgi.service.http.HttpService;
 
 public abstract class JaxRSServerDistributionProvider extends JaxRSDistributionProvider {
-	
+
 	protected JaxRSServerDistributionProvider() {
 		super();
 	}
-	
+
 	protected JaxRSServerDistributionProvider(String name, IContainerInstantiator instantiator) {
 		super(name, instantiator);
 	}

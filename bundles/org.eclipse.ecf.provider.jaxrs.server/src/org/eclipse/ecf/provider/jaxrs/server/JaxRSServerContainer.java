@@ -9,17 +9,19 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jaxrs.server;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+import javax.ws.rs.core.Configurable;
 
+import org.eclipse.ecf.core.identity.URIID;
 import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
-import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer.JaxRSServerRemoteServiceContainerAdapter.JaxRSServerRemoteServiceRegistration;
 import org.eclipse.ecf.remoteservice.AbstractRSAContainer;
-import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter;
-import org.eclipse.ecf.remoteservice.RemoteServiceRegistrationImpl;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
@@ -37,72 +39,46 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 																					// HttpContext
 
 	protected static final String SLASH = "/";
+	protected final List<RSARemoteServiceRegistration> exportedRegistrations = new ArrayList<RSARemoteServiceRegistration>();
 
-	private final String urlContext;
-	private final String alias;
+	protected final String servletAlias;
+	protected Servlet servlet;
+	@SuppressWarnings("rawtypes")
+	protected Dictionary servletProperties;
+	protected HttpContext servletContext;
 
-	public JaxRSServerContainer(String urlContext, String alias) {
-		super(JaxRSNamespace.INSTANCE.createInstance(new Object[] { urlContext + alias }));
-		this.urlContext = urlContext;
-		this.alias = alias;
+	public JaxRSServerContainer(URI uri) {
+		super(JaxRSNamespace.INSTANCE.createInstance(new Object[] { uri }));
+		String path = uri.getPath();
+		this.servletAlias = (path == null) ? SLASH : path;
 	}
 
-	public class JaxRSServerRemoteServiceContainerAdapter extends RSARemoteServiceContainerAdapter {
-
-		public JaxRSServerRemoteServiceContainerAdapter(AbstractRSAContainer container) {
-			super(container);
-		}
-
-		@Override
-		protected RemoteServiceRegistrationImpl createRegistration() {
-			return new JaxRSServerRemoteServiceRegistration();
-		}
-
-		public class JaxRSServerRemoteServiceRegistration extends RSARemoteServiceRegistration {
-
-			private static final long serialVersionUID = 2376479911719219503L;
-
-			private String servletAlias;
-
-			public String getServletAlias() {
-				return this.servletAlias;
-			}
-
-			public void setServletAlias(String servletAlias) {
-				this.servletAlias = servletAlias;
-			}
-		}
+	protected List<RSARemoteServiceRegistration> getExportedRegistrations() {
+		return exportedRegistrations;
 	}
 
-	protected RSARemoteServiceContainerAdapter createContainerAdapter() {
-		return new JaxRSServerRemoteServiceContainerAdapter(this);
-	}
-
-	protected String getAlias() {
-		return alias;
+	protected URI getURI() {
+		return ((URIID) getID()).toURI();
 	}
 
 	protected String getUrlContext() {
-		return urlContext;
+		URI u = getURI();
+		return u.getScheme() + "://" + u.getHost() + ":" + u.getPort();
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected Dictionary createServletProperties(JaxRSServerRemoteServiceRegistration registration) {
+	protected Dictionary createServletProperties(RSARemoteServiceRegistration registration) {
 		return getKeyEndsWithPropertyValue(registration, SERVLET_PROPERTIES_PARAM, Dictionary.class);
 	}
 
-	protected HttpContext createServletContext(JaxRSServerRemoteServiceRegistration registration) {
+	protected HttpContext createServletContext(RSARemoteServiceRegistration registration) {
 		return getKeyEndsWithPropertyValue(registration, SERVLET_HTTPCONTEXT_PARAM, HttpContext.class);
 	}
 
-	protected String createServletAlias(JaxRSServerRemoteServiceRegistration registration) {
-		return getAlias();
-	}
-
-	protected abstract Servlet createServlet(JaxRSServerRemoteServiceRegistration registration);
+	protected abstract Servlet createServlet(RSARemoteServiceRegistration registration);
 
 	@SuppressWarnings("unchecked")
-	private <T> T getKeyEndsWithPropertyValue(JaxRSServerRemoteServiceRegistration registration, String keyEndsWith,
+	private <T> T getKeyEndsWithPropertyValue(RSARemoteServiceRegistration registration, String keyEndsWith,
 			Class<T> valueType) {
 		for (String key : registration.getPropertyKeys()) {
 			if (key.endsWith(keyEndsWith)) {
@@ -116,54 +92,91 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 
 	protected abstract HttpService getHttpService();
 
+	@SuppressWarnings("rawtypes")
+	protected Configurable createConfigurable() {
+		return null;
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected Configurable createConfigurable(RSARemoteServiceRegistration registration) {
+		Configurable configurable = createConfigurable();
+		if (configurable != null)
+			configurable.register(registration.getService());
+		return configurable;
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected Configurable createConfigurable(List<RSARemoteServiceRegistration> registrations) {
+		Configurable result = null;
+		for (RSARemoteServiceRegistration reg : registrations) {
+			if (result == null)
+				result = createConfigurable(reg);
+			else
+				result.register(reg);
+		}
+		return result;
+	}
+
+	protected abstract void exportRegistration(RSARemoteServiceRegistration registration);
+
+	protected abstract void unexportRegistration(RSARemoteServiceRegistration registration);
+
 	@Override
 	protected Map<String, Object> exportRemoteService(RSARemoteServiceRegistration registration) {
 
-		JaxRSServerRemoteServiceRegistration reg = (JaxRSServerRemoteServiceRegistration) registration;
-		// Create Servlet Alias
-		String servletAlias = createServletAlias(reg);
-		if (servletAlias == null)
-			throw new NullPointerException(
-					"Servlet alias is null.  It cannot be null to export Jax RS servlet.   See subclass implementation of JaxRSServerContainer.createServletAlias()");
-		// Create Servlet
-		Servlet servlet = createServlet(reg);
-		if (servlet == null)
-			throw new NullPointerException(
-					"Servlet is null.  It cannot be null to export Jax RS servlet.   See subclass implementation of JaxRSServerContainer.createServlet()");
-		// Create servletProps
-		@SuppressWarnings("rawtypes")
-		Dictionary servletProps = createServletProperties(reg);
-		// Create HttpContext
-		HttpContext servletContext = createServletContext(reg);
+		RSARemoteServiceRegistration reg = (RSARemoteServiceRegistration) registration;
 
-		HttpService svc = getHttpService();
-		if (svc == null)
-			throw new NullPointerException("HttpService instance is null. It cannot to export JaxRS servlet=" + servlet
-					+ ".  See subclass implementation of JaxRSServerContainer.getHttpService()");
+		synchronized (this.exportedRegistrations) {
+			if (this.servlet == null) {
+				// Create Servlet
+				this.servlet = createServlet(reg);
+				if (this.servlet == null)
+					throw new NullPointerException(
+							"Servlet is null.  It cannot be null to export Jax RS servlet.   See subclass implementation of JaxRSServerContainer.createServlet()");
+				// Create servletProps
+				this.servletProperties = createServletProperties(reg);
+				// Create HttpContext
+				this.servletContext = createServletContext(reg);
 
-		try {
-			svc.registerServlet(servletAlias, servlet, servletProps, servletContext);
-		} catch (ServletException | NamespaceException e) {
-			throw new RuntimeException("Cannot register servlet with alias=" + getAlias(), e);
+				HttpService svc = getHttpService();
+				if (svc == null)
+					throw new NullPointerException("HttpService instance is null. It cannot to export JaxRS servlet="
+							+ servlet + ".  See subclass implementation of JaxRSServerContainer.getHttpService()");
+
+				try {
+					svc.registerServlet(this.servletAlias, this.servlet, this.servletProperties, this.servletContext);
+				} catch (ServletException | NamespaceException e) {
+					throw new RuntimeException("Cannot register servlet with alias=" + servletAlias, e);
+				}
+			} else
+				exportRegistration(reg);
+
+			this.exportedRegistrations.add(reg);
+
+			return createExtraProperties(reg);
+
 		}
-
-		((JaxRSServerRemoteServiceRegistration) registration).setServletAlias(servletAlias);
-
-		return createExtraProperties(registration);
 	}
 
-	protected Map<String, Object> createExtraProperties(RSARemoteServiceRegistration registration) {
+	protected Map<String, Object> createExtraProperties(RSARemoteServiceRegistration reg) {
 		return null;
 	}
 
 	@Override
 	protected void unexportRemoteService(RSARemoteServiceRegistration registration) {
-		JaxRSServerRemoteServiceRegistration reg = (JaxRSServerRemoteServiceRegistration) registration;
-		String servletAlias = reg.getServletAlias();
-		if (servletAlias != null) {
-			HttpService httpService = getHttpService();
-			if (httpService != null)
-				httpService.unregister(servletAlias);
+		synchronized (this.exportedRegistrations) {
+			boolean removed = this.exportedRegistrations.remove(registration);
+			if (removed) {
+				if (this.servlet != null) {
+					unexportRegistration(registration);
+					if (this.exportedRegistrations.size() == 0) {
+						HttpService httpService = getHttpService();
+						if (httpService != null)
+							httpService.unregister(servletAlias);
+						this.servlet = null;
+					}
+				}
+			}
 		}
 	}
 

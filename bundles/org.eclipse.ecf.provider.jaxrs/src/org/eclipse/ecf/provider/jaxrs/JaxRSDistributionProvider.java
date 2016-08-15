@@ -135,11 +135,11 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 		}
 		return false;
 	}
-	
+
 	protected boolean isValidComponent(Object instance, @SuppressWarnings("rawtypes") Map serviceProps) {
 		if (instance != null && serviceProps != null) {
 			Object o = serviceProps.get(JAXRS_COMPONENT_TARGET_PROPERTY);
-			if (o != null) 
+			if (o != null)
 				return isValidComponentTarget(o);
 			return true;
 		}

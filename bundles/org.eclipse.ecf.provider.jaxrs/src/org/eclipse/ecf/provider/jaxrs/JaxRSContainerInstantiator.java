@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.Configuration;
 
+import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.provider.IRemoteServiceContainerInstantiator;
@@ -50,12 +51,13 @@ public abstract class JaxRSContainerInstantiator extends RemoteServiceContainerI
 	}
 
 	public abstract IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
-			Configuration configuration);
+			Configuration configuration) throws ContainerCreateException;
 
 	private JaxRSDistributionProvider distprovider;
 
 	@Override
-	public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters) {
+	public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters)
+			throws ContainerCreateException {
 		Configuration configuration = getConfigurationFromParams(description, parameters);
 		if (configuration == null)
 			configuration = (this.distprovider == null) ? null : this.distprovider.getConfiguration();

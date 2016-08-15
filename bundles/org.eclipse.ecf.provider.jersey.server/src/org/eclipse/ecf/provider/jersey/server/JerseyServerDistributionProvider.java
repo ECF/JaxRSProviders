@@ -10,15 +10,14 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jersey.server;
 
-import java.util.HashSet;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Feature;
@@ -29,11 +28,11 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.WriterInterceptor;
 
+import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
-import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer.JaxRSServerRemoteServiceContainerAdapter.JaxRSServerRemoteServiceRegistration;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
@@ -50,11 +49,8 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 
 	public static final String JERSEY_SERVER_CONFIG_NAME = "ecf.jaxrs.jersey.server";
 
-	public static final String URL_CONTEXT_PARAM = "urlContext";
-	public static final String URL_CONTEXT_DEFAULT = System
-			.getProperty(JerseyServerContainer.class.getName() + ".defaultUrlContext", "http://localhost:8080");
-	public static final String ALIAS_PARAM = "alias";
-	public static final String ALIAS_PARAM_DEFAULT = "/org.eclipse.ecf.provider.jersey.server";
+	public static final String URI_PARAM = "uri";
+	public static final String URI_DEFAULT = "http://localhost:8080/jersey";
 
 	public JerseyServerDistributionProvider() {
 		super();
@@ -72,10 +68,13 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 		setInstantiator(new JaxRSContainerInstantiator(JERSEY_SERVER_CONFIG_NAME) {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
-					Configuration configuration) {
-				String urlContext = getParameterValue(parameters, URL_CONTEXT_PARAM, URL_CONTEXT_DEFAULT);
-				String alias = getParameterValue(parameters, ALIAS_PARAM, ALIAS_PARAM_DEFAULT);
-				return new JerseyServerContainer(urlContext, alias, (ResourceConfig) configuration);
+					Configuration configuration) throws ContainerCreateException {
+				String uri = getParameterValue(parameters, URI_PARAM, URI_DEFAULT);
+				try {
+					return new JerseyServerContainer(new URI(uri), (ResourceConfig) configuration);
+				} catch (URISyntaxException e) {
+					throw new ContainerCreateException("Cannot create Jersey Server Container", e);
+				}
 			}
 		});
 		setDescription("Jersey Jax-RS Server Distribution Provider");
@@ -156,7 +155,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
 		super.unbindReaderInterceptor(instance);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
@@ -189,39 +188,49 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 
 	public class JerseyServerContainer extends JaxRSServerContainer {
 
-		private ResourceConfig configuration;
+		private ResourceConfig originalConfiguration;
 
-		public JerseyServerContainer(String urlContext, String alias, ResourceConfig configuration) {
-			super(urlContext, alias);
-			this.configuration = configuration;
+		public JerseyServerContainer(URI uri, ResourceConfig configuration) {
+			super(uri);
+			this.originalConfiguration = configuration;
 		}
 
-		protected ResourceConfig createResourceConfig(final RSARemoteServiceRegistration registration) {
-			final Class<?> svcClass = registration.getService().getClass();
-			if (this.configuration == null) {
-				this.configuration = ResourceConfig.forApplication(new Application() {
-					@Override
-					public Set<Class<?>> getClasses() {
-						Set<Class<?>> results = new HashSet<Class<?>>();
-						results.add(svcClass);
-						return results;
-					}
-				});
-			} else
-				this.configuration.registerClasses(svcClass);
-			return this.configuration;
+		@SuppressWarnings("rawtypes")
+		@Override
+		protected Configurable createConfigurable() {
+			return (this.originalConfiguration == null) ? new ResourceConfig()
+					: new ResourceConfig(this.originalConfiguration);
 		}
 
 		@Override
-		protected Servlet createServlet(JaxRSServerRemoteServiceRegistration registration) {
-			ResourceConfig rc = createResourceConfig(registration);
-			return (rc != null) ? new ServletContainer(rc) : new ServletContainer();
+		protected void exportRegistration(RSARemoteServiceRegistration reg) {
+			ServletContainer sc = (ServletContainer) this.servlet;
+			if (sc == null)
+				throw new NullPointerException("Servlet cannot be null");
+			ResourceConfig config = new ResourceConfig(sc.getConfiguration());
+			config.register(reg.getService());
+			((ServletContainer) servlet).reload(config);
+		}
+
+		@Override
+		protected Servlet createServlet(RSARemoteServiceRegistration registration) {
+			ResourceConfig resourceConfig = (ResourceConfig) createConfigurable();
+			if (resourceConfig != null)
+				resourceConfig.register(registration.getService());
+			return new ServletContainer(resourceConfig);
 		}
 
 		@Override
 		protected HttpService getHttpService() {
 			List<HttpService> svcs = getHttpServices();
 			return (svcs == null || svcs.size() == 0) ? null : svcs.get(0);
+		}
+
+		@Override
+		protected void unexportRegistration(RSARemoteServiceRegistration registration) {
+			@SuppressWarnings("rawtypes")
+			Configurable c = createConfigurable(getExportedRegistrations());
+			((ServletContainer) servlet).reload((ResourceConfig) c);
 		}
 	}
 }
