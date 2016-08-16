@@ -155,7 +155,6 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 			this.exportedRegistrations.add(reg);
 
 			return createExtraProperties(reg);
-
 		}
 	}
 
