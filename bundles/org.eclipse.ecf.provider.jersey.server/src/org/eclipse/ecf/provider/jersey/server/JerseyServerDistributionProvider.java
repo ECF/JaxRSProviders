@@ -230,7 +230,9 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 		protected void unexportRegistration(RSARemoteServiceRegistration registration) {
 			@SuppressWarnings("rawtypes")
 			Configurable c = createConfigurable(getExportedRegistrations());
-			((ServletContainer) servlet).reload((ResourceConfig) c);
+			if (c != null)
+				((ServletContainer) servlet).reload((ResourceConfig) c);
 		}
+		
 	}
 }

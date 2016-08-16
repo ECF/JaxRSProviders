@@ -12,6 +12,7 @@ package org.eclipse.ecf.provider.jaxrs.server;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -163,20 +164,40 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	}
 
 	@Override
-	protected void unexportRemoteService(RSARemoteServiceRegistration registration) {
+	public void dispose() {
 		synchronized (this.exportedRegistrations) {
-			boolean removed = this.exportedRegistrations.remove(registration);
-			if (removed) {
-				if (this.servlet != null) {
-					unexportRegistration(registration);
-					if (this.exportedRegistrations.size() == 0) {
-						HttpService httpService = getHttpService();
-						if (httpService != null)
-							httpService.unregister(servletAlias);
-						this.servlet = null;
+			for (Iterator<RSARemoteServiceRegistration> i = this.exportedRegistrations.iterator(); i.hasNext();) {
+				RSARemoteServiceRegistration reg = i.next();
+				i.remove();
+				removeRegistration(reg);
+			}
+		}
+		super.dispose();
+	}
+
+	protected void removeRegistration(RSARemoteServiceRegistration registration) {
+		if (this.servlet != null) {
+			unexportRegistration(registration);
+			if (this.exportedRegistrations.size() == 0) {
+				HttpService httpService = getHttpService();
+				if (httpService != null) {
+					try {
+						httpService.unregister(servletAlias);
+					} catch (Exception e) {
+						// log
+						e.printStackTrace();
 					}
 				}
+				this.servlet = null;
 			}
+		}
+	}
+
+	@Override
+	protected void unexportRemoteService(RSARemoteServiceRegistration registration) {
+		synchronized (this.exportedRegistrations) {
+			if (this.exportedRegistrations.remove(registration))
+				removeRegistration(registration);
 		}
 	}
 
