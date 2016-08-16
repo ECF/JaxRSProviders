@@ -21,3 +21,4 @@ Require-Bundle: org.eclipse.ecf;bundle-version="3.6.0",
  org.eclipse.equinox.common,
  org.apache.cxf.cxf-core
 Service-Component: OSGI-INF/distributionprovider.xml
+Export-Package: org.eclipse.ecf.provider.cxf.server;version="1.0.0"
