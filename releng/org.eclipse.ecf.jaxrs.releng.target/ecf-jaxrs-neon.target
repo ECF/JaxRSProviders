@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="JaxRS Neon" sequenceNumber="15">
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.apache.httpcomponents.httpcore" version="4.3.3.v201411290715"/>
+<unit id="org.jdom.source" version="1.1.1.v201101151400"/>
+<unit id="org.apache.ws.commons.util" version="1.0.1.v20100518-1140"/>
+<unit id="org.apache.xmlrpc" version="3.0.0.v20100427-1100"/>
+<unit id="org.apache.commons.codec.source" version="1.6.0.v201305230611"/>
+<unit id="org.apache.httpcomponents.httpcore.source" version="4.3.3.v201411290715"/>
+<unit id="org.json" version="1.0.0.v201011060100"/>
+<unit id="com.sun.syndication.source" version="0.9.0.v200803061811"/>
+<unit id="org.jdom" version="1.1.1.v201101151400"/>
+<unit id="org.apache.httpcomponents.httpclient" version="4.3.6.v201511171540"/>
+<unit id="org.apache.httpcomponents.httpclient.source" version="4.3.6.v201511171540"/>
+<unit id="com.sun.syndication" version="0.9.0.v200803061811"/>
+<unit id="org.apache.log4j.source" version="1.2.15.v201012070815"/>
+<unit id="org.apache.commons.httpclient.source" version="3.1.0.v201012070820"/>
+<unit id="org.apache.commons.httpclient" version="3.1.0.v201012070820"/>
+<unit id="org.apache.commons.codec" version="1.6.0.v201305230611"/>
+<unit id="org.xbill.dns.source" version="2.0.8.v201112050911"/>
+<unit id="org.xbill.dns" version="2.0.8.v201112050911"/>
+<unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.apache.hadoop.zookeeper" version="3.3.3.v201105210832"/>
+<unit id="org.apache.hadoop.zookeeper.source" version="3.3.3.v201105210832"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.pde.feature.group" version="3.12.0.v20160606-1100"/>
+<unit id="org.eclipse.emf.edit.ui.source.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.pde.source.feature.group" version="3.12.0.v20160606-1100"/>
+<unit id="org.eclipse.emf.edit.ui.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.platform.feature.group" version="4.6.0.v20160606-1342"/>
+<unit id="org.eclipse.platform.source.feature.group" version="4.6.0.v20160606-1342"/>
+<repository location="http://download.eclipse.org/releases/neon"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="com.google.gwtjsonrpc" version="1.2.5.v201112241444"/>
+<unit id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider.source" version="2.6.2.v20161117-2150"/>
+<unit id="org.codehaus.jackson.xc" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.mapper.source" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.xc.source" version="1.6.0.v20101005-0925"/>
+<unit id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" version="2.6.2.v20161117-2150"/>
+<unit id="org.apache.cassandra" version="0.7.0.v201503170330"/>
+<unit id="org.codehaus.jackson.mapper" version="1.6.0.v20101005-0925"/>
+<unit id="org.glassfish.jersey.media.jersey-media-json-jackson" version="2.22.1.v20161117-2005"/>
+<unit id="com.google.gwtjsonrpc.source" version="1.2.5.v201112241444"/>
+<unit id="org.json" version="1.0.0.v201011060100"/>
+<unit id="org.apache.cassandra.source" version="0.7.0.v201503170330"/>
+<unit id="org.codehaus.jackson.smile.source" version="1.6.0.v20101005-0925"/>
+<unit id="org.eclipse.orbit.mongodb.source" version="2.10.1.v20130422-1135"/>
+<unit id="org.codehaus.jackson.core" version="1.6.0.v20101005-0925"/>
+<unit id="org.glassfish.jersey.media.jersey-media-json-jackson.source" version="2.22.1.v20161117-2005"/>
+<unit id="org.codehaus.jackson.jaxrs.source" version="1.6.0.v20101005-1100"/>
+<unit id="org.eclipse.orbit.mongodb" version="2.10.1.v20130422-1135"/>
+<unit id="org.codehaus.jackson.smile" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.core.source" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.jaxrs" version="1.6.0.v20101005-1100"/>
+<repository location="http://download.eclipse.org/tools/orbit/S-builds/S20161205183421/repository"/>
+</location>
+</locations>
+</target>

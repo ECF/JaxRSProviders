@@ -12,4 +12,3 @@ Import-Package: com.mycorp.examples.student;version="1.0.0",
 Service-Component: OSGI-INF/org.eclipse.ecf.provider.jersey.server.example.student.extensions.CustomMessageBodyWriterExtension.xml,
  OSGI-INF/org.eclipse.ecf.provider.jersey.server.example.student.extensions.CustomMessageBodyReaderExtension.xml
 Bundle-ActivationPolicy: lazy
-Require-Bundle: javax.ws.rs
