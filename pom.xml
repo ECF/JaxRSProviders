@@ -82,6 +82,12 @@
     <module>examples/com.mycorp.examples.student</module>
     <module>examples/com.mycorp.examples.student.remoteservice.host</module>
     <module>releng/org.eclipse.ecf.jaxrs.releng.target</module>
+    <module>bundles/org.eclipse.ecf.provider.jersey.server</module>
+    <module>bundles/org.eclipse.ecf.provider.jersey.client</module>
+    <module>bundles/org.eclipse.ecf.provider.jaxrs.server</module>
+    <module>bundles/org.eclipse.ecf.provider.jaxrs.client</module>
+    <module>bundles/org.eclipse.ecf.provider.jaxrs</module>
+    
   </modules>
 
   <build>
