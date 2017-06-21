@@ -12,7 +12,6 @@ package com.mycorp.examples.student.remoteservice.host;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -37,6 +36,7 @@ import org.osgi.service.remoteserviceadmin.RemoteServiceAdminListener;
 import com.mycorp.examples.student.Address;
 import com.mycorp.examples.student.Student;
 import com.mycorp.examples.student.StudentService;
+import com.mycorp.examples.student.Students;
 
 // The jax-rs path annotation for this service
 @Path("/studentservice")
@@ -94,21 +94,23 @@ public class StudentServiceImpl implements StudentService {
 
 	// Implementation of StudentService based upon the students map
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students")
-	public List<Student> getStudents() {
-		return new ArrayList<Student>(students.values());
+	public Students getStudents() {
+		Students result = new Students();
+		result.setStudents(new ArrayList<Student>(students.values()));
+		return result;
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students/{studentId}")
 	public Student getStudent(@PathParam("studentId") String id) {
 		return students.get(id);
 	}
 
 	@POST
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students/{studentName}")
 	public Student createStudent(@PathParam("studentName") String studentName) {
 		if (studentName == null)
@@ -122,8 +124,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@PUT
-	@Consumes(MediaType.APPLICATION_XML)
-	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students")
 	public Student updateStudent(Student student) {
 		Student result = null;
@@ -147,7 +149,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@DELETE
 	@Path("/students/{studentId}")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Student deleteStudent(@PathParam("studentId") String studentId) {
 		return students.remove(studentId);
 	}

@@ -12,7 +12,6 @@ package com.mycorp.examples.student.remoteservice.host;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,11 +25,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.osgi.service.component.annotations.Component;
-
 import com.mycorp.examples.student.Address;
 import com.mycorp.examples.student.Student;
 import com.mycorp.examples.student.StudentService;
+import com.mycorp.examples.student.Students;
 
 // The jax-rs path annotation for this service instance
 @Path("/studentservice2")
@@ -41,7 +39,7 @@ import com.mycorp.examples.student.StudentService;
 // values. See also rsexport.cxf.properties, and/or rsexport.generic.properties.
 // The value below should be changed to use the CXF provider properties in
 // order to run the StudentRSHost.cxf.product
-@Component(immediate = true, properties = "rsexport.jersey.properties")
+//@Component(immediate = true, properties = "rsexport.jersey.properties")
 public class StudentServiceImpl2 implements StudentService {
 
 	// Provide a map-based storage of students
@@ -64,8 +62,10 @@ public class StudentServiceImpl2 implements StudentService {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	@Path("/students")
-	public List<Student> getStudents() {
-		return new ArrayList<Student>(students.values());
+	public Students getStudents() {
+		Students result = new Students();
+		result.setStudents(new ArrayList<Student>(students.values()));
+		return result;
 	}
 
 	@GET

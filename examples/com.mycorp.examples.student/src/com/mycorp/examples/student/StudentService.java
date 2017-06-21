@@ -9,8 +9,6 @@
 ******************************************************************************/
 package com.mycorp.examples.student;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,28 +23,28 @@ import javax.ws.rs.core.MediaType;
 public interface StudentService {
 
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students")
-	List<Student> getStudents();
+	Students getStudents();
 
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students/{studentId}")
 	Student getStudent(@PathParam("studentId") String id);
 
 	@POST
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students/{studentName}")
 	Student createStudent(@PathParam("studentName") String studentName);
 
 	@PUT
-	@Consumes(MediaType.APPLICATION_XML)
-	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students")
 	Student updateStudent(Student student);
 
 	@DELETE
 	@Path("/students/{studentId}")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	Student deleteStudent(@PathParam("studentId") String studentId);
 }

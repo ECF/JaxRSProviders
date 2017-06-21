@@ -9,8 +9,6 @@
 ******************************************************************************/
 package com.mycorp.examples.student.client;
 
-import java.util.List;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -19,6 +17,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import com.mycorp.examples.student.Address;
 import com.mycorp.examples.student.Student;
 import com.mycorp.examples.student.StudentService;
+import com.mycorp.examples.student.Students;
 
 @Component()
 public class StudentServiceClient {
@@ -30,9 +29,9 @@ public class StudentServiceClient {
 		this.studentService = service;
 		System.out.println("Discovered student service=" + this.studentService);
 		// Get all students
-		List<Student> students = studentService.getStudents();
+		Students students = studentService.getStudents();
 		// Get first student from list
-		Student s0 = students.get(0);
+		Student s0 = students.getStudents().get(0);
 		// Print out first student
 		System.out.println("Student0=" + s0);
 		// If there is anyone there, then update

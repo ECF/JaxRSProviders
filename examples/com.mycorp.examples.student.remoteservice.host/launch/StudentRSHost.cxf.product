@@ -16,7 +16,6 @@
    </launcherArgs>
 
    <launcher>
-      <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
@@ -79,7 +78,6 @@
       <plugin id="com.mycorp.examples.student.remoteservice.host" autoStart="false" startLevel="0" />
       <plugin id="javax.servlet" autoStart="false" startLevel="0" />
       <plugin id="javax.ws.rs" autoStart="false" startLevel="0" />
-      <plugin id="org.apache.cxf.cxf-core" autoStart="false" startLevel="0" />
       <plugin id="org.apache.cxf.cxf-rt-frontend-jaxrs" autoStart="false" startLevel="0" />
       <plugin id="org.apache.cxf.cxf-rt-transports-http" autoStart="false" startLevel="0" />
       <plugin id="org.apache.felix.gogo.command" autoStart="false" startLevel="0" />

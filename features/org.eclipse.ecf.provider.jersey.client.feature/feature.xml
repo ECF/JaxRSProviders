@@ -79,13 +79,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
          unpack="false"/>
 
    <plugin
-         id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="javassist"
          download-size="0"
          install-size="0"
@@ -96,14 +89,14 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
          id="org.glassfish.hk2.api"
          download-size="0"
          install-size="0"
-         version="2.4.0.b09"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.glassfish.hk2.locator"
          download-size="0"
          install-size="0"
-         version="2.4.0.b09"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
@@ -117,7 +110,7 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
          id="org.glassfish.hk2.utils"
          download-size="0"
          install-size="0"
-         version="2.4.0.b09"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin

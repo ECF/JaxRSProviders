@@ -208,6 +208,11 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			if (sc == null)
 				throw new NullPointerException("Servlet cannot be null");
 			ResourceConfig config = new ResourceConfig(sc.getConfiguration());
+			Object svc = reg.getService();
+			String className = svc.getClass().getName();
+			int lastDot = className.lastIndexOf(".");
+			String packageName = className.substring(0,lastDot);
+			config.packages(packageName);
 			config.register(reg.getService());
 			((ServletContainer) servlet).reload(config);
 		}
