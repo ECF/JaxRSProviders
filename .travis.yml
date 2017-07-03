@@ -1,0 +1,12 @@
+# Although this looks like it does nothing,
+# a default behavior in Travis CI is to
+# call "mvn install...", so this is actually
+# enough to build the project
+#
+# https://docs.travis-ci.com/user/languages/java/
+#
+language: java
+
+jdk:
+  - oraclejdk8
+
