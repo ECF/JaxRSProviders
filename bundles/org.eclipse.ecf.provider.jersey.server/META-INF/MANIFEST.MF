@@ -5,7 +5,8 @@ Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
 Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: com.fasterxml.jackson.databind;version="2.6.2",
+Import-Package: com.fasterxml.jackson.core;version="2.6.2",
+ com.fasterxml.jackson.databind;version="2.6.2",
  javax.servlet,
  javax.ws.rs;version="2.0.1",
  javax.ws.rs.container;version="2.0.1",
