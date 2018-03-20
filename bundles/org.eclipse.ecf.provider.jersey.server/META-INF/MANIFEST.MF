@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Dist Provider - Jersey Jax RS Server
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: com.fasterxml.jackson.core;version="2.6.2",
@@ -29,9 +29,6 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ecf,
  org.eclipse.equinox.common,
  org.eclipse.ecf.identity
-Service-Component: OSGI-INF/org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider.xml,
- OSGI-INF/org.eclipse.ecf.provider.jersey.server.JerseyHostContainerSelector.xml,
- OSGI-INF/org.eclipse.ecf.provider.jersey.server.JacksonFeatureComponent.xml,
- OSGI-INF/org.eclipse.ecf.provider.jersey.server.ObjectMapperContextResolverComponent.xml
 Provide-Capability: osgi.remoteserviceadmin.distribution; configs:List<String>="ecf.jaxrs.jersey.server"; version:Version=1.0
 Export-Package: org.eclipse.ecf.provider.jersey.server;version="1.0.0"
+Bundle-Activator: org.eclipse.ecf.provider.internal.jersey.server.Activator

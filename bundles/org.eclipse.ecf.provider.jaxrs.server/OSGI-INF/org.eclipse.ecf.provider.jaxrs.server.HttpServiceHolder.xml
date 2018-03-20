@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" immediate="true" name="org.eclipse.ecf.provider.jaxrs.server.HttpServiceHolder">
+   <service>
+      <provide interface="org.eclipse.ecf.provider.jaxrs.server.IHttpServiceHolder"/>
+   </service>
+   <implementation class="org.eclipse.ecf.provider.jaxrs.server.HttpServiceHolder"/>
+</scr:component>

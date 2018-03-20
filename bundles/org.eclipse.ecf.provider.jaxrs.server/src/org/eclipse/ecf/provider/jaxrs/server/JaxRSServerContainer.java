@@ -24,9 +24,11 @@ import org.eclipse.ecf.core.identity.URIID;
 import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
 import org.eclipse.ecf.remoteservice.AbstractRSAContainer;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
+import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
+import org.osgi.util.tracker.ServiceTracker;
 
 public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 
@@ -47,9 +49,11 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	@SuppressWarnings("rawtypes")
 	protected Dictionary servletProperties;
 	protected HttpContext servletContext;
+	protected BundleContext context;
 
-	public JaxRSServerContainer(URI uri) {
+	public JaxRSServerContainer(BundleContext context, URI uri) {
 		super(JaxRSNamespace.INSTANCE.createInstance(new Object[] { uri }));
+		this.context = context;
 		String path = uri.getPath();
 		this.servletAlias = (path == null) ? SLASH : path;
 	}
@@ -91,7 +95,13 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 		return null;
 	}
 
-	protected abstract HttpService getHttpService();
+	protected HttpService getHttpService() {
+		ServiceTracker<IHttpServiceHolder,IHttpServiceHolder> st = new ServiceTracker<IHttpServiceHolder,IHttpServiceHolder>(this.context, IHttpServiceHolder.class, null);
+		st.open();
+		HttpService s = st.getService().getHttpService();
+		st.close();
+		return s;
+	}
 
 	@SuppressWarnings("rawtypes")
 	protected Configurable createConfigurable() {
@@ -199,5 +209,9 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 				removeRegistration(registration);
 		}
 	}
-
+@Override
+public void disconnect() {
+	// TODO Auto-generated method stub
+	super.disconnect();
+}
 }

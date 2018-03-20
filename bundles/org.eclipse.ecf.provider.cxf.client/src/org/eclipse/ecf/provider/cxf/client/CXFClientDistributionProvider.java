@@ -16,6 +16,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
+import javax.ws.rs.ext.ContextResolver;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.eclipse.ecf.core.ContainerTypeDescription;
@@ -26,7 +27,10 @@ import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
+import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
+import org.osgi.service.component.annotations.Component;
 
+@Component(immediate=true,service=IRemoteServiceDistributionProvider.class)
 public class CXFClientDistributionProvider extends JaxRSDistributionProvider {
 
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.cxf.client";
@@ -63,6 +67,7 @@ public class CXFClientDistributionProvider extends JaxRSDistributionProvider {
 				};
 			}
 		});
+		addJaxRSComponent(new ObjectMapperContextResolverComponent(), ContextResolver.class);
 	}
 
 	@SuppressWarnings("rawtypes")

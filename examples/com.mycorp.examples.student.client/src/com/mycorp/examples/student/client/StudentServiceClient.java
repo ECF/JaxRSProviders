@@ -11,20 +11,18 @@ package com.mycorp.examples.student.client;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
 
 import com.mycorp.examples.student.Address;
 import com.mycorp.examples.student.Student;
 import com.mycorp.examples.student.StudentService;
 import com.mycorp.examples.student.Students;
 
-@Component()
+@Component(immediate=true)
 public class StudentServiceClient {
 
 	private StudentService studentService;
 
-	@Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC)
+	@Reference
 	void bindStudentService(StudentService service) throws Exception {
 		this.studentService = service;
 		System.out.println("Discovered student service=" + this.studentService);

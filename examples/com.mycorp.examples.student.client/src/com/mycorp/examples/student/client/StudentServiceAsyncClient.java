@@ -11,18 +11,16 @@ package com.mycorp.examples.student.client;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
 
 import com.mycorp.examples.student.Student;
 import com.mycorp.examples.student.StudentServiceAsync;
 
-@Component()
+@Component(immediate=true)
 public class StudentServiceAsyncClient {
 
 	private StudentServiceAsync studentService;
 
-	@Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC)
+	@Reference
 	void bindStudentServiceAsync(StudentServiceAsync service) throws Exception {
 		this.studentService = service;
 		System.out.println("Discovered student servic async=" + this.studentService);

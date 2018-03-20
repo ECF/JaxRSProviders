@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example Remote Service Host CXF Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.0.0.qualfier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example Remote Service Host CXF Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.1.0.qualfier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -26,24 +26,36 @@
    </vm>
 
    <plugins>
+      <plugin id="com.fasterxml.jackson.core.jackson-annotations"/>
+      <plugin id="com.fasterxml.jackson.core.jackson-core"/>
+      <plugin id="com.fasterxml.jackson.core.jackson-databind"/>
+      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"/>
+      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
       <plugin id="com.mycorp.examples.student"/>
       <plugin id="com.mycorp.examples.student.remoteservice.host"/>
       <plugin id="javax.annotation"/>
+      <plugin id="javax.inject"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.ws.rs"/>
+      <plugin id="javax.xml"/>
+      <plugin id="javax.xml.stream"/>
+      <plugin id="org.aopalliance"/>
       <plugin id="org.apache.cxf.cxf-core"/>
       <plugin id="org.apache.cxf.cxf-rt-frontend-jaxrs"/>
       <plugin id="org.apache.cxf.cxf-rt-transports-http"/>
       <plugin id="org.apache.felix.gogo.command"/>
       <plugin id="org.apache.felix.gogo.runtime"/>
       <plugin id="org.apache.felix.gogo.shell"/>
+      <plugin id="org.apache.felix.scr"/>
       <plugin id="org.apache.ws.xmlschema.core"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.ecf"/>
+      <plugin id="org.eclipse.ecf.console"/>
       <plugin id="org.eclipse.ecf.discovery"/>
       <plugin id="org.eclipse.ecf.identity"/>
       <plugin id="org.eclipse.ecf.osgi.services.distribution"/>
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin"/>
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.console"/>
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy"/>
       <plugin id="org.eclipse.ecf.provider"/>
       <plugin id="org.eclipse.ecf.provider.cxf.server"/>
@@ -54,10 +66,10 @@
       <plugin id="org.eclipse.ecf.remoteservice"/>
       <plugin id="org.eclipse.ecf.remoteservice.asyncproxy"/>
       <plugin id="org.eclipse.ecf.sharedobject"/>
+      <plugin id="org.eclipse.ecf.ssl" fragment="true"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.concurrent"/>
       <plugin id="org.eclipse.equinox.console"/>
-      <plugin id="org.eclipse.equinox.ds"/>
       <plugin id="org.eclipse.equinox.event"/>
       <plugin id="org.eclipse.equinox.http.jetty"/>
       <plugin id="org.eclipse.equinox.http.servlet"/>
@@ -71,6 +83,16 @@
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.osgi.services.remoteserviceadmin"/>
+      <plugin id="org.eclipse.osgi.util"/>
+      <plugin id="org.eclipse.pde.ds.lib"/>
+      <plugin id="org.glassfish.hk2.api"/>
+      <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
+      <plugin id="org.glassfish.hk2.utils"/>
+      <plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava"/>
+      <plugin id="org.glassfish.jersey.core.jersey-common"/>
+      <plugin id="org.glassfish.jersey.core.jersey-server"/>
+      <plugin id="org.glassfish.jersey.ext.entityfiltering"/>
+      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
    </plugins>
 
    <configurations>
@@ -83,12 +105,13 @@
       <plugin id="org.apache.felix.gogo.command" autoStart="false" startLevel="0" />
       <plugin id="org.apache.felix.gogo.runtime" autoStart="false" startLevel="0" />
       <plugin id="org.apache.felix.gogo.shell" autoStart="false" startLevel="0" />
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.core.jobs" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.discovery" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.identity" autoStart="false" startLevel="0" />
-      <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.cxf.server" autoStart="true" startLevel="0" />
@@ -102,7 +125,6 @@
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.concurrent" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.equinox.console" autoStart="false" startLevel="0" />
-      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.equinox.event" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.http.servlet" autoStart="false" startLevel="0" />

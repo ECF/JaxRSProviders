@@ -10,9 +10,7 @@
 package org.eclipse.ecf.provider.cxf.server;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,65 +27,72 @@ import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
-import org.osgi.service.http.HttpService;
+import org.osgi.framework.BundleContext;
 
 public class CXFServerDistributionProvider extends JaxRSServerDistributionProvider {
 
 	public static final String SERVER_CONFIG_NAME = "ecf.jaxrs.cxf.server";
 
 	public static final String URI_PARAM = "uri";
-	public static final String URI_DEFAULT = "http://localhost:8080/jersey";
+	public static final String URI_DEFAULT = "http://localhost:8080/cxf";
 
-	public CXFServerDistributionProvider() {
+	public CXFServerDistributionProvider(final BundleContext context) {
 		super();
-	}
-
-	public void activate() throws Exception {
 		setName(SERVER_CONFIG_NAME);
 		setInstantiator(new JaxRSContainerInstantiator(SERVER_CONFIG_NAME) {
+
+			@Override
+			protected boolean supportsOSGIConfidentialIntent(ContainerTypeDescription description) {
+				return true;
+			}
+
+			@Override
+			protected boolean supportsOSGIPrivateIntent(ContainerTypeDescription description) {
+				return true;
+			}
+
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
 					Configuration configuration) throws ContainerCreateException {
-				String uri = getParameterValue(parameters, URI_PARAM, URI_DEFAULT);
+				String uriStr = getParameterValue(parameters, URI_PARAM, URI_DEFAULT);
+				URI uri = null;
 				try {
-					return new JaxRSServerContainer(new URI(uri)) {
-						@Override
-						protected Servlet createServlet(final RSARemoteServiceRegistration registration) {
-							return new CXFNonSpringJaxrsServlet(new Application() {
-								@Override
-								public Set<Class<?>> getClasses() {
-									Set<Class<?>> results = new HashSet<Class<?>>();
-									results.add(registration.getService().getClass());
-									return results;
-								}
-							});
-						}
-
-						@Override
-						protected HttpService getHttpService() {
-							List<HttpService> svcs = getHttpServices();
-							return (svcs == null || svcs.size() == 0) ? null : svcs.get(0);
-						}
-
-						@Override
-						protected void exportRegistration(RSARemoteServiceRegistration reg) {
-							// TODO Auto-generated method stub
-							
-						}
-
-						@Override
-						protected void unexportRegistration(RSARemoteServiceRegistration registration) {
-							// TODO Auto-generated method stub
-							
-						}
-					};
-				} catch (URISyntaxException e) {
-					throw new ContainerCreateException("Could not create CXF Server Container",e);
+					uri = new URI(uriStr);
+				} catch (Exception e) {
+					throw new ContainerCreateException("Cannot create Jersey Server Container because uri=" + uri, e);
 				}
+				checkOSGIIntents(description, uri, parameters);
+				return new JaxRSServerContainer(context, uri) {
+					@Override
+					protected Servlet createServlet(final RSARemoteServiceRegistration registration) {
+						return new CXFNonSpringJaxrsServlet(new Application() {
+							@Override
+							public Set<Class<?>> getClasses() {
+								Set<Class<?>> results = new HashSet<Class<?>>();
+								results.add(registration.getService().getClass());
+								return results;
+							}
+							
+						});
+					}
+
+					@Override
+					protected void exportRegistration(RSARemoteServiceRegistration reg) {
+					}
+
+					@Override
+					protected void unexportRegistration(RSARemoteServiceRegistration registration) {
+					}
+				};
 			}
 		});
 		setDescription("CXF Jax-RS Distribution Provider");
 		setServer(true);
+//		JacksonJaxbJsonProvider p = new JacksonJaxbJsonProvider();
+//		addJaxRSComponent(new ObjectMapperContextResolverComponent(), ContextResolver.class);
+		//addJaxRSComponent(new JAXBElementProvider(),)
+//		addJaxRSComponent(p , MessageBodyWriter.class);
+//		addJaxRSComponent(p , MessageBodyReader.class);
 	}
 
 	@SuppressWarnings("rawtypes")

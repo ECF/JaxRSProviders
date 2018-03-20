@@ -8,24 +8,25 @@
 *   Composent, Inc. - initial API and implementation
 *   Erdal Karaca - initial API and implementation
 ******************************************************************************/
-package org.eclipse.ecf.provider.jersey.client;
+package org.eclipse.ecf.provider.cxf.server;
 
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.FeatureContext;
+import javax.ws.rs.ext.ContextResolver;
 
-import org.glassfish.jersey.jackson.JacksonFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JacksonFeatureComponent implements Feature {
+public class ObjectMapperContextResolverComponent implements ContextResolver<ObjectMapper> {
 
-	private final Feature feature;
+	private ObjectMapper mapper = null;
 
-	public JacksonFeatureComponent() {
-		feature = new JacksonFeature();
+	public ObjectMapperContextResolverComponent() {
+		super();
+		// Set fail on unknown properties to false
+		mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
 	@Override
-	public boolean configure(FeatureContext context) {
-		return feature.configure(context);
+	public ObjectMapper getContext(Class<?> type) {
+		return mapper;
 	}
-
 }

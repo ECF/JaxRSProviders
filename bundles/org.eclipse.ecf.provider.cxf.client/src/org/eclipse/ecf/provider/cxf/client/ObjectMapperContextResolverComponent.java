@@ -8,16 +8,12 @@
 *   Composent, Inc. - initial API and implementation
 *   Erdal Karaca - initial API and implementation
 ******************************************************************************/
-package org.eclipse.ecf.provider.jersey.server;
-
-import javax.ws.rs.ext.ContextResolver;
-
-import org.osgi.service.component.annotations.Component;
+package org.eclipse.ecf.provider.cxf.client;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.ws.rs.ext.ContextResolver;
 
-@Component(property = "jaxrs-configurable-target=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider")
 public class ObjectMapperContextResolverComponent implements ContextResolver<ObjectMapper> {
 
 	private ObjectMapper mapper = null;

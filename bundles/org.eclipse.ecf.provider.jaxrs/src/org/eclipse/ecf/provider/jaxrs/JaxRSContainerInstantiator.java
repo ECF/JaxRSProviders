@@ -20,6 +20,7 @@ import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.core.provider.IRemoteServiceContainerInstantiator;
+import org.eclipse.ecf.remoteservice.Constants;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceContainerInstantiator;
 
 public abstract class JaxRSContainerInstantiator extends RemoteServiceContainerInstantiator
@@ -42,7 +43,8 @@ public abstract class JaxRSContainerInstantiator extends RemoteServiceContainerI
 	public String[] getSupportedIntents(ContainerTypeDescription description) {
 		List<String> results = new ArrayList<String>(Arrays.asList(super.getSupportedIntents(description)));
 		results.addAll(Arrays.asList(jaxIntents));
-		return (String[]) results.toArray(new String[results.size()]);
+		// remove basic intent
+		return removeSupportedIntent(Constants.OSGI_BASIC_INTENT, (String[]) results.toArray(new String[results.size()]));
 	}
 
 	protected Configuration getConfigurationFromParams(ContainerTypeDescription description,

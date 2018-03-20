@@ -20,13 +20,6 @@ import java.util.Map;
 
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.ext.ContextResolver;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.MessageBodyReader;
-import javax.ws.rs.ext.MessageBodyWriter;
-import javax.ws.rs.ext.ReaderInterceptor;
-import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
@@ -220,73 +213,6 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 
 	protected Configuration getConfiguration(Configurable<?> configurable) {
 		return registerComponents(configurable).getConfiguration();
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
-		this.bindJaxComponent(instance, serviceProps);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void unbindMessageBodyWriter(MessageBodyWriter instance) {
-		this.removeJaxComponent(instance);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
-		this.bindJaxComponent(instance, serviceProps);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void unbindMessageBodyReader(MessageBodyReader instance) {
-		this.removeJaxComponent(instance);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
-		this.bindJaxComponent(instance, serviceProps);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void unbindContextResolver(ContextResolver instance) {
-		this.removeJaxComponent(instance);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
-		this.bindJaxComponent(instance, serviceProps);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void unbindExceptionMapper(ExceptionMapper instance) {
-		this.removeJaxComponent(instance);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void bindFeature(Feature instance, Map serviceProps) {
-		this.bindJaxComponent(instance, serviceProps);
-	}
-
-	protected void unbindFeature(Feature instance) {
-		this.removeJaxComponent(instance);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
-		this.bindJaxComponent(instance, serviceProps);
-	}
-
-	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
-		this.removeJaxComponent(instance);
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
-		this.bindJaxComponent(instance, serviceProps);
-	}
-
-	protected void unbindWriterInterceptor(WriterInterceptor instance) {
-		this.removeJaxComponent(instance);
 	}
 
 }
