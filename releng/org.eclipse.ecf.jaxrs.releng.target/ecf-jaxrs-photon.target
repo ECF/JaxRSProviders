@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="JaxRS Neon Target Platform" sequenceNumber="60">
+<?pde version="3.8"?><target name="JaxRS Neon Target Platform" sequenceNumber="61">
 <locations>
 <location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/cxf" type="Directory"/>
 <location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/validation" type="Directory"/>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.edit.ui.feature.group" version="2.13.0.v20170609-0928"/>
 <unit id="org.eclipse.emf.edit.ui.source.feature.group" version="2.13.0.v20170609-0928"/>
-<unit id="org.eclipse.pde.feature.group" version="3.13.2.v20171130-0510"/>
-<unit id="org.eclipse.pde.source.feature.group" version="3.13.2.v20171130-0510"/>
-<unit id="org.eclipse.platform.feature.group" version="4.7.2.v20171130-0510"/>
-<unit id="org.eclipse.platform.source.feature.group" version="4.7.2.v20171130-0510"/>
+<unit id="org.eclipse.pde.feature.group" version="3.13.3.v20180301-1154"/>
+<unit id="org.eclipse.pde.source.feature.group" version="3.13.3.v20180301-1154"/>
+<unit id="org.eclipse.platform.feature.group" version="4.7.3.v20180301-0715"/>
+<unit id="org.eclipse.platform.source.feature.group" version="4.7.3.v20180301-0715"/>
 <repository location="http://download.eclipse.org/releases/oxygen"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.ecf.remoteservice.sdk.examples.feature.feature.group" version="1.0.100.v20180319-0235"/>
-<unit id="org.eclipse.ecf.remoteservice.sdk.examples.feature.source.feature.group" version="1.0.100.v20180319-0235"/>
-<unit id="org.eclipse.ecf.remoteservice.sdk.feature.feature.group" version="3.14.0.v20180317-2127"/>
-<unit id="org.eclipse.ecf.remoteservice.sdk.feature.source.feature.group" version="3.14.0.v20180317-2127"/>
+<unit id="org.eclipse.ecf.remoteservice.sdk.examples.feature.feature.group" version="1.0.100.v20180402-2025"/>
+<unit id="org.eclipse.ecf.remoteservice.sdk.examples.feature.source.feature.group" version="1.0.100.v20180402-2025"/>
+<unit id="org.eclipse.ecf.remoteservice.sdk.feature.feature.group" version="3.14.0.v20180404-2345"/>
+<unit id="org.eclipse.ecf.remoteservice.sdk.feature.source.feature.group" version="3.14.0.v20180404-2345"/>
 <repository location="http://download.eclipse.org/rt/ecf/snapshot/site.p2"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
