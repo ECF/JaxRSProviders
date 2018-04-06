@@ -147,6 +147,7 @@
               <version>1.0.0-SNAPSHOT</version>
             </artifact>
           </target>
+          <pomDependencies>consider</pomDependencies>
           <environments>
             <environment>
               <os>win32</os>
