@@ -196,23 +196,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.eclipse.tycho.extras</groupId>
-        <artifactId>tycho-source-feature-plugin</artifactId>
-        <version>${tycho-version}</version>
-        <configuration>
-          <includeBinaryFeature>false</includeBinaryFeature>
-        </configuration>
-        <executions>
-          <execution>
-            <id>source-feature</id>
-            <phase>package</phase>
-            <goals>
-              <goal>source-feature</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-p2-plugin</artifactId>
         <version>${tycho-version}</version>
