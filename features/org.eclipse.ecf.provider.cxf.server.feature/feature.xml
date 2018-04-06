@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse"
+      id="org.eclipse.ecf.provider.cxf.server.feature"
       label="ECF CXF JaxRS Remote Services Distribution Provider"
-      version="1.1.0.qualifier"
+      version="1.2.0.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">
