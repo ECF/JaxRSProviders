@@ -98,6 +98,10 @@
     <module>bundles/org.eclipse.ecf.provider.jaxrs.client</module>
     <module>bundles/org.eclipse.ecf.provider.jersey.server</module>
     <module>bundles/org.eclipse.ecf.provider.jersey.client</module>
+    <module>features/org.eclipse.ecf.provider.jersey.server.feature</module>
+    <module>features/org.eclipse.ecf.provider.jersey.client.feature</module>
+    <module>features/org.eclipse.ecf.provider.cxf.server.feature</module>
+    
   </modules>
 
   <build>
