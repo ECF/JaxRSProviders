@@ -47,7 +47,7 @@ import com.mycorp.examples.student.Students;
 // values. See also rsexport.cxf.properties, and/or rsexport.generic.properties.
 // The value below should be changed to use the CXF provider properties in
 // order to run the StudentRSHost.cxf.product
-@Component(immediate = true, properties = "rsexport.cxf.properties")
+@Component(immediate = true, properties = "rsexport.jersey.properties")
 public class StudentServiceImpl implements StudentService {
 
 	private ServiceRegistration<RemoteServiceAdminListener> rsalReg;

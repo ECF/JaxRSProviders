@@ -9,17 +9,15 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jaxrs.client;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Callable;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Configuration;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ecf.core.identity.ID;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.internal.jaxrs.client.WebResourceFactory;
@@ -29,8 +27,7 @@ import org.eclipse.ecf.remoteservice.client.AbstractClientContainer;
 import org.eclipse.ecf.remoteservice.client.AbstractRSAClientContainer;
 import org.eclipse.ecf.remoteservice.client.AbstractRSAClientService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
-import org.eclipse.equinox.concurrent.future.IExecutor;
-import org.eclipse.equinox.concurrent.future.IProgressRunnable;
+import org.eclipse.ecf.remoteservice.events.IRemoteCallCompleteEvent;
 
 public class JaxRSClientContainer extends AbstractRSAClientContainer {
 
@@ -53,73 +50,6 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 			super(container, registration);
 		}
 
-		@SuppressWarnings({ "rawtypes", "unchecked" })
-		@Override
-		protected Object invokeAsync(RSARemoteCall remoteCall) throws ECFException {
-			final CompletableFuture cf = new CompletableFuture();
-			IExecutor executor = getIFutureExecutor(remoteCall);
-			if (executor == null)
-				throw new ECFException("no executor available to invoke asynchronously");
-			executor.execute(new IProgressRunnable() {
-				@Override
-				public Object run(IProgressMonitor arg0) throws Exception {
-					try {
-						Object[] params = remoteCall.getParameters();
-						params = (params == null) ? new Object[] {} : params;
-						Class[] paramTypes = new Class[params.length];
-						for (int i = 0; i < params.length; i++)
-							paramTypes[i] = params[i].getClass();
-						cf.complete(invokeMethod(getMethod(remoteCall.getMethod(), paramTypes), params));
-					} catch (Exception e) {
-						cf.completeExceptionally(e);
-					}
-					return null;
-				}
-			}, null);
-			return cf;
-		}
-
-		protected Method getMethod(String methodName, Class<?>[] paramTypes) throws ECFException {
-			if (jaxRSProxy == null)
-				throw new ECFException("invokeRemoteCall:  jaxRSProxy is null");
-			Class<?> proxyClass = jaxRSProxy.getClass();
-			try {
-				return proxyClass.getMethod(methodName, paramTypes);
-			} catch (NoSuchMethodException | SecurityException e) {
-				ECFException except = new ECFException("Could not get proxy method=" + methodName, e);
-				except.setStackTrace(e.getStackTrace());
-				throw except;
-			}
-		}
-
-		protected Object invokeMethod(Method method, Object[] params) throws ECFException {
-			try {
-				return method.invoke(this.jaxRSProxy, params);
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				ECFException except = new ECFException("Could not invoke method=" + method + " on proxy", e);
-				except.setStackTrace(e.getStackTrace());
-				throw except;
-			}
-		}
-
-		@Override
-		protected Object invokeSync(RSARemoteCall remoteCall) throws ECFException {
-			Method methodToInvoke;
-			synchronized (JaxRSClientRemoteService.this) {
-				if (jaxRSProxy == null)
-					throw new ECFException("invokeRemoteCall:  jaxRSProxy is null");
-				methodToInvoke = remoteCall.getReflectMethod();
-				if (methodToInvoke == null)
-					throw new ECFException("method '" + methodToInvoke + " on jax rs jaxRSProxy could not be found");
-			}
-			// Now invoke method
-			try {
-				return methodToInvoke.invoke(this.jaxRSProxy, remoteCall.getParameters());
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				throw new ECFException("Invoke failed on jaxrs jaxRSProxy", e);
-			}
-		}
-
 		@Override
 		public void dispose() {
 			super.dispose();
@@ -130,6 +60,34 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 
 		protected Object jaxRSProxy;
 
+		@Override
+		protected Callable<Object> getSyncCallable(RSARemoteCall call) {
+			return new Callable<Object>() {
+				@Override
+				public Object call() throws Exception {
+					synchronized (JaxRSClientRemoteService.this) {
+						return call.getReflectMethod().invoke(jaxRSProxy, call.getParameters());
+					}
+				}
+			};
+		}
+		
+		@Override
+		protected Callable<IRemoteCallCompleteEvent> getAsyncCallable(RSARemoteCall call) {
+			return new Callable<IRemoteCallCompleteEvent>() {
+				@Override
+				public IRemoteCallCompleteEvent call() throws Exception {
+					try {
+						synchronized (JaxRSClientRemoteService.this) {
+							Method m = jaxRSProxy.getClass().getMethod(call.getMethod(), call.getReflectMethod().getParameterTypes());
+							return createRCCESuccess(m.invoke(jaxRSProxy, call.getParameters()));
+						}
+					} catch (Exception e) {
+						return createRCCEFailure(e);
+					}
+				}
+			};
+		}
 		@SuppressWarnings("unchecked")
 		@Override
 		public Object getProxy(ClassLoader cl, @SuppressWarnings("rawtypes") Class[] interfaces) throws ECFException {

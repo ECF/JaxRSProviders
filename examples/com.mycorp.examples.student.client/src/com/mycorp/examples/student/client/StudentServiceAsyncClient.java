@@ -28,7 +28,7 @@ public class StudentServiceAsyncClient {
 		studentService.getStudentsAsync().whenComplete((studs, t) -> {
 			if (t == null) {
 				// Get first student from list
-				Student s0 = studs.get(0);
+				Student s0 = studs.getStudents().get(0);
 				// Print out first student
 				System.out.println("getStudentsAsync complete.  Student0=" + s0);
 				if (s0 != null) {

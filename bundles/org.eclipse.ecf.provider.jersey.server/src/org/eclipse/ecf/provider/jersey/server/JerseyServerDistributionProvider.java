@@ -65,11 +65,17 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 			protected boolean supportsOSGIPrivateIntent(ContainerTypeDescription description) {
 				return true;
 			}
+			
+			@Override
+			protected boolean supportsOSGIAsyncIntent(ContainerTypeDescription description) {
+				return true;
+			}
 		});
 		setDescription("Jersey Jax-RS Server Distribution Provider");
 		setServer(true);
 		addJaxRSComponent(new ObjectMapperContextResolver(), ContextResolver.class);
-		addJaxRSComponent(new JacksonFeature(), Feature.class);
+		//addJaxRSComponent(new ServerJacksonFeature(), Feature.class);
+		//addJaxRSComponent(new JerseyInvocationHandler(), ResourceMethodInvocationHandlerProvider.class);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -112,8 +118,12 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 		@Override
 		protected Servlet createServlet(RSARemoteServiceRegistration registration) {
 			ResourceConfig resourceConfig = (ResourceConfig) createConfigurable();
-			if (resourceConfig != null)
-				resourceConfig.register(registration.getService());
+			resourceConfig.register(registration.getService());
+			// the use of the ServerJacksonFeature is intended to begin the support
+			// of osgi.async and osgi.basic intents defined in OSGI R7 Chapter 100 (remote services)
+			//resourceConfig.register(new ServerJacksonFeature(registration), Feature.class);
+			// Alternatively, simply support the existing JacksonFeature
+			resourceConfig.register(new JacksonFeature(), Feature.class);
 			return new ServletContainer(resourceConfig);
 		}
 

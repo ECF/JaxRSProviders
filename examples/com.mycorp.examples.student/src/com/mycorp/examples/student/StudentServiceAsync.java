@@ -9,12 +9,11 @@
 ******************************************************************************/
 package com.mycorp.examples.student;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface StudentServiceAsync {
 
-	CompletableFuture<List<Student>> getStudentsAsync();
+	CompletableFuture<Students> getStudentsAsync();
 
 	CompletableFuture<Student> getStudentAsync(String id);
 

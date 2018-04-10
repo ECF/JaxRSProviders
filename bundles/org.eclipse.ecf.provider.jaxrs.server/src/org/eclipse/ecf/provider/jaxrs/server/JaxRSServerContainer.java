@@ -209,9 +209,4 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 				removeRegistration(registration);
 		}
 	}
-@Override
-public void disconnect() {
-	// TODO Auto-generated method stub
-	super.disconnect();
-}
 }

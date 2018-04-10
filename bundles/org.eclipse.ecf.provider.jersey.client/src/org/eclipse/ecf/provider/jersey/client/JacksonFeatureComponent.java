@@ -17,7 +17,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 
 public class JacksonFeatureComponent implements Feature {
 
-	private final Feature feature;
+	private final JacksonFeature feature;
 
 	public JacksonFeatureComponent() {
 		feature = new JacksonFeature();
