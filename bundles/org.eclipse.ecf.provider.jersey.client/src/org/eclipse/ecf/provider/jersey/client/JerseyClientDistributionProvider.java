@@ -19,10 +19,12 @@ import javax.ws.rs.ext.ContextResolver;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientDistributionProvider;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = IRemoteServiceDistributionProvider.class)
@@ -38,8 +40,10 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 				return new JaxRSClientContainer(configuration);
 			}
 		});
-		addJaxRSComponent(new ObjectMapperContextResolverComponent(), ContextResolver.class);
-		addJaxRSComponent(new JacksonFeatureComponent(), Feature.class);
+		// Add object mapper, to be flexible about json read/write
+		addJaxRSComponent(new ObjectMapperContextResolver(), ContextResolver.class);
+		// Add JacksonFeature to handle json read/write
+		addJaxRSComponent(new JacksonFeature(), Feature.class);
 	}
 
 	@SuppressWarnings("rawtypes")

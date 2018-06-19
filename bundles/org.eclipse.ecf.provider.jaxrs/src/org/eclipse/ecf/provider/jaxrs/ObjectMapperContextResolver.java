@@ -8,17 +8,18 @@
 *   Composent, Inc. - initial API and implementation
 *   Erdal Karaca - initial API and implementation
 ******************************************************************************/
-package org.eclipse.ecf.provider.cxf.client;
+package org.eclipse.ecf.provider.jaxrs;
+
+import javax.ws.rs.ext.ContextResolver;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.ws.rs.ext.ContextResolver;
 
-public class ObjectMapperContextResolverComponent implements ContextResolver<ObjectMapper> {
+public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper> {
 
 	private ObjectMapper mapper = null;
 
-	public ObjectMapperContextResolverComponent() {
+	public ObjectMapperContextResolver() {
 		super();
 		// Set fail on unknown properties to false
 		mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

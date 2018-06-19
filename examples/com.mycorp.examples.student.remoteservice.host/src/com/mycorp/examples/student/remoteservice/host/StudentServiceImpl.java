@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,13 +26,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.eclipse.ecf.osgi.services.remoteserviceadmin.DebugRemoteServiceAdminListener;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.remoteserviceadmin.RemoteServiceAdminListener;
 
 import com.mycorp.examples.student.Address;
 import com.mycorp.examples.student.Student;
@@ -40,41 +35,10 @@ import com.mycorp.examples.student.Students;
 
 // The jax-rs path annotation for this service
 @Path("/studentservice")
-// The OSGi DS (declarative services) component annotation. Note that the
-// /rsexport.properties file defines this service impl as a remote service
-// and configures the usage of the Jersey Jax-RS implementation as the
-// desired distribution provider. See /rsexport.jersey.properties for the
-// values. See also rsexport.cxf.properties, and/or rsexport.generic.properties.
-// The value below should be changed to use the CXF provider properties in
-// order to run the StudentRSHost.cxf.product
-@Component(immediate = true, properties = "rsexport.cxf.properties")
+// The OSGi DS (declarative services) component annotation. 
+@Component(immediate = true, property = { "service.exported.interfaces=*", "service.intents=osgi.async",
+		"osgi.basic.timeout=50000" })
 public class StudentServiceImpl implements StudentService {
-
-	private ServiceRegistration<RemoteServiceAdminListener> rsalReg;
-
-	@Activate
-	void activate(BundleContext context) throws Exception {
-		// Setup debug output. The DebugRemoteServiceAdminListener is only
-		// present so that the RSA export output can be seen on console.
-		// It is not required, but makes it easier to see what's happening
-		// with RSE remoting. Note that the BundleContext,
-		// RemoteServiceAdminListener,
-		// DebugRemoteServiceAdminListener are the only ECF or OSGi class
-		// references
-		// in this impl, meaning that if this/these are removed, that
-		// there are only application dependencies, allowing all of this service
-		// (API and/or impl) to be used easily outside of OSGi environments.
-		rsalReg = context.registerService(RemoteServiceAdminListener.class, new DebugRemoteServiceAdminListener(),
-				null);
-	}
-
-	@Deactivate
-	void deactivate() throws Exception {
-		if (rsalReg != null) {
-			rsalReg.unregister();
-			rsalReg = null;
-		}
-	}
 
 	// Provide a map-based storage of students
 	private static Map<String, Student> students = Collections.synchronizedMap(new HashMap<String, Student>());
@@ -100,6 +64,15 @@ public class StudentServiceImpl implements StudentService {
 		Students result = new Students();
 		result.setStudents(new ArrayList<Student>(students.values()));
 		return result;
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/studentscf")
+	public CompletableFuture<Students> getStudentsCF() {
+		CompletableFuture<Students> cf = new CompletableFuture<Students>();
+		cf.complete(getStudents());
+		return cf;
 	}
 
 	@GET

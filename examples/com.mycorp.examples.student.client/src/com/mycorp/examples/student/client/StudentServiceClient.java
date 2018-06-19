@@ -17,7 +17,7 @@ import com.mycorp.examples.student.Student;
 import com.mycorp.examples.student.StudentService;
 import com.mycorp.examples.student.Students;
 
-@Component(immediate=true)
+@Component(immediate = true)
 public class StudentServiceClient {
 
 	private StudentService studentService;
@@ -39,6 +39,13 @@ public class StudentServiceClient {
 			System.out.println("Updated Student0=" + studentService.updateStudent(s0));
 		}
 
+		// Get student with completablefuture
+		studentService.getStudentsCF().whenComplete((s, except) -> {
+			if (except != null)
+				except.printStackTrace();
+			else
+				System.out.println("Student=0=" + s.getStudents().get(0));
+		});
 		// Create a new student
 		Student newstudent = studentService.createStudent("April Snow");
 		System.out.println("Created student=" + newstudent);

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Example Jersey Extensions for Student API
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server.example.student.extensions
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.mycorp.examples.student;version="1.0.0",
@@ -13,3 +13,4 @@ Import-Package: com.mycorp.examples.student;version="1.0.0",
 Service-Component: OSGI-INF/org.eclipse.ecf.provider.jersey.server.example.student.extensions.CustomMessageBodyWriterExtension.xml,
  OSGI-INF/org.eclipse.ecf.provider.jersey.server.example.student.extensions.CustomMessageBodyReaderExtension.xml
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.eclipse.ecf.provider.jersey.server.example.student.extensions

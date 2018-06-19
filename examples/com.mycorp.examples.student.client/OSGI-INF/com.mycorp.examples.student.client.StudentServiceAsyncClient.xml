@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.mycorp.examples.student.client.StudentServiceAsyncClient">
-   <reference bind="bindStudentServiceAsync" interface="com.mycorp.examples.student.StudentServiceAsync" name="StudentServiceAsync" unbind="unbindStudentServiceAsync"/>
-   <implementation class="com.mycorp.examples.student.client.StudentServiceAsyncClient"/>
-</scr:component>

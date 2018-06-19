@@ -2,11 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Example Student Remote Service Client
 Bundle-SymbolicName: com.mycorp.examples.student.client
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: com.mycorp.examples.student;version="1.0.0",
  org.osgi.service.component.annotations;version="1.2.0";resolution:=optional
-Service-Component: OSGI-INF/com.mycorp.examples.student.client.StudentServiceAsyncClient.xml,
- OSGI-INF/com.mycorp.examples.student.client.StudentServiceClient.xml
+Service-Component: OSGI-INF/com.mycorp.examples.student.client.StudentServiceClient.xml
+Automatic-Module-Name: com.mycorp.examples.student.client

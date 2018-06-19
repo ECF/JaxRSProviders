@@ -43,3 +43,4 @@ Require-Bundle: org.eclipse.ecf,
 Provide-Capability: osgi.remoteserviceadmin.distribution; configs:List<String>="ecf.jaxrs.jersey.server"; version:Version=1.0
 Export-Package: org.eclipse.ecf.provider.jersey.server;version="1.0.0"
 Bundle-Activator: org.eclipse.ecf.provider.internal.jersey.server.Activator
+Automatic-Module-Name: org.eclipse.ecf.provider.jersey.server

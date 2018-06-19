@@ -37,7 +37,9 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
+/* Portions Copyright 2018 Composent, Inc.
+ * Composent, Inc. elects to include this software in this distribution under the CDDL Version 2 license.
+ */
 package org.eclipse.ecf.provider.internal.jaxrs.client;
 
 import java.lang.annotation.Annotation;
@@ -79,6 +81,10 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+
+import org.eclipse.ecf.provider.jaxrs.JaxRSConstants;
+import org.eclipse.ecf.remoteservice.asyncproxy.AsyncReturnUtil;
 
 /**
  * Factory for client-side representation of a resource. See the
@@ -86,6 +92,7 @@ import javax.ws.rs.core.MultivaluedMap;
  * use this class.
  *
  * @author Martin Matula
+ * @author Scott Lewis
  */
 public final class WebResourceFactory implements InvocationHandler {
 
@@ -111,55 +118,11 @@ public final class WebResourceFactory implements InvocationHandler {
 		};
 	}
 
-	/**
-	 * Creates a new client-side representation of a resource described by the
-	 * interface passed in the first argument.
-	 * <p/>
-	 * Calling this method has the same effect as calling
-	 * {@code WebResourceFactory.newResource(resourceInterface, rootTarget,
-	 *false)}.
-	 *
-	 * @param <C>
-	 *            Type of the resource to be created.
-	 * @param resourceInterface
-	 *            Interface describing the resource to be created.
-	 * @param target
-	 *            WebTarget pointing to the resource or the parent of the
-	 *            resource.
-	 * @return Instance of a class implementing the resource interface that can
-	 *         be used for making requests to the server.
-	 */
 	public static <C> C newResource(final Class<C> resourceInterface, final WebTarget target) {
 		return newResource(resourceInterface, target, false, EMPTY_HEADERS, Collections.<Cookie>emptyList(),
 				EMPTY_FORM);
 	}
 
-	/**
-	 * Creates a new client-side representation of a resource described by the
-	 * interface passed in the first argument.
-	 *
-	 * @param <C>
-	 *            Type of the resource to be created.
-	 * @param resourceInterface
-	 *            Interface describing the resource to be created.
-	 * @param target
-	 *            WebTarget pointing to the resource or the parent of the
-	 *            resource.
-	 * @param ignoreResourcePath
-	 *            If set to true, ignores path annotation on the resource
-	 *            interface (this is used when creating sub-resources)
-	 * @param headers
-	 *            Header params collected from parent resources (used when
-	 *            creating a sub-resource)
-	 * @param cookies
-	 *            Cookie params collected from parent resources (used when
-	 *            creating a sub-resource)
-	 * @param form
-	 *            Form params collected from parent resources (used when
-	 *            creating a sub-resource)
-	 * @return Instance of a class implementing the resource interface that can
-	 *         be used for making requests to the server.
-	 */
 	@SuppressWarnings("unchecked")
 	public static <C> C newResource(final Class<C> resourceInterface, final WebTarget target,
 			final boolean ignoreResourcePath, final MultivaluedMap<String, Object> headers, final List<Cookie> cookies,
@@ -182,41 +145,26 @@ public final class WebResourceFactory implements InvocationHandler {
 	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-		if (args == null && method.getName().equals("toString")) {
+		if (args == null && method.getName().equals("toString"))
 			return toString();
-		}
-
-		// get the interface describing the resource
-		final Class<?> proxyIfc = proxy.getClass().getInterfaces()[0];
-
-		// response type
-		final Class<?> responseType = method.getReturnType();
 
 		// determine method name
 		String httpMethod = getHttpMethodName(method);
-		if (httpMethod == null) {
+		if (httpMethod == null)
 			for (final Annotation ann : method.getAnnotations()) {
 				httpMethod = getHttpMethodName(ann.annotationType());
-				if (httpMethod != null) {
+				if (httpMethod != null)
 					break;
-				}
 			}
-		}
 
 		// create a new UriBuilder appending the @Path attached to the method
 		WebTarget newTarget = addPathFromAnnotation(method, target);
 
 		if (httpMethod == null) {
-			if (newTarget == target) {
+			if (newTarget == target)
 				// no path annotation on the method -> fail
 				throw new UnsupportedOperationException("Not a resource method.");
-			} else if (!responseType.isInterface()) {
-				// the method is a subresource locator, but returns class,
-				// not interface - can't help here
-				throw new UnsupportedOperationException("Return type not an interface");
-			}
 		}
-
 		// process method params (build maps of
 		// (Path|Form|Cookie|Matrix|Header..)Params
 		// and extract entity type
@@ -308,16 +256,8 @@ public final class WebResourceFactory implements InvocationHandler {
 			}
 		}
 
-		if (httpMethod == null) {
-			// the method is a subresource locator
-			return WebResourceFactory.newResource(responseType, newTarget, true, headers, cookies, form);
-		}
-
 		// accepted media types
 		Produces produces = method.getAnnotation(Produces.class);
-		if (produces == null) {
-			produces = proxyIfc.getAnnotation(Produces.class);
-		}
 		final String[] accepts = (produces == null) ? EMPTY : produces.value();
 
 		// determine content type
@@ -328,9 +268,6 @@ public final class WebResourceFactory implements InvocationHandler {
 				contentType = contentTypeEntries.get(0).toString();
 			} else {
 				Consumes consumes = method.getAnnotation(Consumes.class);
-				if (consumes == null) {
-					consumes = proxyIfc.getAnnotation(Consumes.class);
-				}
 				if (consumes != null && consumes.value().length > 0) {
 					contentType = consumes.value()[0];
 				}
@@ -348,19 +285,17 @@ public final class WebResourceFactory implements InvocationHandler {
 				.accept(accepts); // if @Produces is defined, propagate values
 									// into Accept header; empty array is NO-OP
 
-		for (final Cookie c : cookies) {
+		for (final Cookie c : cookies)
 			builder = builder.cookie(c);
-		}
 
-		final Object result;
+		Object result = null;
 
 		if (entity == null && !form.asMap().isEmpty()) {
 			entity = form;
 			contentType = MediaType.APPLICATION_FORM_URLENCODED;
 		} else {
-			if (contentType == null) {
+			if (contentType == null)
 				contentType = MediaType.APPLICATION_OCTET_STREAM;
-			}
 			if (!form.asMap().isEmpty()) {
 				if (entity instanceof Form) {
 					((Form) entity).asMap().putAll(form.asMap());
@@ -369,17 +304,33 @@ public final class WebResourceFactory implements InvocationHandler {
 				}
 			}
 		}
-
-		final GenericType responseGenericType = new GenericType(method.getGenericReturnType());
-		if (entity != null) {
-			if (entityType instanceof ParameterizedType) {
-				entity = new GenericEntity(entity, entityType);
-			}
-			result = builder.method(httpMethod, Entity.entity(entity, contentType), responseGenericType);
+		// If not async return then we handle as normal type
+		// Added to support OSGi R7 Async Remote Services:
+		// https://osgi.org/specification/osgi.cmpn/7.0.0/service.remoteservices.html#d0e1407
+		Class<?> returnType = method.getReturnType();
+		if (!AsyncReturnUtil.isAsyncType(returnType)) {
+			final GenericType responseGenericType = new GenericType(method.getGenericReturnType());
+			if (entity != null) {
+				if (entityType instanceof ParameterizedType)
+					entity = new GenericEntity(entity, entityType);
+				// block here
+				result = builder.method(httpMethod, Entity.entity(entity, contentType), responseGenericType);
+			} else
+				// block here
+				result = builder.method(httpMethod, responseGenericType);
 		} else {
-			result = builder.method(httpMethod, responseGenericType);
+			// Async remote service return type
+			// block here to get response
+			Response response = builder.method(httpMethod);
+			// get response headers
+			String asyncType = (String) response.getHeaders().getFirst(JaxRSConstants.JAXRS_RESPHEADER_ASYNC_TYPE);
+			if (asyncType != null) {
+				Class<?> respType = method.getDeclaringClass().getClassLoader().loadClass(asyncType);
+				Object responseEntity = response.readEntity(respType);
+				if (responseEntity != null)
+					result = AsyncReturnUtil.convertReturnToAsync(responseEntity, returnType);
+			}
 		}
-
 		return result;
 	}
 

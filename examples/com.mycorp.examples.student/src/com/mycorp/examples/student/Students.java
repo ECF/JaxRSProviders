@@ -10,8 +10,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Students implements Serializable {
 
 	public Students() {
-		
+
 	}
+
 	@XmlElement
 	public List<Student> getStudents() {
 		return students;
@@ -24,5 +25,5 @@ public class Students implements Serializable {
 	private static final long serialVersionUID = 3317877620156748787L;
 
 	private List<Student> students;
-	
+
 }

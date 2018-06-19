@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example Remote Service Host CXF Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.1.0.qualfier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example Using CXF Server Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.2.0.qualfier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -9,7 +9,14 @@
    <launcherArgs>
       <programArgs>-consoleLog -console
       </programArgs>
-      <vmArgs>-Xms40m -Xmx384m -Declipse.ignoreApp=true -Dosgi.noShutdown=true  -Dorg.eclipse.equinox.http.jetty.http.port=8585 -Djavax.ws.rs.ext.RuntimeDelegate=org.apache.cxf.jaxrs.impl.RuntimeDelegateImpl -Dorg.apache.cxf.stax.allowInsecureParser=1
+      <vmArgs>-Xms40m 
+-Xmx384m 
+-Declipse.ignoreApp=true 
+-Dosgi.noShutdown=true  
+-Dorg.osgi.service.http.port=8585
+-Decf.jaxrs.cxf.server.port=8585
+-Djavax.ws.rs.ext.RuntimeDelegate=org.apache.cxf.jaxrs.impl.RuntimeDelegateImpl 
+-Dorg.apache.cxf.stax.allowInsecureParser=1
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
@@ -57,12 +64,10 @@
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin"/>
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.console"/>
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy"/>
-      <plugin id="org.eclipse.ecf.provider"/>
       <plugin id="org.eclipse.ecf.provider.cxf.server"/>
       <plugin id="org.eclipse.ecf.provider.jaxrs"/>
       <plugin id="org.eclipse.ecf.provider.jaxrs.server"/>
       <plugin id="org.eclipse.ecf.provider.jmdns"/>
-      <plugin id="org.eclipse.ecf.provider.remoteservice"/>
       <plugin id="org.eclipse.ecf.remoteservice"/>
       <plugin id="org.eclipse.ecf.remoteservice.asyncproxy"/>
       <plugin id="org.eclipse.ecf.sharedobject"/>
@@ -97,7 +102,7 @@
 
    <configurations>
       <plugin id="com.mycorp.examples.student" autoStart="false" startLevel="0" />
-      <plugin id="com.mycorp.examples.student.remoteservice.host" autoStart="false" startLevel="0" />
+      <plugin id="com.mycorp.examples.student.remoteservice.host" autoStart="true" startLevel="0" />
       <plugin id="javax.servlet" autoStart="false" startLevel="0" />
       <plugin id="javax.ws.rs" autoStart="false" startLevel="0" />
       <plugin id="org.apache.cxf.cxf-rt-frontend-jaxrs" autoStart="false" startLevel="0" />
@@ -113,12 +118,10 @@
       <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy" autoStart="false" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.cxf.server" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.jaxrs" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.jaxrs.server" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.jmdns" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider.remoteservice" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.remoteservice" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.remoteservice.asyncproxy" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.ecf.sharedobject" autoStart="false" startLevel="0" />

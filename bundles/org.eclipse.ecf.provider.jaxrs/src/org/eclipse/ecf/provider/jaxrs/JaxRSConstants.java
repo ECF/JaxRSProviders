@@ -7,14 +7,9 @@
 * Contributors:
 *   Composent, Inc. - initial API and implementation
 ******************************************************************************/
-package org.eclipse.ecf.provider.jaxrs.server;
+package org.eclipse.ecf.provider.jaxrs;
 
-import org.osgi.service.http.HttpService;
+public interface JaxRSConstants {
 
-public interface IHttpServiceHolder {
-
-	HttpService getHttpService();
-
-	HttpService getHttpService(long timeout);
-
+	public static final String JAXRS_RESPHEADER_ASYNC_TYPE = "X-OSGI-ASYNC-RETURN-TYPE";
 }

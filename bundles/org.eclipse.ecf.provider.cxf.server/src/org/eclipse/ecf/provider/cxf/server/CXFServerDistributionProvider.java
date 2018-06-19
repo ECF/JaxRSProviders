@@ -27,36 +27,35 @@ import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Feature;
 
+import org.apache.cxf.Bus;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 import org.apache.cxf.jaxrs.utils.ResourceUtils;
 import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
+import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
+import org.eclipse.ecf.provider.jaxrs.server.ServerJacksonJaxbJsonProvider;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
 import org.osgi.framework.BundleContext;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-
 public class CXFServerDistributionProvider extends JaxRSServerDistributionProvider {
 
-	public static final String SERVER_CONFIG_NAME = "ecf.jaxrs.cxf.server";
-
-	public static final String URI_PARAM = "uri";
-	public static final String URI_DEFAULT = "http://localhost:8080/cxf";
+	public static final String CXF_SERVER_CONFIG = "ecf.jaxrs.cxf.server";
 
 	public class CXFServerConfiguration implements Configuration {
 
 		private List<Object> extensions;
-		private Map<String,Object> properties;
-		
-		public CXFServerConfiguration(List<Object> extensions, Map<String,Object> props) {
+		private Map<String, Object> properties;
+
+		public CXFServerConfiguration(List<Object> extensions, Map<String, Object> props) {
 			this.extensions = extensions;
 			this.properties = props;
 		}
+
 		@Override
 		public Set<Class<?>> getClasses() {
 			return null;
@@ -76,7 +75,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 		public List<Object> getExtensions() {
 			return extensions;
 		}
-		
+
 		@Override
 		public Map<String, Object> getProperties() {
 			return properties;
@@ -116,17 +115,18 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 		public boolean isRegistered(Class<?> arg0) {
 			return false;
 		}
-		
+
 	}
+
 	@SuppressWarnings("rawtypes")
 	public class CXFServerConfigurable implements Configurable {
 
-		private Map<String,Object> properties = new HashMap<String,Object>();
+		private Map<String, Object> properties = new HashMap<String, Object>();
 		private List<Object> extensions = new ArrayList<Object>();
-		
+
 		@Override
 		public Configuration getConfiguration() {
-			return new CXFServerConfiguration(extensions,properties);
+			return new CXFServerConfiguration(extensions, properties);
 		}
 
 		@Override
@@ -178,41 +178,49 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 			this.extensions.add(arg0);
 			return this;
 		}
-		
+
 	}
-	
+
 	public class DPCXFNonSpringJaxrsServlet extends CXFNonSpringJaxrsServlet {
-		
+
 		private static final long serialVersionUID = -2618572428261717260L;
 
+		private RSARemoteServiceRegistration registration;
 		private CXFServerConfiguration config;
-		
-		public DPCXFNonSpringJaxrsServlet(Application application, CXFServerConfiguration config) {
-			super(application);
+
+		public DPCXFNonSpringJaxrsServlet(final RSARemoteServiceRegistration registration,
+				CXFServerConfiguration config) {
+			super(new Application() {
+				@Override
+				public Set<Class<?>> getClasses() {
+					Set<Class<?>> results = new HashSet<Class<?>>();
+					results.add(registration.getService().getClass());
+					return results;
+				}
+			});
+			this.registration = registration;
 			this.config = config;
 		}
 
 		@Override
 		protected void createServerFromApplication(ServletConfig servletConfig) throws ServletException {
-	        Application app = getApplication();
-	        JAXRSServerFactoryBean bean = ResourceUtils.createApplication(
-	                                          app,
-	                                          isIgnoreApplicationPath(servletConfig),
-	                                          getStaticSubResolutionValue(servletConfig),
-	                                          isAppResourceLifecycleASingleton(app, servletConfig),
-	                                          getBus());
-	        bean.setBus(getBus());
-	        bean.setApplication(getApplication());
-	        bean.setProviders(config.getExtensions());
-	        bean.create();
+			Bus bus = getBus();
+			Application app = getApplication();
+			JAXRSServerFactoryBean bean = ResourceUtils.createApplication(app, isIgnoreApplicationPath(servletConfig),
+					getStaticSubResolutionValue(servletConfig), isAppResourceLifecycleASingleton(app, servletConfig),
+					bus);
+			bean.setApplication(app);
+			List<Object> extensions = new ArrayList<Object>(config.getExtensions());
+			extensions.add(new ServerJacksonJaxbJsonProvider(this.registration));
+			bean.setProviders(extensions);
+			bean.create();
 		}
 	}
-	
 
 	public CXFServerDistributionProvider(final BundleContext context) {
 		super();
-		setName(SERVER_CONFIG_NAME);
-		setInstantiator(new JaxRSContainerInstantiator(SERVER_CONFIG_NAME) {
+		setName(CXF_SERVER_CONFIG);
+		setInstantiator(new JaxRSServerContainerInstantiator(CXF_SERVER_CONFIG) {
 
 			@Override
 			protected boolean supportsOSGIConfidentialIntent(ContainerTypeDescription description) {
@@ -225,36 +233,19 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 			}
 
 			@Override
+			protected boolean supportsOSGIAsyncIntent(ContainerTypeDescription description) {
+				return true;
+			}
+
+			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
 					final Configuration configuration) throws ContainerCreateException {
-				String uriStr = getParameterValue(parameters, URI_PARAM, URI_DEFAULT);
-				URI uri = null;
-				try {
-					uri = new URI(uriStr);
-				} catch (Exception e) {
-					throw new ContainerCreateException("Cannot create Jersey Server Container because uri=" + uri, e);
-				}
+				URI uri = getUri(parameters, CXF_SERVER_CONFIG);
 				checkOSGIIntents(description, uri, parameters);
 				return new JaxRSServerContainer(context, uri) {
 					@Override
 					protected Servlet createServlet(final RSARemoteServiceRegistration registration) {
-						return new DPCXFNonSpringJaxrsServlet(new Application() {
-							@Override
-							public Set<Class<?>> getClasses() {
-								Set<Class<?>> results = new HashSet<Class<?>>();
-								results.add(registration.getService().getClass());
-								return results;
-							}
-							
-						}, (CXFServerConfiguration) configuration);
-					}
-
-					@Override
-					protected void exportRegistration(RSARemoteServiceRegistration reg) {
-					}
-
-					@Override
-					protected void unexportRegistration(RSARemoteServiceRegistration registration) {
+						return new DPCXFNonSpringJaxrsServlet(registration, (CXFServerConfiguration) configuration);
 					}
 				};
 			}
@@ -267,8 +258,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 	@Override
 	protected Configurable createConfigurable() {
 		CXFServerConfigurable configurable = new CXFServerConfigurable();
-		configurable.register(new JacksonJaxbJsonProvider());
-		configurable.register(new ObjectMapperContextResolverComponent());
+		configurable.register(new ObjectMapperContextResolver());
 		return configurable;
 	}
 
