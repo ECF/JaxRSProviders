@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.cxf.server.feature"
       label="ECF CXF JaxRS Remote Services Distribution Provider"
-      version="1.2.0.qualifier"
+      version="1.3.0.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">
@@ -16,9 +16,6 @@
    <license url="http://www.example.com/license">
       [Enter License Description here.]
    </license>
-
-   <requires>
-   </requires>
 
    <plugin
          id="org.eclipse.ecf.provider.cxf.server"
