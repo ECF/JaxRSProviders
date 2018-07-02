@@ -22,8 +22,8 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	public static final String URL_HOSTNAME_PROP = "hostname";
 	public static final String URL_HOSTNAME_DEFAULT = "localhost";
 	public static final String URL_PORT_PROP = "port";
-	public static final String URL_HTTP_PORT_DEFAULT = "80";
-	public static final String URL_HTTPS_PORT_DEFAULT = "443";
+	public static final String URL_HTTP_PORT_DEFAULT = "8080";
+	public static final String URL_HTTPS_PORT_DEFAULT = "8443";
 	public static final String URL_PATH_PREFIX_PROP = "pathPrefix";
 	public static final String URL_PATH_PREFIX_DEFAULT = "/";
 	public static final String URL_PREFIX_PROP = "urlPrefix";
@@ -55,19 +55,12 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	}
 
 	protected String getPort(Map<String, ?> params, String configName, boolean https) {
-		if (https) {
-			String p = super.getParameterValue(params, URL_PORT_PROP,
-					getSystemProperty(configName, URL_PORT_PROP, URL_HTTPS_PORT_DEFAULT));
-			if (p.equalsIgnoreCase(URL_HTTPS_PORT_DEFAULT))
-				return "";
-			return p;
-		} else {
-			String p = super.getParameterValue(params, URL_PORT_PROP,
-					getSystemProperty(configName, URL_PORT_PROP, URL_HTTP_PORT_DEFAULT));
-			if (p.equalsIgnoreCase(URL_HTTP_PORT_DEFAULT))
-				return "";
-			return p;
-		}
+		if (https) 
+			return super.getParameterValue(params, URL_PORT_PROP,
+					getSystemProperty(configName, URL_PORT_PROP, System.getProperty("org.osgi.service.http.port.secure", URL_HTTPS_PORT_DEFAULT)));
+		else 
+			return super.getParameterValue(params, URL_PORT_PROP,
+					getSystemProperty(configName, URL_PORT_PROP, System.getProperty("org.osgi.service.http.port", URL_HTTP_PORT_DEFAULT)));
 	}
 
 	protected String getPath(Map<String, ?> params, String configName) {

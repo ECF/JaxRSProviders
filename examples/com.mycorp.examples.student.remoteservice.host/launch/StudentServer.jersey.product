@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.2.0.qualifier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.5.0.qualifier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -13,8 +13,7 @@
 -Xmx384m 
 -Declipse.ignoreApp=true 
 -Dosgi.noShutdown=true 
--Dorg.osgi.service.http.port=8282 
--Decf.jaxrs.jersey.server.port=8282
+-Dorg.osgi.service.http.port=8080
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>

@@ -17,6 +17,8 @@ public class Activator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext context) throws Exception {
+		System.setProperty("javax.ws.rs.ext.RuntimeDelegate","org.apache.cxf.jaxrs.impl.RuntimeDelegateImpl");
+		System.setProperty("org.apache.cxf.stax.allowInsecureParser","1");
 		// Register CXF Server distribution provider
 		context.registerService(IRemoteServiceDistributionProvider.class, new CXFServerDistributionProvider(context),
 				null);
