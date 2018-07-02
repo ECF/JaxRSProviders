@@ -30,7 +30,8 @@
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.annotation_1.2.0.v201602091430.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.inject_1.0.0.v20091030.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.aopalliance_1.0.0.v201105210816.jar</bundle>
-	    
+        <bundle>mvn:org.eclipse.persistence/javax.persistence/2.2.0</bundle>	    
+	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.validation.api_1.1.0.Final.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.api_2.5.0.v20161103-0227.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.locator_2.5.0.v20161103-0227.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.osgi-resource-locator_2.5.0.v20161103-1916.jar</bundle>
