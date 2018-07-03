@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.mycorp.examples.student.remoteservice.host.StudentServiceImpl">
    <property name="service.exported.interfaces" value="*"/>
-   <property name="service.intents" value="osgi.async"/>
+   <property name="service.intents">osgi.async
+jaxrs
+   </property>
    <property name="osgi.basic.timeout" value="50000"/>
    <service>
       <provide interface="com.mycorp.examples.student.StudentService"/>
