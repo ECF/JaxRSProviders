@@ -152,10 +152,18 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	}
 
 	protected String getExportedEndpointId(String servletAlias, RSARemoteServiceRegistration reg) {
-		String uri = getURI().toString();
-		while (uri.endsWith("/"))
-			uri = uri.substring(0, uri.length() - 1);
-		return uri + servletAlias;
+		URI ourURI = getURI();
+		String path = ourURI.getPath();
+		// Fix for https://github.com/ECF/JaxRSProviders/issues/10
+		String suffix = "";
+		// If there is some path then 
+		if (!"".equals(path) && servletAlias.startsWith(path)) {
+			// Then if the servletAlias starts with, then we remove
+			suffix = servletAlias.substring(path.length());
+		} else
+			// otherwise we use the servletAlias unmodified
+			suffix = servletAlias;
+		return ourURI.toString() + suffix;
 	}
 
 	protected Map<String, Object> createExtraExportProperties(String servletAlias, RSARemoteServiceRegistration reg) {
