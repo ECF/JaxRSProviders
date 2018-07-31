@@ -64,16 +64,24 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	}
 
 	protected String getPath(Map<String, ?> params, String configName) {
-
 		return super.getParameterValue(params, URL_PATH_PREFIX_PROP,
 				getSystemProperty(configName, URL_PATH_PREFIX_PROP, URL_PATH_PREFIX_DEFAULT));
 	}
 
 	protected String getUrl(Map<String, ?> params, String configName) {
+		// Look for system property:  <configName>.urlPrefix
 		String sysUp = getSystemProperty(configName, URL_PREFIX_PROP, null);
+		// If found we use it unconditionally
 		if (sysUp != null)
 			return sysUp;
+		// Look for parameter urlPrefix
+		// Fix for https://github.com/ECF/JaxRSProviders/issues/9
+		String propUp = getParameterValue(params, URL_PREFIX_PROP, null);
+		// If found we use it unconditionally
+		if (propUp != null)
+			return propUp;
 		else {
+			// Get protocol, hostname,port,path to create uri
 			String protocol = getProtocol(params, configName);
 			String hostname = getHostname(params, configName);
 			String port = getPort(params, configName, protocol.equalsIgnoreCase("https"));
