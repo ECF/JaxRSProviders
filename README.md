@@ -6,7 +6,7 @@ ECF Distribution Providers based upon the JaxRS specification that supports [OSG
 ## NEW: Support for OSGi R7 Async Remote Services
 OSGi R7 Remote Services includes support for [Asynchronous Remote Services](https://osgi.org/specification/osgi.cmpn/7.0.0/service.remoteservices.html#d0e1407) supporting Remote Services with return values of CompletableFuture, Future, or OSGi's Promise (Java) that will be executed asynchronously.
 
-## Tutorial Using JaxRS Student Example
+## Tutorial Using JaxRS Student Example on Karaf
 
 See [JaxRS Remote Services Tutorial](https://wiki.eclipse.org/Tutorial:_JaxRS_Remote_Services_on_Karaf)
 
