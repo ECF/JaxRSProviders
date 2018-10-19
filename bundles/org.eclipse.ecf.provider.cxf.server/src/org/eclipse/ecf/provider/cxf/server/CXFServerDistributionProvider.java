@@ -12,7 +12,6 @@ package org.eclipse.ecf.provider.cxf.server;
 import java.net.URI;
 import java.util.Map;
 
-import javax.servlet.Servlet;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
 
@@ -20,10 +19,8 @@ import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
 import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
-import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
-import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
 import org.osgi.framework.BundleContext;
 
 public class CXFServerDistributionProvider extends JaxRSServerDistributionProvider {
@@ -55,12 +52,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 					final Configuration configuration) throws ContainerCreateException {
 				URI uri = getUri(parameters, CXF_SERVER_CONFIG);
 				checkOSGIIntents(description, uri, parameters);
-				return new JaxRSServerContainer(context, uri) {
-					@Override
-					protected Servlet createServlet(final RSARemoteServiceRegistration registration) {
-						return new DPCXFNonSpringJaxrsServlet(registration, (CXFServerConfiguration) configuration);
-					}
-				};
+				return new CXFJaxRSServerContainer(context, uri, (CXFServerConfiguration) configuration);
 			}
 		});
 		setDescription("CXF Jax-RS Distribution Provider");

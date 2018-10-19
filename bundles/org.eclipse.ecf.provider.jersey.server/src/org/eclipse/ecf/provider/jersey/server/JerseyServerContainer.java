@@ -23,17 +23,18 @@ import org.osgi.framework.BundleContext;
 
 public class JerseyServerContainer extends JaxRSServerContainer {
 
-	private ResourceConfig configuration;
+	private ResourceConfig originalConfiguration;
 
 	public JerseyServerContainer(BundleContext context, URI uri, ResourceConfig configuration) {
 		super(context, uri);
-		this.configuration = configuration;
+		this.originalConfiguration = configuration;
 	}
 
 	@Override
 	protected Servlet createServlet(RSARemoteServiceRegistration registration) {
 		Object svc = registration.getService();
 		String packageName = getPackageName(svc);
+		ResourceConfig configuration = new ResourceConfig(this.originalConfiguration);
 		if (packageName != null)
 			configuration.packages(packageName);
 		configuration.register(svc);
