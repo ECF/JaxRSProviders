@@ -92,21 +92,27 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 		return null;
 	}
 
+	private ServiceTracker<HttpService, HttpService> httpServiceTracker;
+	
 	protected HttpService getHttpService() {
-		ServiceTracker<HttpService, HttpService> st = new ServiceTracker<HttpService, HttpService>(this.context,
-				HttpService.class, null);
-		st.open();
-		HttpService s;
-		try {
-			s = st.waitForService(HTTPSERVICE_START_TIMEOUT);
-			if (s == null)
-				throw new TimeoutException(
-						"Timed out waiting " + String.valueOf(HTTPSERVICE_START_TIMEOUT) + "ms for HttpService");
-		} catch (InterruptedException | TimeoutException e) {
-			throw new RuntimeException("Could not find instance of HttpService for JaxRSServerContainer.getHttpService()", e);
+		synchronized (this) {
+			if (httpServiceTracker == null) {
+				this.httpServiceTracker = new ServiceTracker<HttpService, HttpService>(this.context, HttpService.class,
+						null);
+				this.httpServiceTracker.open();
+			}
+			HttpService result = null;
+			try {
+				result = this.httpServiceTracker.waitForService(HTTPSERVICE_START_TIMEOUT);
+				if (result == null)
+					throw new TimeoutException(
+							"Timed out waiting " + String.valueOf(HTTPSERVICE_START_TIMEOUT) + "ms for HttpService");
+			} catch (InterruptedException | TimeoutException e) {
+				throw new RuntimeException(
+						"Could not find instance of HttpService for JaxRSServerContainer.getHttpService()", e);
+			}
+			return result;
 		}
-		st.close();
-		return s;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -187,6 +193,12 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 			new ArrayList<RSARemoteServiceRegistration>(this.registrations.values()).forEach(r -> {
 				removeRegistration(r);
 			});
+		}
+		synchronized (this) {
+			if (this.httpServiceTracker != null) {
+				this.httpServiceTracker.close();
+				this.httpServiceTracker = null;
+			}
 		}
 	}
 
