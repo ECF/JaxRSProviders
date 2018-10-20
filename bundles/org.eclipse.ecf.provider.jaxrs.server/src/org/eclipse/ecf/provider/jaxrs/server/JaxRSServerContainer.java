@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -32,6 +33,9 @@ import org.osgi.service.http.NamespaceException;
 import org.osgi.util.tracker.ServiceTracker;
 
 public abstract class JaxRSServerContainer extends AbstractRSAContainer {
+
+	public static final Long HTTPSERVICE_START_TIMEOUT = Long
+			.valueOf(System.getProperty(JaxRSServerContainer.class.getName() + ".httpservice.timeout", "30000"));
 
 	public static final String SERVLET_PROPERTIES_PARAM = ".servletProperties"; // expected
 																				// value
@@ -89,10 +93,18 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	}
 
 	protected HttpService getHttpService() {
-		ServiceTracker<IHttpServiceHolder, IHttpServiceHolder> st = new ServiceTracker<IHttpServiceHolder, IHttpServiceHolder>(
-				this.context, IHttpServiceHolder.class, null);
+		ServiceTracker<HttpService, HttpService> st = new ServiceTracker<HttpService, HttpService>(this.context,
+				HttpService.class, null);
 		st.open();
-		HttpService s = st.getService().getHttpService();
+		HttpService s;
+		try {
+			s = st.waitForService(HTTPSERVICE_START_TIMEOUT);
+			if (s == null)
+				throw new TimeoutException(
+						"Timed out waiting " + String.valueOf(HTTPSERVICE_START_TIMEOUT) + "ms for HttpService");
+		} catch (InterruptedException | TimeoutException e) {
+			throw new RuntimeException("Could not find instance of HttpService for JaxRSServerContainer.getHttpService()", e);
+		}
 		st.close();
 		return s;
 	}
