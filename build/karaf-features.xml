@@ -15,7 +15,7 @@
             <feature>ecf-rs-distribution-jaxrs</feature>
             <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.jaxrs.jackson-jaxrs-base_2.9.2.v20180207-1730.jar</bundle>
             <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider_2.9.2.v20180207-1730.jar</bundle>
-            <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.server_1.5.1.201810201256.jar</bundle>
+            <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.server_1.5.2.201810201256.jar</bundle>
     </feature>
 	
     <feature name="ecf-rs-distribution-jaxrs-client" version="1.6.2" description="ECF JaxRS Distribution Provider Client Support. See https://github.com/ECF/JaxRSProviders">
