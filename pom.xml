@@ -73,8 +73,8 @@
 
   <pluginRepositories>
 <pluginRepository>
-   <id>eclipse-indigo</id>
-   <url>http://download.eclipse.org/releases/neon</url>
+   <id>eclipse-2018-9</id>
+   <url>http://download.eclipse.org/releases/2018-9</url>
    <layout>p2</layout>
 </pluginRepository>
   </pluginRepositories>

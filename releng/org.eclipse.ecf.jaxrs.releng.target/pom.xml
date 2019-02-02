@@ -28,9 +28,9 @@
             <configuration>
               <artifacts>
                 <artifact>
-                  <file>ecf-jaxrs-neon.target</file>
+                  <file>ecf-jaxrs-2018-9.target</file>
                   <type>target</type>
-                  <classifier>ecf-jaxrs-neon</classifier>
+                  <classifier>ecf-jaxrs-2018-9</classifier>
                 </artifact>
               </artifacts>
             </configuration>
