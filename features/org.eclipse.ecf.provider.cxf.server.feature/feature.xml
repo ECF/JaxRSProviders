@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.cxf.server.feature"
       label="ECF CXF JaxRS Distribution Provider"
-      version="1.6.2.qualifier"
+      version="1.7.0.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">
@@ -47,20 +47,6 @@
 
    <plugin
          id="com.fasterxml.jackson.core.jackson-databind"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="javax.ws.rs"
          download-size="0"
          install-size="0"
          version="0.0.0"

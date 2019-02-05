@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.jersey.client.feature"
       label="Jersey Remote Service Client Provider Feature"
-      version="1.6.2.qualifier"
+      version="1.7.0.qualifier"
       provider-name="%providerName">
 
    <description url="http://www.eclipse.org/ecf">
@@ -30,13 +30,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
    </license>
 
    <plugin
-         id="javax.ws.rs"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.ecf.provider.jaxrs.client"
          download-size="0"
          install-size="0"
@@ -59,20 +52,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
 
    <plugin
          id="com.fasterxml.jackson.core.jackson-databind"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -114,13 +93,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.jersey.bundles.repackaged.jersey-guava"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.glassfish.jersey.core.jersey-client"
          download-size="0"
          install-size="0"
@@ -142,13 +114,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
          unpack="false"/>
 
    <plugin
-         id="org.aopalliance"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.ecf.provider.jersey.client"
          download-size="0"
          install-size="0"
@@ -157,13 +122,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
 
    <plugin
          id="org.eclipse.ecf.provider.jaxrs"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="javax.annotation"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -213,6 +171,97 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
 
    <plugin
          id="com.mycorp.examples.student.client"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="jakarta.annotation-api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="jakarta.ws.rs-api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.hk2.external.jakarta.inject"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.hk2.external.aopalliance-repackaged"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.jersey.containers.jersey-container-servlet"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.jersey.containers.jersey-container-servlet-core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.jersey.core.jersey-server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.jersey.ext.jersey-entity-filtering"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.jersey.inject.jersey-hk2"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.jersey.media.jersey-media-jaxb"
          download-size="0"
          install-size="0"
          version="0.0.0"

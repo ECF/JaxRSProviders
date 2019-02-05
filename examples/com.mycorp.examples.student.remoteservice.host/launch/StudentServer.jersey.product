@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.5.0.qualifier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.6.0.qualifier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -26,7 +26,7 @@
    </launcher>
 
    <vm>
-      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10</windows>
    </vm>
 
    <plugins>
@@ -35,17 +35,14 @@
       <plugin id="com.fasterxml.jackson.core.jackson-databind"/>
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"/>
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"/>
       <plugin id="com.mycorp.examples.student"/>
       <plugin id="com.mycorp.examples.student.remoteservice.host"/>
+      <plugin id="jakarta.annotation-api"/>
+      <plugin id="jakarta.ws.rs-api"/>
       <plugin id="javassist"/>
-      <plugin id="javax.annotation"/>
-      <plugin id="javax.inject"/>
-      <plugin id="javax.persistence"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.validation.api"/>
-      <plugin id="javax.ws.rs"/>
-      <plugin id="javax.xml"/>
-      <plugin id="org.aopalliance"/>
       <plugin id="org.apache.felix.gogo.command"/>
       <plugin id="org.apache.felix.gogo.runtime"/>
       <plugin id="org.apache.felix.gogo.shell"/>
@@ -84,15 +81,19 @@
       <plugin id="org.eclipse.osgi.services.remoteserviceadmin"/>
       <plugin id="org.eclipse.osgi.util"/>
       <plugin id="org.glassfish.hk2.api"/>
+      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged"/>
+      <plugin id="org.glassfish.hk2.external.jakarta.inject"/>
       <plugin id="org.glassfish.hk2.locator"/>
       <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
       <plugin id="org.glassfish.hk2.utils"/>
-      <plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava"/>
-      <plugin id="org.glassfish.jersey.containers.servlet.core"/>
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet"/>
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core"/>
       <plugin id="org.glassfish.jersey.core.jersey-client"/>
       <plugin id="org.glassfish.jersey.core.jersey-common"/>
       <plugin id="org.glassfish.jersey.core.jersey-server"/>
-      <plugin id="org.glassfish.jersey.ext.entityfiltering"/>
+      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering"/>
+      <plugin id="org.glassfish.jersey.inject.jersey-hk2"/>
+      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb"/>
       <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
    </plugins>
 
@@ -102,31 +103,31 @@
       <plugin id="com.fasterxml.jackson.core.jackson-databind" autoStart="true" startLevel="0" />
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base" autoStart="true" startLevel="0" />
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" autoStart="true" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="true" startLevel="0" />
       <plugin id="com.mycorp.examples.student" autoStart="true" startLevel="0" />
       <plugin id="com.mycorp.examples.student.remoteservice.host" autoStart="true" startLevel="0" />
+      <plugin id="jakarta.annotation-api" autoStart="true" startLevel="0" />
+      <plugin id="jakarta.ws.rs-api" autoStart="true" startLevel="0" />
       <plugin id="javassist" autoStart="true" startLevel="0" />
-      <plugin id="javax.annotation" autoStart="true" startLevel="0" />
-      <plugin id="javax.inject" autoStart="true" startLevel="0" />
-      <plugin id="javax.persistence" autoStart="true" startLevel="0" />
       <plugin id="javax.servlet" autoStart="true" startLevel="0" />
       <plugin id="javax.validation.api" autoStart="true" startLevel="0" />
-      <plugin id="javax.ws.rs" autoStart="true" startLevel="0" />
-      <plugin id="javax.xml" autoStart="true" startLevel="0" />
-      <plugin id="org.aopalliance" autoStart="true" startLevel="0" />
       <plugin id="org.apache.felix.gogo.command" autoStart="true" startLevel="0" />
       <plugin id="org.apache.felix.gogo.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.apache.felix.gogo.shell" autoStart="true" startLevel="0" />
       <plugin id="org.apache.felix.scr" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.console" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.discovery" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.identity" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.console" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.jaxrs" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.jaxrs.server" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.provider.jersey.server" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.ecf.provider.jmdns" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.remoteservice" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.remoteservice.asyncproxy" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
@@ -146,16 +147,21 @@
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi.util" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.hk2.api" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.external.jakarta.inject" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.hk2.locator" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.hk2.osgi-resource-locator" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.hk2.utils" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.containers.servlet.core" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.jersey.core.jersey-client" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.jersey.core.jersey-common" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.jersey.core.jersey-server" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.ext.entityfiltering" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.inject.jersey-hk2" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson" autoStart="true" startLevel="0" />
    </configurations>
 

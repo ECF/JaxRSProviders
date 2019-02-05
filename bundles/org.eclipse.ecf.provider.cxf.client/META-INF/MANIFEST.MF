@@ -2,13 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Dist Provider - CXF Jax-RS Client
 Bundle-SymbolicName: org.eclipse.ecf.provider.cxf.client
-Bundle-Version: 1.3.0.qualifier
+Bundle-Version: 1.4.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  com.fasterxml.jackson.databind;version="2.9.2",
- com.fasterxml.jackson.jaxrs.base;version="2.9.2",
  com.fasterxml.jackson.jaxrs.json;version="2.9.2",
  javax.ws.rs;version="2.0.1",
  javax.ws.rs.client;version="2.0.1",
