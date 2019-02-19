@@ -44,7 +44,7 @@ public class StudentServiceClient {
 			if (except != null)
 				except.printStackTrace();
 			else
-				System.out.println("Student=0=" + s.getStudents().get(0));
+				System.out.println("getStudentCF().Student0=" + s.getStudents().get(0));
 		});
 		// Create a new student
 		Student newstudent = studentService.createStudent("April Snow");

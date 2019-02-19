@@ -18,7 +18,6 @@ import javax.ws.rs.core.Configuration;
 import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
 import org.osgi.framework.BundleContext;
@@ -52,7 +51,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 					final Configuration configuration) throws ContainerCreateException {
 				URI uri = getUri(parameters, CXF_SERVER_CONFIG);
 				checkOSGIIntents(description, uri, parameters);
-				return new CXFJaxRSServerContainer(context, uri, (CXFServerConfiguration) configuration);
+				return new CXFJaxRSServerContainer(context, uri, getJacksonPriority(parameters));
 			}
 		});
 		setDescription("CXF Jax-RS Distribution Provider");
@@ -62,9 +61,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected Configurable createConfigurable() {
-		CXFServerConfigurable configurable = new CXFServerConfigurable();
-		configurable.register(new ObjectMapperContextResolver());
-		return configurable;
+		return new CXFServerConfigurable();
 	}
 
 }

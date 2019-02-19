@@ -10,36 +10,82 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jersey.server;
 
+import java.lang.reflect.InvocationHandler;
 import java.net.URI;
 
 import javax.servlet.Servlet;
-import javax.ws.rs.core.Feature;
+import javax.ws.rs.core.Configurable;
 
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
+import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerInvocationHandlerProvider;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
+import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.model.Invocable;
+import org.glassfish.jersey.server.spi.internal.ResourceMethodInvocationHandlerProvider;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.framework.BundleContext;
 
 public class JerseyServerContainer extends JaxRSServerContainer {
 
-	private ResourceConfig originalConfiguration;
+	public static final int BINDING_DEFAULT_PRIORITY = Integer
+			.valueOf(System.getProperty(JaxRSServerContainer.class.getName() + ".bindingPriority", "1"));
 
-	public JerseyServerContainer(BundleContext context, URI uri, ResourceConfig configuration) {
-		super(context, uri);
+	private ResourceConfig originalConfiguration;
+	private int bindingPriority = BINDING_DEFAULT_PRIORITY;
+
+	public JerseyServerContainer(BundleContext context, URI uri, ResourceConfig configuration, int jacksonPriority,
+			int bindingPriority) {
+		super(context, uri, jacksonPriority);
 		this.originalConfiguration = configuration;
+		this.bindingPriority = bindingPriority;
+	}
+
+	public class JerseyBinder extends AbstractBinder {
+
+		class JerseyResourceMethodInvocationHandlerProvider extends JaxRSServerInvocationHandlerProvider
+				implements ResourceMethodInvocationHandlerProvider {
+			public JerseyResourceMethodInvocationHandlerProvider(RSARemoteServiceRegistration registration) {
+				super(registration);
+			}
+
+			@Override
+			public InvocationHandler create(Invocable invocable) {
+				return createInvocationHandler(invocable.getHandlingMethod());
+			}
+		}
+
+		private JerseyResourceMethodInvocationHandlerProvider provider;
+
+		public JerseyBinder(RSARemoteServiceRegistration registration) {
+			this.provider = new JerseyResourceMethodInvocationHandlerProvider(registration);
+		}
+
+		@Override
+		protected void configure() {
+			bind(provider).to(ResourceMethodInvocationHandlerProvider.class);
+		}
+	}
+
+	protected Configurable<?> createConfigurable(RSARemoteServiceRegistration registration) {
+		return new ResourceConfig(this.originalConfiguration);
+	}
+
+	protected void registerExtensions(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+		super.registerExtensions(configurable, registration);
+		configurable.register(new JerseyBinder(registration), bindingPriority);
+	}
+
+	protected void registerService(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+		super.registerService(configurable, registration);
+		String packageName = getPackageName(registration.getService());
+		if (packageName != null)
+			((ResourceConfig) configurable).packages(packageName);
 	}
 
 	@Override
-	protected Servlet createServlet(RSARemoteServiceRegistration registration) {
-		Object svc = registration.getService();
-		String packageName = getPackageName(svc);
-		ResourceConfig configuration = new ResourceConfig(this.originalConfiguration);
-		if (packageName != null)
-			configuration.packages(packageName);
-		configuration.register(svc);
-		configuration.register(new ServerJacksonFeature(registration), Feature.class);
-		return new ServletContainer(configuration);
+	protected Servlet createServlet(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+		return new ServletContainer((ResourceConfig) configurable);
 	}
 
 }

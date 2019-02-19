@@ -19,10 +19,13 @@ import java.util.concurrent.TimeoutException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.ws.rs.core.Configurable;
+import javax.ws.rs.ext.ContextResolver;
+
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.ecf.core.identity.URIID;
 import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
+import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.remoteservice.AbstractRSAContainer;
 import org.eclipse.ecf.remoteservice.Constants;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
@@ -34,6 +37,8 @@ import org.osgi.util.tracker.ServiceTracker;
 
 public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 
+	public static final int JACKSON_DEFAULT_PRIORITY = Integer
+			.valueOf(System.getProperty(JaxRSServerContainer.class.getName() + ".jacksonPriority", "1"));
 	public static final Long HTTPSERVICE_START_TIMEOUT = Long
 			.valueOf(System.getProperty(JaxRSServerContainer.class.getName() + ".httpservice.timeout", "30000"));
 
@@ -51,12 +56,19 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	protected BundleContext context;
 	protected final Map<String, RSARemoteServiceRegistration> registrations;
 
+	protected int jacksonPriority = JACKSON_DEFAULT_PRIORITY;
+
 	public JaxRSServerContainer(BundleContext context, URI uri) {
+		this(context, uri, JACKSON_DEFAULT_PRIORITY);
+	}
+
+	public JaxRSServerContainer(BundleContext context, URI uri, int jacksonPriority) {
 		super(JaxRSNamespace.INSTANCE.createInstance(new Object[] { uri }));
 		this.context = context;
 		String path = uri.getPath();
 		this.servletPathPrefix = (path == null) ? SLASH : path;
 		this.registrations = new HashMap<String, RSARemoteServiceRegistration>();
+		this.jacksonPriority = jacksonPriority;
 	}
 
 	protected URI getURI() {
@@ -77,7 +89,23 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 		return getKeyEndsWithPropertyValue(registration, SERVLET_HTTPCONTEXT_PARAM, HttpContext.class);
 	}
 
-	protected abstract Servlet createServlet(RSARemoteServiceRegistration registration);
+	protected Servlet createServlet(RSARemoteServiceRegistration registration) {
+		Configurable<?> configurable = createConfigurable(registration);
+		registerService(configurable, registration);
+		registerExtensions(configurable, registration);
+		return createServlet(configurable, registration);
+	}
+
+	protected abstract Servlet createServlet(Configurable<?> configurable, RSARemoteServiceRegistration registration);
+
+	protected void registerService(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+		configurable.register(registration.getService());
+	}
+
+	protected void registerExtensions(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+		configurable.register(new ObjectMapperContextResolver(), ContextResolver.class);
+		configurable.register(new JaxRSServerJacksonFeature(registration, jacksonPriority), jacksonPriority);
+	}
 
 	@SuppressWarnings("unchecked")
 	private <T> T getKeyEndsWithPropertyValue(RSARemoteServiceRegistration registration, String keyEndsWith,
@@ -93,7 +121,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	}
 
 	private ServiceTracker<HttpService, HttpService> httpServiceTracker;
-	
+
 	protected HttpService getHttpService() {
 		synchronized (this) {
 			if (httpServiceTracker == null) {
@@ -116,17 +144,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected Configurable createConfigurable() {
-		return null;
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected Configurable createConfigurable(RSARemoteServiceRegistration registration) {
-		Configurable configurable = createConfigurable();
-		if (configurable != null)
-			configurable.register(registration.getService());
-		return configurable;
-	}
+	protected abstract Configurable createConfigurable(RSARemoteServiceRegistration registration);
 
 	protected String getServletAlias(RSARemoteServiceRegistration reg) {
 		String servletAliasPrefix = (this.servletPathPrefix == null || "".equals(this.servletPathPrefix)) ? SLASH
@@ -158,7 +176,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 			try {
 				httpService.registerServlet(servletAlias, servlet, servletProperties, servletContext);
 			} catch (ServletException | NamespaceException e) {
-				throw new RuntimeException("Cannot register servlet with alias=" + servletPathPrefix, e);				
+				throw new RuntimeException("Cannot register servlet with alias=" + servletPathPrefix, e);
 			}
 			this.registrations.put(servletAlias, reg);
 		}
@@ -188,7 +206,6 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 
 	@Override
 	public void dispose() {
-		super.dispose();
 		synchronized (this.registrations) {
 			new ArrayList<RSARemoteServiceRegistration>(this.registrations.values()).forEach(r -> {
 				removeRegistration(r);
@@ -196,10 +213,15 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 		}
 		synchronized (this) {
 			if (this.httpServiceTracker != null) {
-				this.httpServiceTracker.close();
+				try {
+					this.httpServiceTracker.close();
+				} catch (Exception e) {
+					// ignore
+				}
 				this.httpServiceTracker = null;
 			}
 		}
+		super.dispose();
 	}
 
 	protected void removeRegistration(RSARemoteServiceRegistration registration) {
@@ -213,7 +235,8 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 						@Override
 						public void run() throws Exception {
 							httpService.unregister(servletAlias);
-						}});
+						}
+					});
 				}
 			}
 		}

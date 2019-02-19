@@ -28,6 +28,8 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	public static final String URL_PATH_PREFIX_DEFAULT = "/";
 	public static final String URL_PREFIX_PROP = "urlPrefix";
 
+	public static final String JACKSON_PRIORITY_PROP = "jacksonPriority";
+	
 	public JaxRSServerContainerInstantiator(String serverConfigTypeName) {
 		super(serverConfigTypeName);
 	}
@@ -55,12 +57,12 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	}
 
 	protected String getPort(Map<String, ?> params, String configName, boolean https) {
-		if (https) 
-			return super.getParameterValue(params, URL_PORT_PROP,
-					getSystemProperty(configName, URL_PORT_PROP, System.getProperty("org.osgi.service.http.port.secure", URL_HTTPS_PORT_DEFAULT)));
-		else 
-			return super.getParameterValue(params, URL_PORT_PROP,
-					getSystemProperty(configName, URL_PORT_PROP, System.getProperty("org.osgi.service.http.port", URL_HTTP_PORT_DEFAULT)));
+		if (https)
+			return super.getParameterValue(params, URL_PORT_PROP, getSystemProperty(configName, URL_PORT_PROP,
+					System.getProperty("org.osgi.service.http.port.secure", URL_HTTPS_PORT_DEFAULT)));
+		else
+			return super.getParameterValue(params, URL_PORT_PROP, getSystemProperty(configName, URL_PORT_PROP,
+					System.getProperty("org.osgi.service.http.port", URL_HTTP_PORT_DEFAULT)));
 	}
 
 	protected String getPath(Map<String, ?> params, String configName) {
@@ -69,7 +71,7 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	}
 
 	protected String getUrl(Map<String, ?> params, String configName) {
-		// Look for system property:  <configName>.urlPrefix
+		// Look for system property: <configName>.urlPrefix
 		String sysUp = getSystemProperty(configName, URL_PREFIX_PROP, null);
 		// If found we use it unconditionally
 		if (sysUp != null)
@@ -97,5 +99,10 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 		} catch (Exception e) {
 			throw new ContainerCreateException("Cannot create Jersey Server Container uri", e);
 		}
+	}
+	
+	protected Integer getJacksonPriority(Map<String, ?> parameters) {
+		return getParameterValue(parameters, JACKSON_PRIORITY_PROP, Integer.class,
+				JaxRSServerContainer.JACKSON_DEFAULT_PRIORITY);
 	}
 }

@@ -26,6 +26,7 @@ import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
+import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientJacksonFeature;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
@@ -48,10 +49,10 @@ public class CXFClientDistributionProvider extends JaxRSDistributionProvider {
 					@Override
 					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
 						return new JaxRSClientRemoteService(this, registration) {
-							protected Client createJaxRSClient(Configuration configuration) throws ECFException {
+							protected Client createJaxRSClient(Configuration configuration, ClassLoader cl) throws ECFException {
 								ClientBuilder cb = new ClientBuilderImpl();
 								cb.register(new ObjectMapperContextResolver());
-								cb.register(new JacksonJaxbJsonProvider());
+								cb.register(new JaxRSClientJacksonFeature(getRegistration(), cl, jacksonPriority), jacksonPriority);
 								return cb.build();
 							}
 

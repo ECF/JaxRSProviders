@@ -12,23 +12,42 @@ package org.eclipse.ecf.provider.cxf.server;
 import java.net.URI;
 
 import javax.servlet.Servlet;
+import javax.ws.rs.core.Configurable;
+import javax.ws.rs.ext.ContextResolver;
 
+import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
 import org.osgi.framework.BundleContext;
 
+import com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper;
+import com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+
 public class CXFJaxRSServerContainer extends JaxRSServerContainer {
 
-	private final CXFServerConfiguration configuration;
-	
-	public CXFJaxRSServerContainer(BundleContext context, URI uri, CXFServerConfiguration configuration) {
-		super(context, uri);
-		this.configuration = configuration;
+	public CXFJaxRSServerContainer(BundleContext context, URI uri, int jacksonPriority) {
+		super(context, uri, jacksonPriority);
 	}
 
 	@Override
-	protected Servlet createServlet(RSARemoteServiceRegistration registration) {
-		return new DPCXFNonSpringJaxrsServlet(registration, (CXFServerConfiguration) configuration, getServletAlias(registration));
+	protected Servlet createServlet(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+		return new DPCXFNonSpringJaxrsServlet(registration, (CXFServerConfigurable) configurable);
+	}
+
+	@Override
+	protected void registerExtensions(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+		// This overrides/replaces superclass implementation to setup
+		// ObjectMapperContextResolver, and Jackson Jaxb Json parsing/writing
+		configurable.register(new ObjectMapperContextResolver(), ContextResolver.class);
+		configurable.register(JsonParseExceptionMapper.class);
+		configurable.register(JsonMappingExceptionMapper.class);
+		configurable.register(new JacksonJaxbJsonProvider(), jacksonPriority);
+	}
+
+	@Override
+	protected Configurable<?> createConfigurable(RSARemoteServiceRegistration registration) {
+		return new CXFServerConfigurable();
 	}
 
 }

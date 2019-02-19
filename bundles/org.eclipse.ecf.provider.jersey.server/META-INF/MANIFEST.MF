@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Dist Provider - Jersey Jax RS Server
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
-Bundle-Version: 1.5.0.qualifier
+Bundle-Version: 1.6.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.fasterxml.jackson.core;version="2.6.2",
  com.fasterxml.jackson.databind;version="2.6.2",
  com.fasterxml.jackson.jaxrs.base;version="2.9.2",
@@ -25,6 +25,7 @@ Import-Package: com.fasterxml.jackson.core;version="2.6.2",
  org.eclipse.equinox.concurrent.future,
  org.glassfish.jersey;version="2.22.1",
  org.glassfish.jersey.internal;version="2.22.1",
+ org.glassfish.jersey.internal.inject;version="2.28.0",
  org.glassfish.jersey.internal.util;version="2.22.1",
  org.glassfish.jersey.jackson;version="2.22.1",
  org.glassfish.jersey.message.filtering;version="2.22.1",

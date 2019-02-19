@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example Using CXF Server Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.6.0.qualfier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example Using CXF Server Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.7.0.qualfier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -26,7 +26,7 @@
    </launcher>
 
    <vm>
-      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10</windows>
    </vm>
 
    <plugins>
@@ -35,17 +35,18 @@
       <plugin id="com.fasterxml.jackson.core.jackson-databind"/>
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"/>
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"/>
       <plugin id="com.mycorp.examples.student"/>
       <plugin id="com.mycorp.examples.student.remoteservice.host"/>
+      <plugin id="jakarta.annotation-api"/>
+      <plugin id="jakarta.ws.rs-api"/>
+      <plugin id="javassist"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.servlet"/>
-      <plugin id="javax.ws.rs"/>
-      <plugin id="javax.xml"/>
-      <plugin id="javax.xml.stream"/>
-      <plugin id="org.aopalliance"/>
       <plugin id="org.apache.cxf.cxf-core"/>
       <plugin id="org.apache.cxf.cxf-rt-frontend-jaxrs"/>
+      <plugin id="org.apache.cxf.cxf-rt-security"/>
       <plugin id="org.apache.cxf.cxf-rt-transports-http"/>
       <plugin id="org.apache.felix.gogo.command"/>
       <plugin id="org.apache.felix.gogo.runtime"/>
@@ -86,22 +87,12 @@
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.osgi.services.remoteserviceadmin"/>
       <plugin id="org.eclipse.osgi.util"/>
-      <plugin id="org.eclipse.pde.ds.lib"/>
-      <plugin id="org.glassfish.hk2.api"/>
-      <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
-      <plugin id="org.glassfish.hk2.utils"/>
-      <plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava"/>
-      <plugin id="org.glassfish.jersey.core.jersey-common"/>
-      <plugin id="org.glassfish.jersey.core.jersey-server"/>
-      <plugin id="org.glassfish.jersey.ext.entityfiltering"/>
-      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
    </plugins>
 
    <configurations>
       <plugin id="com.mycorp.examples.student" autoStart="false" startLevel="0" />
       <plugin id="com.mycorp.examples.student.remoteservice.host" autoStart="true" startLevel="0" />
       <plugin id="javax.servlet" autoStart="false" startLevel="0" />
-      <plugin id="javax.ws.rs" autoStart="false" startLevel="0" />
       <plugin id="org.apache.cxf.cxf-rt-frontend-jaxrs" autoStart="false" startLevel="0" />
       <plugin id="org.apache.cxf.cxf-rt-transports-http" autoStart="false" startLevel="0" />
       <plugin id="org.apache.felix.gogo.command" autoStart="false" startLevel="0" />

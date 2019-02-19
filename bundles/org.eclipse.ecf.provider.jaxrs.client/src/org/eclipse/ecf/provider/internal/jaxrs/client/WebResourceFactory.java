@@ -81,10 +81,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-
-import org.eclipse.ecf.provider.jaxrs.JaxRSConstants;
-import org.eclipse.ecf.remoteservice.asyncproxy.AsyncReturnUtil;
 
 /**
  * Factory for client-side representation of a resource. See the
@@ -288,8 +284,6 @@ public final class WebResourceFactory implements InvocationHandler {
 		for (final Cookie c : cookies)
 			builder = builder.cookie(c);
 
-		Object result = null;
-
 		if (entity == null && !form.asMap().isEmpty()) {
 			entity = form;
 			contentType = MediaType.APPLICATION_FORM_URLENCODED;
@@ -304,34 +298,15 @@ public final class WebResourceFactory implements InvocationHandler {
 				}
 			}
 		}
-		// If not async return then we handle as normal type
-		// Added to support OSGi R7 Async Remote Services:
-		// https://osgi.org/specification/osgi.cmpn/7.0.0/service.remoteservices.html#d0e1407
-		Class<?> returnType = method.getReturnType();
-		if (!AsyncReturnUtil.isAsyncType(returnType)) {
-			final GenericType responseGenericType = new GenericType(method.getGenericReturnType());
-			if (entity != null) {
-				if (entityType instanceof ParameterizedType)
-					entity = new GenericEntity(entity, entityType);
-				// block here
-				result = builder.method(httpMethod, Entity.entity(entity, contentType), responseGenericType);
-			} else
-				// block here
-				result = builder.method(httpMethod, responseGenericType);
-		} else {
-			// Async remote service return type
-			// block here to get response
-			Response response = builder.method(httpMethod);
-			// get response headers
-			String asyncType = (String) response.getHeaders().getFirst(JaxRSConstants.JAXRS_RESPHEADER_ASYNC_TYPE);
-			if (asyncType != null) {
-				Class<?> respType = method.getDeclaringClass().getClassLoader().loadClass(asyncType);
-				Object responseEntity = response.readEntity(respType);
-				if (responseEntity != null)
-					result = AsyncReturnUtil.convertReturnToAsync(responseEntity, returnType);
-			}
-		}
-		return result;
+		final GenericType responseGenericType = new GenericType(method.getGenericReturnType());
+		if (entity != null) {
+			if (entityType instanceof ParameterizedType)
+				entity = new GenericEntity(entity, entityType);
+			// block here
+			return builder.method(httpMethod, Entity.entity(entity, contentType), responseGenericType);
+		} else
+			// block here
+			return builder.method(httpMethod, responseGenericType);
 	}
 
 	@SuppressWarnings("rawtypes")

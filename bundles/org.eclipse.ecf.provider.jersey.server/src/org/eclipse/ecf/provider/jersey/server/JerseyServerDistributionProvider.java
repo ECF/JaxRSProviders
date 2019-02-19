@@ -15,12 +15,10 @@ import java.util.Map;
 
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
-import javax.ws.rs.ext.ContextResolver;
 
 import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -29,6 +27,8 @@ import org.osgi.framework.BundleContext;
 public class JerseyServerDistributionProvider extends JaxRSServerDistributionProvider {
 
 	public static final String JERSEY_SERVER_CONFIG = "ecf.jaxrs.jersey.server";
+	public static final String BINDING_PRIORITY = "bindingPriority";
+	public static final String JACKSON_PRIORITY = "jacksonPriority";
 
 	public JerseyServerDistributionProvider(final BundleContext context) {
 		super();
@@ -39,7 +39,9 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 					Configuration configuration) throws ContainerCreateException {
 				URI uri = getUri(parameters, JERSEY_SERVER_CONFIG);
 				checkOSGIIntents(description, uri, parameters);
-				return new JerseyServerContainer(context, uri, (ResourceConfig) configuration);
+				return new JerseyServerContainer(context, uri, (ResourceConfig) configuration,
+						getJacksonPriority(parameters), getParameterValue(parameters, BINDING_PRIORITY, Integer.class,
+								JerseyServerContainer.BINDING_DEFAULT_PRIORITY));
 			}
 
 			@Override
@@ -59,7 +61,6 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 		});
 		setDescription("Jersey Jax-RS Server Distribution Provider");
 		setServer(true);
-		addJaxRSComponent(new ObjectMapperContextResolver(), ContextResolver.class);
 	}
 
 	@SuppressWarnings("rawtypes")

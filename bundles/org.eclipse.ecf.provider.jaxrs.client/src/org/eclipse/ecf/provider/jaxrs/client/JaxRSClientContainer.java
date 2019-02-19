@@ -23,11 +23,13 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Configuration;
+import javax.ws.rs.ext.ContextResolver;
 
 import org.eclipse.ecf.core.identity.ID;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.internal.jaxrs.client.WebResourceFactory;
 import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
+import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.asyncproxy.AsyncReturnUtil;
 import org.eclipse.ecf.remoteservice.client.AbstractClientContainer;
@@ -38,14 +40,23 @@ import org.eclipse.ecf.remoteservice.events.IRemoteCallCompleteEvent;
 
 public class JaxRSClientContainer extends AbstractRSAClientContainer {
 
+	public static final int JACKSON_DEFAULT_PRIORITY = Integer
+			.valueOf(System.getProperty(JaxRSClientContainer.class.getName() + ".jacksonDefaultPriority", "1"));
 	protected Configuration configuration;
+	protected int jacksonPriority = JACKSON_DEFAULT_PRIORITY;
+
 	protected List<JaxRSClientRemoteService> remoteServices = Collections
 			.synchronizedList(new ArrayList<JaxRSClientRemoteService>());
 
 	public JaxRSClientContainer(Configuration configuration) {
+		this(configuration, JACKSON_DEFAULT_PRIORITY);
+	}
+
+	public JaxRSClientContainer(Configuration configuration, int jacksonPriority) {
 		super(JaxRSNamespace.INSTANCE
 				.createInstance(new Object[] { URI.create("uuid:" + java.util.UUID.randomUUID().toString()) }));
 		this.configuration = configuration;
+		this.jacksonPriority = jacksonPriority;
 	}
 
 	@Override
@@ -112,7 +123,7 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 					// Create configuration
 					Configuration config = createJaxRSClientConfiguration();
 					// create client
-					client = createJaxRSClient(config);
+					client = createJaxRSClient(config, cl);
 					// get WebTarget from client
 					WebTarget webtarget = getJaxRSWebTarget(client);
 					// For all interfaces create proxy and associate with interface class
@@ -138,9 +149,16 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 		}
 
 		protected Client createJaxRSClient(Configuration configuration) throws ECFException {
+			return createJaxRSClient(configuration, this.getClass().getClassLoader());
+		}
+
+		protected Client createJaxRSClient(Configuration configuration, ClassLoader cl) throws ECFException {
 			ClientBuilder cb = ClientBuilder.newBuilder();
 			if (configuration != null)
 				cb.withConfig(configuration);
+			// Default is to register the ClientJacksonFeature.
+			cb.register(new ObjectMapperContextResolver(), ContextResolver.class);
+			cb.register(new JaxRSClientJacksonFeature(getRegistration(), cl, jacksonPriority), jacksonPriority);
 			return cb.build();
 		}
 
