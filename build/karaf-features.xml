@@ -31,14 +31,14 @@
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.servlet_3.1.0.v201410161800.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.validation.api_2.0.1.Final.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.5.v20180409-1525.jar</bundle>
-	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.5.v20180409-1525.jar</bundle>
+	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpcore_4.4.9.v20180409-1525.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.codec_1.10.0.v20180409-1845.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.logging_1.2.0.v20180409-1502.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.api_2.5.0.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.external.aopalliance-repackaged_2.5.0.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.external.jakarta.inject_2.5.0.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.locator_2.5.0.jar</bundle>
-	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.osgi-resource-locator_2.5.0.jar</bundle>
+	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.osgi-resource-locator_1.0.1.jar</bundle>
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.utils_2.5.0.jar</bundle>
 	    
 	    <bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.core.jersey-client_2.28.0.jar</bundle>

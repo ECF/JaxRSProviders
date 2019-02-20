@@ -34,7 +34,7 @@ import com.mycorp.examples.student.StudentService;
 import com.mycorp.examples.student.Students;
 
 // The jax-rs path annotation for this service
-@Path("/studentservice")
+@Path("/studentservice2")
 // The OSGi DS (declarative services) component annotation. 
 //@Component(immediate = true, property = { "service.exported.interfaces=*", "service.exported.intents=osgi.async",
 //		"service.exported.intents=jaxrs","osgi.basic.timeout=50000" })
@@ -59,7 +59,7 @@ public class StudentServiceImpl2 implements StudentService {
 	// Implementation of StudentService based upon the students map
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/students")
+	@Path("/students2")
 	public Students getStudents() {
 		Students result = new Students();
 		result.setStudents(new ArrayList<Student>(students.values()));
@@ -68,7 +68,7 @@ public class StudentServiceImpl2 implements StudentService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/studentscf")
+	@Path("/studentscf2")
 	public CompletableFuture<Students> getStudentsCF() {
 		CompletableFuture<Students> cf = new CompletableFuture<Students>();
 		cf.complete(getStudents());
@@ -77,14 +77,14 @@ public class StudentServiceImpl2 implements StudentService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/students/{studentId}")
+	@Path("/students2/{studentId}")
 	public Student getStudent(@PathParam("studentId") String id) {
 		return students.get(id);
 	}
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/students/{studentName}")
+	@Path("/students2/{studentName}")
 	public Student createStudent(@PathParam("studentName") String studentName) {
 		if (studentName == null)
 			return null;
@@ -99,7 +99,7 @@ public class StudentServiceImpl2 implements StudentService {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/students")
+	@Path("/students2")
 	public Student updateStudent(Student student) {
 		Student result = null;
 		if (student != null) {
@@ -121,7 +121,7 @@ public class StudentServiceImpl2 implements StudentService {
 	}
 
 	@DELETE
-	@Path("/students/{studentId}")
+	@Path("/students2/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Student deleteStudent(@PathParam("studentId") String studentId) {
 		return students.remove(studentId);
