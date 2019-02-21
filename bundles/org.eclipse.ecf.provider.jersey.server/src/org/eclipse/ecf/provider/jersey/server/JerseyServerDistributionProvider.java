@@ -19,6 +19,7 @@ import javax.ws.rs.core.Configuration;
 import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainer;
+import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -33,6 +34,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	public JerseyServerDistributionProvider(final BundleContext context) {
 		super();
 		setName(JERSEY_SERVER_CONFIG);
+		JaxRSNamespace.class.getName();
 		setInstantiator(new JaxRSServerContainerInstantiator(JERSEY_SERVER_CONFIG) {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
