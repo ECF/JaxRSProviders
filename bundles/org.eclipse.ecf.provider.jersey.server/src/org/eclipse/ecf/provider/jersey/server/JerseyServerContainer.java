@@ -67,20 +67,15 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 		}
 	}
 
+	@Override
 	protected Configurable<?> createConfigurable(RSARemoteServiceRegistration registration) {
 		return new ResourceConfig(this.originalConfiguration);
 	}
 
+	@Override
 	protected void registerExtensions(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
 		super.registerExtensions(configurable, registration);
 		configurable.register(new JerseyBinder(registration), bindingPriority);
-	}
-
-	protected void registerService(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
-		super.registerService(configurable, registration);
-		String packageName = getPackageName(registration.getService());
-		if (packageName != null)
-			((ResourceConfig) configurable).packages(packageName);
 	}
 
 	@Override
