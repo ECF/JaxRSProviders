@@ -28,8 +28,6 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	public static final String URL_PATH_PREFIX_DEFAULT = "/";
 	public static final String URL_PREFIX_PROP = "urlPrefix";
 
-	public static final String JACKSON_PRIORITY_PROP = "jacksonPriority";
-	
 	public JaxRSServerContainerInstantiator(String serverConfigTypeName) {
 		super(serverConfigTypeName);
 	}
@@ -101,8 +99,4 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 		}
 	}
 	
-	protected Integer getJacksonPriority(Map<String, ?> parameters) {
-		return getParameterValue(parameters, JACKSON_PRIORITY_PROP, Integer.class,
-				JaxRSServerContainer.JACKSON_DEFAULT_PRIORITY);
-	}
 }

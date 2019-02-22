@@ -9,6 +9,7 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.internal.jersey.server;
 
+import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
 import org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
 import org.osgi.framework.BundleActivator;
@@ -18,6 +19,8 @@ public class Activator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext context) throws Exception {
+		JaxRSNamespace ns = new JaxRSNamespace();
+		ns.getName();
 		context.registerService(IRemoteServiceDistributionProvider.class, new JerseyServerDistributionProvider(context),
 				null);
 	}

@@ -24,7 +24,6 @@ import javax.ws.rs.ext.ContextResolver;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.ecf.core.identity.URIID;
-import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
 import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.remoteservice.AbstractRSAContainer;
 import org.eclipse.ecf.remoteservice.Constants;
@@ -37,8 +36,6 @@ import org.osgi.util.tracker.ServiceTracker;
 
 public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 
-	public static final int JACKSON_DEFAULT_PRIORITY = Integer
-			.valueOf(System.getProperty(JaxRSServerContainer.class.getName() + ".jacksonPriority", "1"));
 	public static final Long HTTPSERVICE_START_TIMEOUT = Long
 			.valueOf(System.getProperty(JaxRSServerContainer.class.getName() + ".httpservice.timeout", "30000"));
 
@@ -56,16 +53,12 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	protected BundleContext context;
 	protected final Map<String, RSARemoteServiceRegistration> registrations;
 
-	protected int jacksonPriority = JACKSON_DEFAULT_PRIORITY;
+	protected int jacksonPriority = JaxRSServerContainerInstantiator.JACKSON_DEFAULT_PRIORITY;
 
-	public JaxRSServerContainer(BundleContext context, URI uri) {
-		this(context, uri, JACKSON_DEFAULT_PRIORITY);
-	}
-
-	public JaxRSServerContainer(BundleContext context, URI uri, int jacksonPriority) {
-		super(JaxRSNamespace.INSTANCE.createInstance(new Object[] { uri }));
+	public JaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority) {
+		super(containerID);
 		this.context = context;
-		String path = uri.getPath();
+		String path = getURI().getPath();
 		this.servletPathPrefix = (path == null) ? SLASH : path;
 		this.registrations = new HashMap<String, RSARemoteServiceRegistration>();
 		this.jacksonPriority = jacksonPriority;

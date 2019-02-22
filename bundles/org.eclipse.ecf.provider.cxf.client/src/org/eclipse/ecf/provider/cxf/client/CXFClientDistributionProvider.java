@@ -32,8 +32,6 @@ import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
 import org.osgi.service.component.annotations.Component;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-
 @Component(immediate = true, service = IRemoteServiceDistributionProvider.class)
 public class CXFClientDistributionProvider extends JaxRSDistributionProvider {
 
@@ -45,7 +43,7 @@ public class CXFClientDistributionProvider extends JaxRSDistributionProvider {
 			@Override
 			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
 					final Configuration configuration) {
-				return new JaxRSClientContainer(configuration) {
+				return new JaxRSClientContainer(createJaxRSID(), configuration, (int) getJacksonPriority(parameters)) {
 					@Override
 					protected IRemoteService createRemoteService(RemoteServiceClientRegistration registration) {
 						return new JaxRSClientRemoteService(this, registration) {

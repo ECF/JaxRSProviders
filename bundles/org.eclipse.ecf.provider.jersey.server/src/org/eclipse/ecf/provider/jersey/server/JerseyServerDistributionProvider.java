@@ -41,7 +41,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 					Configuration configuration) throws ContainerCreateException {
 				URI uri = getUri(parameters, JERSEY_SERVER_CONFIG);
 				checkOSGIIntents(description, uri, parameters);
-				return new JerseyServerContainer(context, uri, (ResourceConfig) configuration,
+				return new JerseyServerContainer(createJaxRSID(uri), context, (ResourceConfig) configuration,
 						getJacksonPriority(parameters), getParameterValue(parameters, BINDING_PRIORITY, Integer.class,
 								JerseyServerContainer.BINDING_DEFAULT_PRIORITY));
 			}

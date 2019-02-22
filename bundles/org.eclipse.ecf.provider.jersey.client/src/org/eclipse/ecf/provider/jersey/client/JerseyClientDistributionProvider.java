@@ -37,7 +37,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 					final Configuration configuration) {
 				Integer jacksonPriority = getParameterValue(parameters, JACKSON_PRIORITY, Integer.class,
 						JaxRSClientContainer.JACKSON_DEFAULT_PRIORITY);
-				return new JaxRSClientContainer(configuration, jacksonPriority);
+				return new JaxRSClientContainer(createJaxRSID(), configuration, jacksonPriority);
 			}
 		});
 	}

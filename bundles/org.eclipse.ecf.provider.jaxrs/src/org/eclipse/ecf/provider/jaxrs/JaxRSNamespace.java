@@ -20,13 +20,18 @@ public class JaxRSNamespace extends Namespace {
 
 	private static final long serialVersionUID = -3848279615939604280L;
 	public static final String NAME = "ecf.namespace.jaxrs";
-	public static JaxRSNamespace INSTANCE;
-
 	public JaxRSNamespace() {
 		super(NAME, "JaxRS Namespace");
-		INSTANCE = this;
 	}
 
+	public ID createInstance(URI uri) throws IDCreateException {
+		return createInstance(new Object[] { uri });
+	}
+	
+	public ID createInstance(String uri) throws IDCreateException {
+		return createInstance(new Object[] { uri });
+	}
+	
 	@Override
 	public ID createInstance(Object[] parameters) throws IDCreateException {
 		try {
@@ -37,7 +42,7 @@ public class JaxRSNamespace extends Namespace {
 				uri = URI.create((String) parameters[0]);
 			if (uri == null)
 				throw new IllegalArgumentException("the first parameter must be of type String or URI");
-			return new URIID(INSTANCE, uri);
+			return new URIID(this, uri);
 		} catch (Exception e) {
 			throw new IDCreateException("Could not create JaxRS ID", e); //$NON-NLS-1$
 		}

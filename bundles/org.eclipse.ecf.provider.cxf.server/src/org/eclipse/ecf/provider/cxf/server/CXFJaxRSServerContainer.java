@@ -9,12 +9,11 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.cxf.server;
 
-import java.net.URI;
-
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.ext.ContextResolver;
 
+import org.eclipse.ecf.core.identity.URIID;
 import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
@@ -26,8 +25,8 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 public class CXFJaxRSServerContainer extends JaxRSServerContainer {
 
-	public CXFJaxRSServerContainer(BundleContext context, URI uri, int jacksonPriority) {
-		super(context, uri, jacksonPriority);
+	public CXFJaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority) {
+		super(containerID, context, jacksonPriority);
 	}
 
 	@Override

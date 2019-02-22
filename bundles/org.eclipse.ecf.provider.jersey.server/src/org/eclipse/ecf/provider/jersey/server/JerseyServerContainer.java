@@ -11,11 +11,11 @@
 package org.eclipse.ecf.provider.jersey.server;
 
 import java.lang.reflect.InvocationHandler;
-import java.net.URI;
 
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Configurable;
 
+import org.eclipse.ecf.core.identity.URIID;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerInvocationHandlerProvider;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
@@ -34,9 +34,9 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 	private ResourceConfig originalConfiguration;
 	private int bindingPriority = BINDING_DEFAULT_PRIORITY;
 
-	public JerseyServerContainer(BundleContext context, URI uri, ResourceConfig configuration, int jacksonPriority,
-			int bindingPriority) {
-		super(context, uri, jacksonPriority);
+	public JerseyServerContainer(URIID containerID, BundleContext context, ResourceConfig configuration,
+			int jacksonPriority, int bindingPriority) {
+		super(containerID, context, jacksonPriority);
 		this.originalConfiguration = configuration;
 		this.bindingPriority = bindingPriority;
 	}

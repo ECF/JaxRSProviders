@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.cxf.server.feature"
       label="ECF CXF JaxRS Distribution Provider"
-      version="1.7.0.qualifier"
+      version="1.8.0.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">

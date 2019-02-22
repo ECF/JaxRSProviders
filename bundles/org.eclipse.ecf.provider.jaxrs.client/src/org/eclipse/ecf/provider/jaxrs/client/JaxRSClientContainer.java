@@ -11,7 +11,6 @@ package org.eclipse.ecf.provider.jaxrs.client;
 
 import java.io.InvalidObjectException;
 import java.lang.reflect.Method;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,7 +27,6 @@ import javax.ws.rs.ext.ContextResolver;
 import org.eclipse.ecf.core.identity.ID;
 import org.eclipse.ecf.core.util.ECFException;
 import org.eclipse.ecf.provider.internal.jaxrs.client.WebResourceFactory;
-import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
 import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.remoteservice.IRemoteService;
 import org.eclipse.ecf.remoteservice.asyncproxy.AsyncReturnUtil;
@@ -48,13 +46,8 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 	protected List<JaxRSClientRemoteService> remoteServices = Collections
 			.synchronizedList(new ArrayList<JaxRSClientRemoteService>());
 
-	public JaxRSClientContainer(Configuration configuration) {
-		this(configuration, JACKSON_DEFAULT_PRIORITY);
-	}
-
-	public JaxRSClientContainer(Configuration configuration, int jacksonPriority) {
-		super(JaxRSNamespace.INSTANCE
-				.createInstance(new Object[] { URI.create("uuid:" + java.util.UUID.randomUUID().toString()) }));
+	public JaxRSClientContainer(ID containerID, Configuration configuration, int jacksonPriority) {
+		super(containerID);
 		this.configuration = configuration;
 		this.jacksonPriority = jacksonPriority;
 	}
