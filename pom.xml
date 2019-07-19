@@ -165,6 +165,7 @@
 		<module>examples/com.mycorp.examples.student.client</module>
 		<module>examples/com.mycorp.examples.student.client.filediscovery</module>
 		<module>examples/com.mycorp.examples.student.remoteservice.host</module>
+		<module>examples/org.eclipse.ecf.provider.jersey.ext.example</module>
 		<module>releng/org.eclipse.ecf.jaxrs.releng.target</module>
 		<module>bundles/org.eclipse.ecf.provider.jaxrs</module>
 		<module>bundles/org.eclipse.ecf.provider.jaxrs.server</module>
