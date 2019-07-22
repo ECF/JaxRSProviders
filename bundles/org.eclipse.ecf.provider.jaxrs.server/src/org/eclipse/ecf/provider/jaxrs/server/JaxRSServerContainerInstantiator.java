@@ -28,6 +28,10 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 	public static final String URL_PATH_PREFIX_DEFAULT = "/";
 	public static final String URL_PREFIX_PROP = "urlPrefix";
 
+	public static final String URL_INCLUDE_REMOTE_SERVICE_ID = "includeRemoteServiceId";
+
+	public static final String URL_INCLUDE_REMOTE_SERVICE_ID_DEFAULT = "false";
+
 	public JaxRSServerContainerInstantiator(String serverConfigTypeName) {
 		super(serverConfigTypeName);
 	}
@@ -91,6 +95,14 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 
 	}
 
+	protected boolean getIncludeRemoteServiceId(Map<String, ?> params, String configName) {
+		String includeRemoteServiceIdVal = super.getParameterValue(params, URL_INCLUDE_REMOTE_SERVICE_ID,
+				getSystemProperty(configName, URL_INCLUDE_REMOTE_SERVICE_ID, URL_INCLUDE_REMOTE_SERVICE_ID_DEFAULT));
+		if (includeRemoteServiceIdVal == null)
+			return Boolean.FALSE;
+		return Boolean.valueOf(includeRemoteServiceIdVal);
+	}
+
 	protected URI getUri(Map<String, ?> params, String configName) throws ContainerCreateException {
 		try {
 			return new URI(getUrl(params, configName));
@@ -98,5 +110,5 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 			throw new ContainerCreateException("Cannot create Jersey Server Container uri", e);
 		}
 	}
-	
+
 }

@@ -55,14 +55,23 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 
 	protected int jacksonPriority = JaxRSServerContainerInstantiator.JACKSON_DEFAULT_PRIORITY;
 
-	public JaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority) {
+	protected boolean includeRemoteServiceId;
+
+	public JaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority,
+			boolean includeRemoteServiceId) {
 		super(containerID);
 		this.context = context;
 		String path = getURI().getPath();
 		this.servletPathPrefix = (path == null) ? SLASH : path;
 		this.registrations = new HashMap<String, RSARemoteServiceRegistration>();
 		this.jacksonPriority = jacksonPriority;
+		this.includeRemoteServiceId = includeRemoteServiceId;
 	}
+
+	/*
+	 * public JaxRSServerContainer(URIID containerID, BundleContext context, int
+	 * jacksonPriority) { this(containerID, context, jacksonPriority, false); }
+	 */
 
 	protected URI getURI() {
 		return ((URIID) getID()).toURI();
@@ -144,7 +153,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 				: this.servletPathPrefix;
 		if (!servletAliasPrefix.endsWith(SLASH))
 			servletAliasPrefix += SLASH;
-		return servletAliasPrefix + String.valueOf(reg.getServiceId());
+		return servletAliasPrefix + (this.includeRemoteServiceId ? String.valueOf(reg.getServiceId()) : "");
 	}
 
 	@Override
@@ -169,7 +178,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 			try {
 				httpService.registerServlet(servletAlias, servlet, servletProperties, servletContext);
 			} catch (ServletException | NamespaceException e) {
-				throw new RuntimeException("Cannot register servlet with alias=" + servletPathPrefix, e);
+				throw new RuntimeException("Cannot register servlet with alias=" + servletAlias, e);
 			}
 			this.registrations.put(servletAlias, reg);
 		}

@@ -20,7 +20,7 @@ public class ExtJerseyServerContainer extends JerseyServerContainer {
 
 	public ExtJerseyServerContainer(URIID containerID, BundleContext context, ResourceConfig configuration) {
 		super(containerID, context, configuration, JaxRSContainerInstantiator.JACKSON_DEFAULT_PRIORITY,
-				JerseyServerContainer.BINDING_DEFAULT_PRIORITY);
+				JerseyServerContainer.BINDING_DEFAULT_PRIORITY, false);
 	}
 
 	@Override

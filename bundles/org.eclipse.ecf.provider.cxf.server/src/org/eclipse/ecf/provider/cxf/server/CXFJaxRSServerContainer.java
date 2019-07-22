@@ -25,8 +25,9 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 public class CXFJaxRSServerContainer extends JaxRSServerContainer {
 
-	public CXFJaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority) {
-		super(containerID, context, jacksonPriority);
+	public CXFJaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority,
+			boolean includeRemoteServiceId) {
+		super(containerID, context, jacksonPriority, includeRemoteServiceId);
 	}
 
 	@Override

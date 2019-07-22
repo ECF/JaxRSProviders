@@ -35,8 +35,8 @@ public class JerseyServerContainer extends JaxRSServerContainer {
 	private int bindingPriority = BINDING_DEFAULT_PRIORITY;
 
 	public JerseyServerContainer(URIID containerID, BundleContext context, ResourceConfig configuration,
-			int jacksonPriority, int bindingPriority) {
-		super(containerID, context, jacksonPriority);
+			int jacksonPriority, int bindingPriority, boolean includeRemoteServiceId) {
+		super(containerID, context, jacksonPriority, includeRemoteServiceId);
 		this.originalConfiguration = configuration;
 		this.bindingPriority = bindingPriority;
 	}
