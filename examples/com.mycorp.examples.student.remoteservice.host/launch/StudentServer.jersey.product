@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.6.0.qualifier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.10.0.qualifier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -18,7 +18,6 @@
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
-
 
    <launcher>
       <win useIco="false">

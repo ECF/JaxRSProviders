@@ -49,7 +49,7 @@
 		<plugin id="javax.servlet.jsp"/>
 		<plugin id="javax.servlet.jsp.source"/>
 		<plugin id="javax.servlet.source" version="3.1.0.v201410161800"/>
-		<plugin id="javax.validation.api" version="1.1.0.Final"/>
+		<plugin id="javax.validation.api" version="2.0.1.Final"/>
 		<plugin id="org.apache.ant"/>
 		<plugin id="org.apache.ant.source"/>
 		<plugin id="org.apache.batik.constants"/>
@@ -243,8 +243,8 @@
 		<plugin id="org.eclipse.ecf.remoteservice"/>
 		<plugin id="org.eclipse.ecf.remoteservice.asyncproxy" version="2.1.0.v20180409-2248"/>
 		<plugin id="org.eclipse.ecf.remoteservice.asyncproxy" version="1.1.100.v20180926-1526"/>
-		<plugin id="org.eclipse.ecf.remoteservice.asyncproxy.source" version="2.1.0.v20180409-2248"/>
 		<plugin id="org.eclipse.ecf.remoteservice.asyncproxy.source" version="1.1.100.v20180926-1526"/>
+		<plugin id="org.eclipse.ecf.remoteservice.asyncproxy.source" version="2.1.0.v20180409-2248"/>
 		<plugin id="org.eclipse.ecf.remoteservice.eventadmin"/>
 		<plugin id="org.eclipse.ecf.remoteservice.eventadmin.source"/>
 		<plugin id="org.eclipse.ecf.remoteservice.rest"/>
@@ -608,8 +608,8 @@
 		<plugin id="org.junit.vintage.engine.source"/>
 		<plugin id="org.objectweb.asm" version="6.1.1.v20180414-0329"/>
 		<plugin id="org.objectweb.asm" version="7.1.0.v20190412-2143"/>
-		<plugin id="org.objectweb.asm.source" version="6.1.1.v20180414-0329"/>
 		<plugin id="org.objectweb.asm.source" version="7.1.0.v20190412-2143"/>
+		<plugin id="org.objectweb.asm.source" version="6.1.1.v20180414-0329"/>
 		<plugin id="org.objectweb.asm.tree"/>
 		<plugin id="org.objectweb.asm.tree.source"/>
 		<plugin id="org.opentest4j"/>
@@ -626,5 +626,6 @@
 		<plugin id="org.w3c.dom.smil.source"/>
 		<plugin id="org.w3c.dom.svg"/>
 		<plugin id="org.w3c.dom.svg.source"/>
+		<plugin id="javax.validation.api" version="1.1.0.Final"/>
 	</includeBundles>
 </target>
