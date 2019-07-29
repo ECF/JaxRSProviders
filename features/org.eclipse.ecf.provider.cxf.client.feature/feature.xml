@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.cxf.client.feature"
       label="ECF CXF Client Distribution Provider Feature"
-      version="1.8.0.qualifier"
+      version="1.10.0.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">
@@ -117,6 +117,13 @@
 
    <plugin
          id="org.apache.cxf.cxf-rt-security"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.javax.xml.bind"
          download-size="0"
          install-size="0"
          version="0.0.0"

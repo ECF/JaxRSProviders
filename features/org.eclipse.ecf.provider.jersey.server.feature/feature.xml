@@ -260,4 +260,11 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.glassfish.javax.xml.bind"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

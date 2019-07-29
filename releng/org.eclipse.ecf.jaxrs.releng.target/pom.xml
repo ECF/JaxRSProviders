@@ -32,6 +32,11 @@
                   <type>target</type>
                   <classifier>ecf-jaxrs-2018-9</classifier>
                 </artifact>
+                <artifact>
+                  <file>ecf-jaxrs-2019-6.target</file>
+                  <type>target</type>
+                  <classifier>ecf-jaxrs-2019-6</classifier>
+                </artifact>
               </artifacts>
             </configuration>
           </execution>
