@@ -68,11 +68,6 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 		this.includeRemoteServiceId = includeRemoteServiceId;
 	}
 
-	/*
-	 * public JaxRSServerContainer(URIID containerID, BundleContext context, int
-	 * jacksonPriority) { this(containerID, context, jacksonPriority, false); }
-	 */
-
 	protected URI getURI() {
 		return ((URIID) getID()).toURI();
 	}
@@ -151,8 +146,6 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	protected String getServletAlias(RSARemoteServiceRegistration reg) {
 		String servletAliasPrefix = (this.servletPathPrefix == null || "".equals(this.servletPathPrefix)) ? SLASH
 				: this.servletPathPrefix;
-		if (!servletAliasPrefix.endsWith(SLASH))
-			servletAliasPrefix += SLASH;
 		return servletAliasPrefix + (this.includeRemoteServiceId ? String.valueOf(reg.getServiceId()) : "");
 	}
 

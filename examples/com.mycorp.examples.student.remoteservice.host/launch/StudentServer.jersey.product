@@ -14,6 +14,7 @@
 -Declipse.ignoreApp=true 
 -Dosgi.noShutdown=true 
 -Dorg.osgi.service.http.port=8080
+-Decf.jaxrs.jersey.server.pathPrefix=/rservices
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
