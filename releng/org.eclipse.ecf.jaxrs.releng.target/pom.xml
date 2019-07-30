@@ -33,9 +33,9 @@
                   <classifier>ecf-jaxrs-2018-9</classifier>
                 </artifact>
                 <artifact>
-                  <file>ecf-jaxrs-2019-6.target</file>
+                  <file>ecf-jaxrs-2019-3.target</file>
                   <type>target</type>
-                  <classifier>ecf-jaxrs-2019-6</classifier>
+                  <classifier>ecf-jaxrs-2019-3</classifier>
                 </artifact>
               </artifacts>
             </configuration>
