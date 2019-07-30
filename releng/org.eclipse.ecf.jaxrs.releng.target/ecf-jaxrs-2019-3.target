@@ -5,7 +5,7 @@
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.feature.group" version="0.0.0"/>
 		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.source.feature.group" version="0.0.0"/>
-		<repository location="http://download.eclipse.org/rt/ecf/3.14.4/site.p2"/>
+		<repository location="http://download.eclipse.org/rt/ecf/3.14.5/site.p2"/>
 	</location>
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
