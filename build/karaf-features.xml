@@ -1,6 +1,8 @@
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
 	name="ecf-remoteservices-jaxrs-1.10.0">
 
+    <repository>http://download.eclipse.org/rt/ecf/RELEASE/site.p2/karaf-features.xml</repository>
+
 	<feature name="ecf-rs-distribution-jaxrs" version="1.10.0"
 		description="ECF JaxRS Distribution Provider Support. See https://github.com/ECF/JaxRSProviders">
 		<feature>ecf-rs-rsa</feature>
