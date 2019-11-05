@@ -17,6 +17,10 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import plugin="org.apache.cxf.cxf-core"/>
+   </requires>
+
    <plugin
          id="org.eclipse.ecf.provider.cxf.server"
          download-size="0"
@@ -47,13 +51,6 @@
 
    <plugin
          id="com.fasterxml.jackson.core.jackson-databind"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.cxf.cxf-core"
          download-size="0"
          install-size="0"
          version="0.0.0"
