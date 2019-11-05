@@ -17,6 +17,7 @@ import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
 
 public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerInstantiator {
 
+	public static final String JAXRS_SERVER_CONFIG = "ecf.jaxrs.server";
 	public static final String URL_PROTOCOL_PROP = "protocol";
 	public static final String URL_PROTOCOL_DEFAULT = "http";
 	public static final String URL_HOSTNAME_PROP = "hostname";
@@ -40,7 +41,7 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 		super(serverConfigTypeName, clientConfigTypeName);
 	}
 
-	protected String getDotProperty(String configName, String paramName) {
+	public static String getDotProperty(String configName, String paramName) {
 		return configName + "." + paramName;
 	}
 
@@ -58,18 +59,16 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 				getSystemProperty(configName, URL_HOSTNAME_PROP, URL_HOSTNAME_DEFAULT));
 	}
 
-	protected String getPort(Map<String, ?> params, String configName, boolean https) {
+	protected String getSystemPort(Map<String, ?> params, String configName, boolean https) {
 		if (https)
-			return super.getParameterValue(params, URL_PORT_PROP, getSystemProperty(configName, URL_PORT_PROP,
-					System.getProperty("org.osgi.service.http.port.secure", URL_HTTPS_PORT_DEFAULT)));
+			return System.getProperty("org.osgi.service.http.port.secure", URL_HTTPS_PORT_DEFAULT);
 		else
-			return super.getParameterValue(params, URL_PORT_PROP, getSystemProperty(configName, URL_PORT_PROP,
-					System.getProperty("org.osgi.service.http.port", URL_HTTP_PORT_DEFAULT)));
+			return System.getProperty("org.osgi.service.http.port", URL_HTTP_PORT_DEFAULT);
 	}
 
-	protected String getPath(Map<String, ?> params, String configName) {
-		return super.getParameterValue(params, URL_PATH_PREFIX_PROP,
-				getSystemProperty(configName, URL_PATH_PREFIX_PROP, URL_PATH_PREFIX_DEFAULT));
+	protected String getSystemPathPrefix(Map<String, ?> params, String configName) {
+		return getSystemProperty(configName, URL_PATH_PREFIX_PROP,
+				getSystemProperty(JAXRS_SERVER_CONFIG, URL_PATH_PREFIX_PROP, URL_PATH_PREFIX_DEFAULT));
 	}
 
 	protected String getUrl(Map<String, ?> params, String configName) {
@@ -88,8 +87,8 @@ public abstract class JaxRSServerContainerInstantiator extends JaxRSContainerIns
 			// Get protocol, hostname,port,path to create uri
 			String protocol = getProtocol(params, configName);
 			String hostname = getHostname(params, configName);
-			String port = getPort(params, configName, protocol.equalsIgnoreCase("https"));
-			String path = getPath(params, configName);
+			String port = getSystemPort(params, configName, protocol.equalsIgnoreCase("https"));
+			String path = getSystemPathPrefix(params, configName);
 			return protocol + "://" + hostname + ((!"".equals(port)) ? ":" + port : "") + path;
 		}
 

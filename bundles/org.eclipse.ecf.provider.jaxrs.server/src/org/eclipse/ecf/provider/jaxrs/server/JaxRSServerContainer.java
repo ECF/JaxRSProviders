@@ -56,10 +56,13 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	protected int jacksonPriority = JaxRSServerContainerInstantiator.JACKSON_DEFAULT_PRIORITY;
 
 	protected boolean includeRemoteServiceId;
+	
+	protected String configType;
 
-	public JaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority,
+	public JaxRSServerContainer(String configType, URIID containerID, BundleContext context, int jacksonPriority,
 			boolean includeRemoteServiceId) {
 		super(containerID);
+		this.configType = configType;
 		this.context = context;
 		String path = getURI().getPath();
 		this.servletPathPrefix = (path == null) ? SLASH : path;
@@ -143,10 +146,51 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	@SuppressWarnings("rawtypes")
 	protected abstract Configurable createConfigurable(RSARemoteServiceRegistration registration);
 
-	protected String getServletAlias(RSARemoteServiceRegistration reg) {
+	protected String trimLeadingSlashes(String input) {
+		while (!"/".equals(input) && input.startsWith(SLASH+SLASH) && input.length() > 1) {
+			input = input.substring(1);
+		}
+		return input;
+	}
+	
+	protected String trimTrailingSlashes(String input) {
+		while (!"/".equals(input) && input.endsWith("/") && input.length() > 1) {
+			input = input.substring(0, input.length() - 1);
+		}
+		return input;
+	}
+	
+	protected String trimLeadingAndTrailingSlashes(String input) {
+		return trimLeadingSlashes(trimTrailingSlashes(input));
+	}
+	
+	protected String getContainerPathPrefix() {
 		String servletAliasPrefix = (this.servletPathPrefix == null || "".equals(this.servletPathPrefix)) ? SLASH
 				: this.servletPathPrefix;
-		return servletAliasPrefix + (this.includeRemoteServiceId ? String.valueOf(reg.getServiceId()) : "");
+		if (!servletAliasPrefix.endsWith(SLASH)) {
+			servletAliasPrefix += "/";
+		}
+		return trimLeadingAndTrailingSlashes(servletAliasPrefix);
+	}
+	
+	protected String getRegistrationPathPrefix(RSARemoteServiceRegistration reg) {
+		String regPathPrefix = (String) reg.getProperty(JaxRSServerContainerInstantiator.getDotProperty(this.configType,
+				JaxRSServerContainerInstantiator.URL_PATH_PREFIX_PROP));
+		if (regPathPrefix == null) {
+			regPathPrefix = (String) reg.getProperty(JaxRSServerContainerInstantiator.getDotProperty(
+					JaxRSServerContainerInstantiator.JAXRS_SERVER_CONFIG,
+					JaxRSServerContainerInstantiator.URL_PATH_PREFIX_PROP));
+			if (regPathPrefix == null) {
+				regPathPrefix = SLASH;
+			}
+		}
+		return trimLeadingAndTrailingSlashes(regPathPrefix);
+	}
+	
+	protected String getServletAlias(RSARemoteServiceRegistration reg) {
+		String alias = getContainerPathPrefix()
+				+ (this.includeRemoteServiceId ? String.valueOf(reg.getServiceId()) : getRegistrationPathPrefix(reg));
+		return trimLeadingAndTrailingSlashes(alias);
 	}
 
 	@Override

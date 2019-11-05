@@ -30,7 +30,7 @@ public class Activator implements BundleActivator {
 							Configuration configuration) throws ContainerCreateException {
 						URI uri = getUri(parameters, EXT_JERSEY_SERVER_CONFIG);
 						checkOSGIIntents(description, uri, parameters);
-						return new ExtJerseyServerContainer(createJaxRSID(uri), context,
+						return new ExtJerseyServerContainer(description.getName(), createJaxRSID(uri), context,
 								(ResourceConfig) configuration);
 					}
 

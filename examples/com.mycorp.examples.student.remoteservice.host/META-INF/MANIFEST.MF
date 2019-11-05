@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Example Student Service Host
 Bundle-SymbolicName: com.mycorp.examples.student.remoteservice.host
-Bundle-Version: 1.7.0.qualifier
+Bundle-Version: 1.8.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: com.mycorp.examples.student;version="1.0.0",
@@ -14,4 +14,5 @@ Import-Package: com.mycorp.examples.student;version="1.0.0",
  org.osgi.service.component.annotations;version="1.2.0";resolution:=optional
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: com.mycorp.examples.student.remoteservice.host
-Service-Component: OSGI-INF/com.mycorp.examples.student.remoteservice.host.StudentServiceImpl.xml
+Service-Component: OSGI-INF/com.mycorp.examples.student.remoteservice.host.StudentServiceImpl.xml,
+ OSGI-INF/com.mycorp.examples.student.remoteservice.host.StudentServiceImpl2.xml

@@ -51,7 +51,7 @@ public class CXFServerDistributionProvider extends JaxRSServerDistributionProvid
 					final Configuration configuration) throws ContainerCreateException {
 				URI uri = getUri(parameters, CXF_SERVER_CONFIG);
 				checkOSGIIntents(description, uri, parameters);
-				return new CXFJaxRSServerContainer(createJaxRSID(uri), context, getJacksonPriority(parameters),
+				return new CXFJaxRSServerContainer(description.getName(), createJaxRSID(uri), context, getJacksonPriority(parameters),
 						getIncludeRemoteServiceId(parameters, CXF_SERVER_CONFIG));
 			}
 		});

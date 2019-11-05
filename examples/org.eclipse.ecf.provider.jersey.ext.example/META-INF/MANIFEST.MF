@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Example Jersey Provider
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.ext.example
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Automatic-Module-Name: org.eclipse.ecf.provider.jersey.ext.example
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

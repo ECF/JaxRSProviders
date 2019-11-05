@@ -28,14 +28,15 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.apache.cxf.Bus;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.jaxrs.JAXRSInvoker;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.ResourceProvider;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
-import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 import org.apache.cxf.message.Exchange;
 import org.apache.cxf.service.invoker.Invoker;
+import org.apache.cxf.transport.http.DestinationRegistry;
 import org.eclipse.ecf.provider.jaxrs.JaxRSConstants;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerInvocationHandlerProvider;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
@@ -77,8 +78,8 @@ public class DPCXFNonSpringJaxrsServlet extends CXFNonSpringJaxrsServlet {
 	}
 
 	public DPCXFNonSpringJaxrsServlet(final RSARemoteServiceRegistration registration,
-			CXFServerConfigurable configurable) {
-		super(new Application());
+			CXFServerConfigurable configurable, DestinationRegistry destinationRegistry, Bus bus) {
+		super(destinationRegistry, bus);
 		this.registration = registration;
 		this.configurable = configurable;
 	}

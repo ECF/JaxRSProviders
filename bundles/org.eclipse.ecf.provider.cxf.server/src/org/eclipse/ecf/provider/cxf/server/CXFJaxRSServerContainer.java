@@ -9,10 +9,18 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.cxf.server;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.ext.ContextResolver;
 
+import org.apache.cxf.Bus;
+import org.apache.cxf.bus.extension.ExtensionManagerBus;
+import org.apache.cxf.transport.http.DestinationRegistry;
+import org.apache.cxf.transport.http.DestinationRegistryImpl;
+import org.apache.cxf.transport.http.HTTPTransportFactory;
 import org.eclipse.ecf.core.identity.URIID;
 import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;
@@ -25,14 +33,25 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 public class CXFJaxRSServerContainer extends JaxRSServerContainer {
 
-	public CXFJaxRSServerContainer(URIID containerID, BundleContext context, int jacksonPriority,
+	public CXFJaxRSServerContainer(String configType, URIID containerID, BundleContext context, int jacksonPriority,
 			boolean includeRemoteServiceId) {
-		super(containerID, context, jacksonPriority, includeRemoteServiceId);
+			super(configType, containerID, context, jacksonPriority, includeRemoteServiceId);
 	}
 
 	@Override
 	protected Servlet createServlet(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
-		return new DPCXFNonSpringJaxrsServlet(registration, (CXFServerConfigurable) configurable);
+		Map<Class<?>, Object> extensions = new HashMap<>();
+		DestinationRegistry destinationRegistry = new DestinationRegistryImpl();
+		HTTPTransportFactory httpTransportFactory = new HTTPTransportFactory(destinationRegistry);
+		extensions.put(HTTPTransportFactory.class, httpTransportFactory);
+		extensions.put(DestinationRegistry.class, destinationRegistry);
+		Bus bus = new ExtensionManagerBus(extensions, null, getClass().getClassLoader());
+		org.apache.cxf.transport.DestinationFactoryManager destinationFactoryManager = bus
+				.getExtension(org.apache.cxf.transport.DestinationFactoryManager.class);
+		for (String url : HTTPTransportFactory.DEFAULT_NAMESPACES) {
+			destinationFactoryManager.registerDestinationFactory(url, httpTransportFactory);
+		}
+		return new DPCXFNonSpringJaxrsServlet(registration, (CXFServerConfigurable) configurable, destinationRegistry, bus);
 	}
 
 	@Override
