@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.10.0.qualifier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example using Jersey Server Distribution Provider" uid="com.mycorp.examples.student.remoteservice.host.jersey" version="1.10.1.qualifier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -14,7 +14,7 @@
 -Declipse.ignoreApp=true 
 -Dosgi.noShutdown=true 
 -Dorg.osgi.service.http.port=8080
--Decf.jaxrs.jersey.server.pathPrefix=/rservices
+-Decf.jaxrs.server.pathPrefix=/rservices
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
@@ -142,7 +142,7 @@
       <plugin id="org.eclipse.jetty.http" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.jetty.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.jetty.security" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.server" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.server" autoStart="true" startLevel="3" />
       <plugin id="org.eclipse.jetty.servlet" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.jetty.util" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
