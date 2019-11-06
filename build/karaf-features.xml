@@ -1,6 +1,8 @@
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
 	name="ecf-remoteservices-jaxrs-1.11.0">
 
+    <repository>cxf</repository>
+
     <repository>http://download.eclipse.org/rt/ecf/RELEASE/site.p2/karaf-features.xml</repository>
 
 	<feature name="ecf-rs-distribution-jaxrs" version="1.11.0"
@@ -105,26 +107,12 @@
 		</bundle>
 	</feature>
 
-	<feature name="ecf-rs-cxf-deps" version="1.11.0"
-		description="ECF JaxRS CXF Dependencies">
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.cxf.cxf-core_3.3.0.jar
-		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.cxf.cxf-rt-frontend-jaxrs_3.3.0.jar
-		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.cxf.cxf-rt-security_3.3.0.jar
-		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.cxf.cxf-rt-transports-http_3.3.0.jar
-		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.ws.xmlschema.core_2.2.1.jar
-		</bundle>
-	</feature>
-
 	<feature name="ecf-rs-distribution-cxf-server" version="1.11.0"
 		description="ECF CXF Server Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
 		<feature>ecf-rs-distribution-jaxrs-server</feature>
-		<feature>ecf-rs-cxf-deps</feature>
-		<feature>ecf-rs-discovery-jmdns</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.server_1.8.1.201911051602.jar
+		<feature>ecf-rs-discovery-jmdns</feature>		
+		<feature>cxf-jaxrs</feature>
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.server_1.8.1.201911051717.jar
 		</bundle>
 	</feature>
 
@@ -145,10 +133,14 @@
 
 	<feature name="ecf-rs-distribution-cxf-client" version="1.11.0"
 		description="ECF CXF Client Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
-		<feature>ecf-rs-distribution-jaxrs-client</feature>
-		<feature>ecf-rs-cxf-deps</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.cxf.cxf-rt-rs-client_3.3.0.jar
+				<feature>ecf-rs-rsa</feature>
+		<feature>ecf-rs-console</feature>
+		<feature>ecf-rs-discovery-jmdns</feature>		
+		<feature>ecf-rs-discovery-jmdns</feature>		
+		<feature>cxf-jaxrs</feature>
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.4.0.201907292139.jar
 		</bundle>
+		<feature>ecf-rs-distribution-jaxrs-client</feature>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.client_1.5.0.201911051503.jar
 		</bundle>
 	</feature>
