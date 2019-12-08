@@ -101,7 +101,7 @@
 		description="ECF Jersey Server Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
 		<feature>ecf-rs-distribution-jaxrs-server</feature>
 		<feature version="1.12.0">ecf-rs-jersey-deps</feature>
-		<feature version="1.12.0">ecf-rs-discovery-jmdns</feature>
+		<feature>ecf-rs-discovery-jmdns</feature>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet_2.29.1.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet-core_2.29.1.jar
@@ -114,7 +114,7 @@
 		description="ECF CXF Server Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.12.0">ecf-rs-distribution-jaxrs-server</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>		
-		<feature version="1.12.0">cxf-jaxrs</feature>
+		<feature>cxf-jaxrs</feature>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.server_1.8.2.201912081257.jar
 		</bundle>
 	</feature>
@@ -139,10 +139,10 @@
 				<feature>ecf-rs-rsa</feature>
 		<feature>ecf-rs-console</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>		
-		<feature version="1.12.0">cxf-jaxrs</feature>
+		<feature>cxf-jaxrs</feature>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.4.0.201912081257.jar
 		</bundle>
-		<feature  version="1.12.0">ecf-rs-distribution-jaxrs-client</feature>
+		<feature version="1.12.0">ecf-rs-distribution-jaxrs-client</feature>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.client_1.5.0.201912081257.jar
 		</bundle>
 	</feature>
