@@ -63,6 +63,8 @@ import org.apache.cxf.transport.http.DestinationRegistry;
  * Modified version of class by same name from CXF project.  Have proposed adding
  * constructor as per below to upstream project mailing list.  When/if that is done
  * this class will be removed.
+ * UPDATE:  As of CXF 3.3.5 this constructor has been added.  When CXF 3.3.5 is released
+ * then this class can be removed.
  *
  */
 public class CXFNonSpringJaxrsServlet extends CXFNonSpringServlet {

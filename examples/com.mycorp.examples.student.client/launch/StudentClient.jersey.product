@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example Client using Jersey JaxRS Distribution Provider" uid="com.mycorp.examples.student.client.jersey" version="1.10.0.qualifier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example Client using Jersey JaxRS Distribution Provider" uid="com.mycorp.examples.student.client.jersey" version="1.12.0.qualifier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -36,6 +36,7 @@
       <plugin id="com.mycorp.examples.student.client"/>
       <plugin id="jakarta.annotation-api"/>
       <plugin id="jakarta.ws.rs-api"/>
+      <plugin id="jakarta.xml.bind-api"/>
       <plugin id="javassist"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.validation.api"/>

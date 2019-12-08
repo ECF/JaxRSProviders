@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.cxf.client.feature"
       label="ECF CXF Client Distribution Provider Feature"
-      version="1.10.0.qualifier"
+      version="1.12.0.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">

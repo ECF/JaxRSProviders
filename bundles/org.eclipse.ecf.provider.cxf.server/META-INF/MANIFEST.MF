@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Dist Provider - CXF Server
 Bundle-SymbolicName: org.eclipse.ecf.provider.cxf.server
-Bundle-Version: 1.8.1.qualifier
+Bundle-Version: 1.8.2.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.fasterxml.jackson.core;version="2.9.2",
@@ -25,6 +25,7 @@ Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  org.apache.cxf.feature;version="3.3.0",
  org.apache.cxf.helpers;version="3.3.0",
  org.apache.cxf.interceptor;version="3.3.0",
+ org.apache.cxf.jaxrs;version="3.3.4",
  org.apache.cxf.jaxrs.lifecycle;version="3.3.0",
  org.apache.cxf.jaxrs.model;version="3.3.0",
  org.apache.cxf.jaxrs.provider;version="3.3.0",

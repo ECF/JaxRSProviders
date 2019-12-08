@@ -11,19 +11,22 @@
 		<feature>ecf-rs-console</feature>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/jakarta.ws.rs-api_2.1.5.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.core.jackson-annotations_2.9.8.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.core.jackson-annotations_2.10.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.core.jackson-core_2.9.8.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.core.jackson-core_2.10.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.core.jackson-databind_2.9.8.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.core.jackson-databind_2.10.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.jaxrs.jackson-jaxrs-base_2.9.8.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.jaxrs.jackson-jaxrs-base_2.10.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider_2.9.8.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider_2.10.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.module.jackson-module-jaxb-annotations_2.9.8.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.module.jackson-module-jaxb-annotations_2.10.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.4.0.201907292139.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.4.0.201912081257.jar
+		</bundle>
+		</bundle>
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/jakarta.xml.bind-api_2.3.2.jar
 		</bundle>
 	</feature>
 
@@ -32,7 +35,7 @@
 		description="ECF JaxRS Distribution Provider Server Support. See https://github.com/ECF/JaxRSProviders">
 		<feature>http</feature>
 		<feature>ecf-rs-distribution-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.server_1.8.0.201911051503.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.server_1.8.1.201912081257.jar
 		</bundle>
 	</feature>
 
@@ -40,13 +43,13 @@
 		version="1.11.0"
 		description="ECF JaxRS Distribution Provider Client Support. See https://github.com/ECF/JaxRSProviders">
 		<feature>ecf-rs-distribution-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.client_1.5.0.201911051503.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.client_1.5.0.201912081257.jar
 		</bundle>
 	</feature>
 
 	<feature name="ecf-rs-jersey-deps" version="1.11.0"
 		description="ECF JaxRS Jersey Dependencies">
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/jakarta.annotation-api_1.3.4.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/jakarta.annotation-api_1.3.5.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javassist_3.24.1.GA.jar
 		</bundle>
@@ -56,7 +59,7 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.validation.api_2.0.1.Final.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.6.v20190213-1430.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.6.v201900503-0009.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpcore_4.4.10.v20190123-2214.jar
 		</bundle>
@@ -64,32 +67,32 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.logging_1.2.0.v20180409-1502.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.api_2.5.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.api_2.6.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.external.aopalliance-repackaged_2.5.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.external.aopalliance-repackaged_2.6.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.external.jakarta.inject_2.5.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.external.jakarta.inject_2.6.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.locator_2.5.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.locator_2.6.1.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.osgi-resource-locator_1.0.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.utils_2.5.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.utils_2.6.1.jar
 		</bundle>
 
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.core.jersey-client_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.core.jersey-client_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.core.jersey-common_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.core.jersey-common_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.core.jersey-server_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.core.jersey-server_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.ext.jersey-entity-filtering_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.ext.jersey-entity-filtering_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.inject.jersey-hk2_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.inject.jersey-hk2_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.media.jersey-media-jaxb_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.media.jersey-media-jaxb_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.media.jersey-media-json-jackson_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.media.jersey-media-json-jackson_2.29.1.jar
 		</bundle>
 	</feature>
 
@@ -99,11 +102,11 @@
 		<feature>ecf-rs-distribution-jaxrs-server</feature>
 		<feature>ecf-rs-jersey-deps</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet-core_2.28.0.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet-core_2.29.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.server_1.8.0.201911051503.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.server_1.8.0.201912081257.jar
 		</bundle>
 	</feature>
 
@@ -112,7 +115,7 @@
 		<feature>ecf-rs-distribution-jaxrs-server</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>		
 		<feature>cxf-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.server_1.8.1.201911051717.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.server_1.8.2.201912081257.jar
 		</bundle>
 	</feature>
 
@@ -121,7 +124,7 @@
 		description="ECF Jersey Client Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
 		<feature>ecf-rs-distribution-jaxrs-client</feature>
 		<feature>ecf-rs-jersey-deps</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.client_1.5.0.201911051503.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.client_1.5.0.201912081257.jar
 		</bundle>
 	</feature>
 
@@ -138,10 +141,10 @@
 		<feature>ecf-rs-discovery-jmdns</feature>		
 		<feature>ecf-rs-discovery-jmdns</feature>		
 		<feature>cxf-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.4.0.201907292139.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.4.0.201912081257.jar
 		</bundle>
 		<feature>ecf-rs-distribution-jaxrs-client</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.client_1.5.0.201911051503.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.client_1.5.0.201912081257.jar
 		</bundle>
 	</feature>
 
@@ -161,7 +164,7 @@
 		version="1.11.0"
 		description="ECF JaxRS Student Example Service Host.  See https://github.com/ECF/JaxRSProviders">
 		<feature>ecf-rs-examples-jaxrs-student</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.remoteservice.host_1.8.1.201911051602.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.remoteservice.host_1.9.0.201912081257.jar
 		</bundle>
 	</feature>
 
@@ -169,7 +172,7 @@
 		version="1.11.0"
 		description="ECF JaxRS Student Example Service Client.  See https://github.com/ECF/JaxRSProviders">
 		<feature>ecf-rs-examples-jaxrs-student</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.client_1.4.0.201911051503.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.client_1.5.0.201912081257.jar
 		</bundle>
 	</feature>
 
