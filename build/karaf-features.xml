@@ -25,6 +25,7 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.4.0.201912081257.jar
 		</bundle>
+		
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/jakarta.xml.bind-api_2.3.2.jar
 		</bundle>
 	</feature>
