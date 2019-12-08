@@ -99,7 +99,7 @@
 	<feature name="ecf-rs-distribution-jersey-server"
 		version="1.12.0"
 		description="ECF Jersey Server Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
-		<feature>ecf-rs-distribution-jaxrs-server</feature>
+		<feature version="1.12.0">ecf-rs-distribution-jaxrs-server</feature>
 		<feature version="1.12.0">ecf-rs-jersey-deps</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet_2.29.1.jar
