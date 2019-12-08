@@ -155,7 +155,7 @@
 
 	<feature name="ecf-rs-examples-jaxrs-student" version="1.12.0"
 		description="ECF JaxRS Student Example Service API.  See https://github.com/ECF/JaxRSProviders">
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student_1.1.0.201911051602.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student_1.1.0.201912081257.jar
 		</bundle>
 	</feature>
 
