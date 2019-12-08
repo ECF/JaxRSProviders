@@ -59,7 +59,7 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.validation.api_2.0.1.Final.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.6.v201900503-0009.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.6.v20190503-0009.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpcore_4.4.10.v20190123-2214.jar
 		</bundle>
