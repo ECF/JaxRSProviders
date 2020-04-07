@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF JaxRS Server Support
 Bundle-SymbolicName: org.eclipse.ecf.provider.jaxrs.server
-Bundle-Version: 1.8.1.qualifier
+Bundle-Version: 1.9.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -11,8 +11,6 @@ Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  com.fasterxml.jackson.jaxrs.base;version="2.9.2",
  com.fasterxml.jackson.jaxrs.json;version="2.9.2",
  javax.servlet;version="3.1.0",
- javax.ws.rs.core;version="2.0.1",
- javax.ws.rs.ext;version="2.1.0",
  org.eclipse.ecf.provider.jaxrs;version="1.1.0",
  org.eclipse.ecf.remoteservice;version="7.2.0",
  org.eclipse.ecf.remoteservice.asyncproxy;version="2.1.0",
@@ -21,10 +19,12 @@ Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  org.eclipse.ecf.remoteservice.provider;version="1.0.0",
  org.eclipse.ecf.remoteservice.util;version="8.3.0",
  org.eclipse.equinox.concurrent.future,
+ org.glassfish.jersey.linking,
  org.osgi.framework,
  org.osgi.service.http,
  org.osgi.util.tracker;version="1.5.1"
 Require-Bundle: org.eclipse.ecf,
- org.eclipse.equinox.common
+ org.eclipse.equinox.common,
+ jakarta.ws.rs-api;bundle-version="2.1.5"
 Export-Package: org.eclipse.ecf.provider.jaxrs.server;version="1.1.0"
 Automatic-Module-Name: org.eclipse.ecf.provider.jaxrs.server
