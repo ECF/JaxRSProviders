@@ -75,7 +75,7 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.locator_2.6.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.osgi-resource-locator_1.0.1.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.osgi-resource-locator_1.0.3.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.hk2.utils_2.6.1.jar
 		</bundle>
