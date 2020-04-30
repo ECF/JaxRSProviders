@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.jersey.server.feature"
       label="ECF Remote Services Jersey Server Provider"
-      version="1.13.0.qualifier"
+      version="1.13.1.qualifier"
       provider-name="%providerName">
 
    <description url="http://www.eclipse.org/ecf">
@@ -115,13 +115,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
 
    <plugin
          id="org.eclipse.ecf.provider.jersey.server"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="javax.servlet"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -269,6 +262,20 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
 
    <plugin
          id="jakarta.xml.bind-api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="javax.ws.rs-api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="javax.servlet"
          download-size="0"
          install-size="0"
          version="0.0.0"
