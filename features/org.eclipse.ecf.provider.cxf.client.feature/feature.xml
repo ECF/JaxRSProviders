@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.ecf.provider.cxf.client.feature"
-      label="ECF CXF Client Distribution Provider Feature"
-      version="1.13.1.qualifier"
+      label="ECF Remote Services JAX-RS CXF Client Provider"
+      version="1.13.2.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">
