@@ -30,8 +30,8 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
    </license>
 
    <requires>
-      <import feature="org.eclipse.ecf.core.feature" version="1.5.500.v20200217-1548"/>
-      <import feature="org.eclipse.ecf.osgi.services.feature" version="2.5.1.v20200217-0120"/>
+      <import feature="org.eclipse.ecf.core.feature" version="1.5" match="compatible"/>
+      <import feature="org.eclipse.ecf.osgi.services.feature" version="2.5" match="compatible"/>
    </requires>
 
    <plugin
