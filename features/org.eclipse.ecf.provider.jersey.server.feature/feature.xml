@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.jersey.server.feature"
       label="ECF Remote Services JAX-RS Jersey Server Provider"
-      version="1.13.2.qualifier"
+      version="1.13.3.qualifier"
       provider-name="%providerName">
 
    <description url="http://www.eclipse.org/ecf">
@@ -129,20 +129,6 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
 
    <plugin
          id="org.glassfish.hk2.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.mycorp.examples.student"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.mycorp.examples.student.remoteservice.host"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -276,6 +262,13 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
 
    <plugin
          id="javax.servlet"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.concurrent"
          download-size="0"
          install-size="0"
          version="0.0.0"

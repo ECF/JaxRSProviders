@@ -187,6 +187,8 @@
 		<module>features/org.eclipse.ecf.provider.jersey.server.feature</module>
 		<module>features/org.eclipse.ecf.provider.jersey.client.feature</module>
 		<module>features/org.eclipse.ecf.provider.cxf.server.feature</module>
+		<module>features/org.eclipse.ecf.provider.cxf.client.feature</module>
+		<module>features/org.eclipse.ecf.provider.jaxrs.examples.student.feature</module>
 	</modules>
 
 	<build>

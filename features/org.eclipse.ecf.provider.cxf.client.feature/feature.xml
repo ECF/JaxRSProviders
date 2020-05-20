@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.cxf.client.feature"
       label="ECF Remote Services JAX-RS CXF Client Provider"
-      version="1.13.2.qualifier"
+      version="1.13.3.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">
@@ -60,20 +60,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.mycorp.examples.student"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.mycorp.examples.student.client"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.apache.ws.xmlschema.core"
          download-size="0"
          install-size="0"
@@ -117,6 +103,13 @@
 
    <plugin
          id="org.apache.cxf.cxf-rt-security"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.concurrent"
          download-size="0"
          install-size="0"
          version="0.0.0"
