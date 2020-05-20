@@ -29,6 +29,11 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
       %license
    </license>
 
+   <requires>
+      <import feature="org.eclipse.ecf.core.feature" version="1.5" match="compatible"/>
+      <import feature="org.eclipse.ecf.osgi.services.feature" version="2.5" match="compatible"/>
+   </requires>
+
    <plugin
          id="org.eclipse.ecf.provider.jaxrs.client"
          download-size="0"
