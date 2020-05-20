@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.jaxrs.examples.student.feature"
       label="ECF Remote Services JAX-RS Student Example Feature"
-      version="1.13.3.qualifier"
+      version="1.13.4.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">
