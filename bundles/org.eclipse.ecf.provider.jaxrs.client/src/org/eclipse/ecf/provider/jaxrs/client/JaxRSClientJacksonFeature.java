@@ -22,20 +22,24 @@ public class JaxRSClientJacksonFeature implements Feature {
 
 	private final RemoteServiceClientRegistration reg;
 	private final ClassLoader cl;
-	private int priority;
 
+	@Deprecated
 	public JaxRSClientJacksonFeature(RemoteServiceClientRegistration reg, ClassLoader cl, int priority) {
 		this.reg = reg;
 		this.cl = cl;
-		this.priority = priority;
+	}
+	
+	public JaxRSClientJacksonFeature(RemoteServiceClientRegistration reg, ClassLoader cl) {
+		this.reg = reg;
+		this.cl = cl;
 	}
 
 	@Override
 	public boolean configure(final FeatureContext context) {
 		if (!context.getConfiguration().isRegistered(JacksonJaxbJsonProvider.class)) {
-			context.register(JsonParseExceptionMapper.class, priority);
-			context.register(JsonMappingExceptionMapper.class, priority);
-			context.register(new JaxRSClientJacksonJaxbJsonProvider(reg, cl), priority);
+			context.register(JsonParseExceptionMapper.class);
+			context.register(JsonMappingExceptionMapper.class);
+			context.register(new JaxRSClientJacksonJaxbJsonProvider(reg, cl));
 		}
 		return true;
 	}

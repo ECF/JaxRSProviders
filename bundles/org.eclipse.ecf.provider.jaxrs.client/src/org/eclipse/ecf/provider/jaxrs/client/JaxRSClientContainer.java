@@ -149,9 +149,8 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 			ClientBuilder cb = ClientBuilder.newBuilder();
 			if (configuration != null)
 				cb.withConfig(configuration);
-			// Default is to register the ClientJacksonFeature.
 			cb.register(new ObjectMapperContextResolver(), ContextResolver.class);
-			cb.register(new JaxRSClientJacksonFeature(getRegistration(), cl, jacksonPriority), jacksonPriority);
+			cb.register(new JaxRSClientJacksonFeature(getRegistration(), cl), jacksonPriority);
 			return cb.build();
 		}
 
