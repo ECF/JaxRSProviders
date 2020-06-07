@@ -134,7 +134,7 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 		}
 
 		protected <T> T createJaxRSProxy(Class<T> interfaceClass, WebTarget webTarget) throws Exception {
-			return WebResourceFactory.newResource(interfaceClass, webTarget);
+			return WebResourceFactory.newResource(interfaceClass, webTarget, isOSGIAsync());
 		}
 
 		protected Configuration createJaxRSClientConfiguration() throws ECFException {
