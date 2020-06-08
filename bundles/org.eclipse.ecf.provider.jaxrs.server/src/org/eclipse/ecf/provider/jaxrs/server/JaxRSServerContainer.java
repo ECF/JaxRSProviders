@@ -104,7 +104,7 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 
 	protected void registerExtensions(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
 		configurable.register(new ObjectMapperContextResolver(), ContextResolver.class);
-		configurable.register(new JaxRSServerJacksonFeature(registration, jacksonPriority), jacksonPriority);
+		configurable.register(new JaxRSServerJacksonFeature(registration), jacksonPriority);
 	}
 
 	@SuppressWarnings("unchecked")

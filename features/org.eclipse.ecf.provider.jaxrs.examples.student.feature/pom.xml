@@ -10,5 +10,5 @@
   </parent>
   <artifactId>org.eclipse.ecf.provider.jaxrs.examples.student.feature</artifactId>
   <packaging>eclipse-feature</packaging>
-  <version>1.13.5-SNAPSHOT</version>
+  <version>1.13.6-SNAPSHOT</version>
 </project>
