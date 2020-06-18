@@ -22,11 +22,13 @@ public class JaxRSServerJacksonFeature implements Feature {
 
 	private final RSARemoteServiceRegistration registration;
 
-	private final int priority;
-
+	@Deprecated
 	public JaxRSServerJacksonFeature(RSARemoteServiceRegistration reg, int priority) {
 		this.registration = reg;
-		this.priority = priority;
+	}
+
+	public JaxRSServerJacksonFeature(RSARemoteServiceRegistration reg) {
+		this.registration = reg;
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class JaxRSServerJacksonFeature implements Feature {
 		if (!context.getConfiguration().isRegistered(JacksonJaxbJsonProvider.class)) {
 			context.register(JsonParseExceptionMapper.class);
 			context.register(JsonMappingExceptionMapper.class);
-			context.register(new JaxRSServerJacksonJaxbJsonProvider(registration), priority);
+			context.register(new JaxRSServerJacksonJaxbJsonProvider(registration));
 		}
 		return true;
 	}

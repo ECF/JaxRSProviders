@@ -82,6 +82,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.eclipse.ecf.remoteservice.asyncproxy.AsyncReturnUtil;
+
 /**
  * Factory for client-side representation of a resource. See the
  * <a href="package-summary.html">package overview</a> for an example on how to
@@ -98,6 +100,7 @@ public final class WebResourceFactory implements InvocationHandler {
 	private final MultivaluedMap<String, Object> headers;
 	private final List<Cookie> cookies;
 	private final Form form;
+	private final boolean isOSGiAsync;
 
 	private static final MultivaluedMap<String, Object> EMPTY_HEADERS = new MultivaluedHashMap<>();
 	private static final Form EMPTY_FORM = new Form();
@@ -114,28 +117,29 @@ public final class WebResourceFactory implements InvocationHandler {
 		};
 	}
 
-	public static <C> C newResource(final Class<C> resourceInterface, final WebTarget target) {
-		return newResource(resourceInterface, target, false, EMPTY_HEADERS, Collections.<Cookie>emptyList(),
-				EMPTY_FORM);
+	public static <C> C newResource(final Class<C> resourceInterface, final WebTarget target, boolean isOSGiAsync) {
+		return newResource(resourceInterface, target, false, EMPTY_HEADERS, Collections.<Cookie>emptyList(), EMPTY_FORM,
+				isOSGiAsync);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static <C> C newResource(final Class<C> resourceInterface, final WebTarget target,
 			final boolean ignoreResourcePath, final MultivaluedMap<String, Object> headers, final List<Cookie> cookies,
-			final Form form) {
+			final Form form, boolean isOSGiAsync) {
 
 		return (C) Proxy.newProxyInstance(AccessController.doPrivileged(getClassLoaderPA(resourceInterface)),
 				new Class[] { resourceInterface },
 				new WebResourceFactory(ignoreResourcePath ? target : addPathFromAnnotation(resourceInterface, target),
-						headers, cookies, form));
+						headers, cookies, form, isOSGiAsync));
 	}
 
 	private WebResourceFactory(final WebTarget target, final MultivaluedMap<String, Object> headers,
-			final List<Cookie> cookies, final Form form) {
+			final List<Cookie> cookies, final Form form, boolean isOSGiAsync) {
 		this.target = target;
 		this.headers = headers;
 		this.cookies = cookies;
 		this.form = form;
+		this.isOSGiAsync = isOSGiAsync;
 	}
 
 	@Override
@@ -298,15 +302,34 @@ public final class WebResourceFactory implements InvocationHandler {
 				}
 			}
 		}
-		final GenericType responseGenericType = new GenericType(method.getGenericReturnType());
+
+		Class<?> returnType = method.getReturnType();
+		Type genericReturnType = method.getGenericReturnType();
+		GenericType responseGenericType = null;
+		// Check if osgi async and return type is one of apprpriate types
+		// (CompletableFuture, Promise, Future, IFuture)
+		if (this.isOSGiAsync && AsyncReturnUtil.isAsyncType(returnType)) {
+			// All of these types are parameterized types
+			ParameterizedType pt = (ParameterizedType) genericReturnType;
+			// Only one parameter (type of return)
+			responseGenericType = new GenericType(pt.getActualTypeArguments()[0]);
+		} else {
+			responseGenericType = new GenericType(genericReturnType);
+		}
+
+		Object resp = null;
 		if (entity != null) {
 			if (entityType instanceof ParameterizedType)
 				entity = new GenericEntity(entity, entityType);
-			// block here
-			return builder.method(httpMethod, Entity.entity(entity, contentType), responseGenericType);
+			// block here making actual remote call
+			resp = builder.method(httpMethod, Entity.entity(entity, contentType), responseGenericType);
 		} else
-			// block here
-			return builder.method(httpMethod, responseGenericType);
+			// block here making actual remote call
+			resp = builder.method(httpMethod, responseGenericType);
+
+		return (this.isOSGiAsync && AsyncReturnUtil.isAsyncType(returnType))
+				? AsyncReturnUtil.convertReturnToAsync(resp, returnType)
+				: resp;
 	}
 
 	@SuppressWarnings("rawtypes")

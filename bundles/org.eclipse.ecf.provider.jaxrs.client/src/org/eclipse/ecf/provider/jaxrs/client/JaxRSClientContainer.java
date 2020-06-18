@@ -134,7 +134,7 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 		}
 
 		protected <T> T createJaxRSProxy(Class<T> interfaceClass, WebTarget webTarget) throws Exception {
-			return WebResourceFactory.newResource(interfaceClass, webTarget);
+			return WebResourceFactory.newResource(interfaceClass, webTarget, isOSGIAsync());
 		}
 
 		protected Configuration createJaxRSClientConfiguration() throws ECFException {
@@ -149,9 +149,8 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 			ClientBuilder cb = ClientBuilder.newBuilder();
 			if (configuration != null)
 				cb.withConfig(configuration);
-			// Default is to register the ClientJacksonFeature.
 			cb.register(new ObjectMapperContextResolver(), ContextResolver.class);
-			cb.register(new JaxRSClientJacksonFeature(getRegistration(), cl, jacksonPriority), jacksonPriority);
+			cb.register(new JaxRSClientJacksonFeature(getRegistration(), cl), jacksonPriority);
 			return cb.build();
 		}
 
