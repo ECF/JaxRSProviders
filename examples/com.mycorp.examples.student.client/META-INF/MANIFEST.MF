@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Example Student Remote Service Client
 Bundle-SymbolicName: com.mycorp.examples.student.client
-Bundle-Version: 1.5.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

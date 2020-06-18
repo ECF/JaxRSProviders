@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.jersey.client.feature"
       label="ECF Remote Services JAX-RS Jersey Client Provider"
-      version="1.13.3.qualifier"
+      version="1.13.6.qualifier"
       provider-name="%providerName">
 
    <description url="http://www.eclipse.org/ecf">
@@ -28,6 +28,11 @@ https://wiki.eclipse.org/ECF#OSGi_Remote_Services
    <license url="%licenseURL">
       %license
    </license>
+
+   <requires>
+      <import feature="org.eclipse.ecf.core.feature" version="1.5" match="compatible"/>
+      <import feature="org.eclipse.ecf.osgi.services.feature" version="2.5" match="compatible"/>
+   </requires>
 
    <plugin
          id="org.eclipse.ecf.provider.jaxrs.client"

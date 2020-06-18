@@ -9,6 +9,7 @@
 ******************************************************************************/
 package com.mycorp.examples.student;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.ws.rs.Consumes;
@@ -27,12 +28,12 @@ public interface StudentService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students")
-	Students getStudents();
+	List<Student> getStudents();
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/studentscf")
-	CompletableFuture<Students> getStudentsCF();
+	CompletableFuture<List<Student>> getStudentsCF();
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

@@ -12,6 +12,7 @@ package com.mycorp.examples.student.remoteservice.host;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -28,7 +29,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.mycorp.examples.student.Address;
 import com.mycorp.examples.student.Student;
-import com.mycorp.examples.student.Students;
 
 public class AbstractStudentService {
 
@@ -52,18 +52,16 @@ public class AbstractStudentService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/students")
-	public Students getStudents() {
-		Students result = new Students();
-		result.setStudents(new ArrayList<Student>(students.values()));
-		return result;
+	public List<Student> getStudents() {
+		return new ArrayList<Student>(students.values());
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/studentscf")
-	public CompletableFuture<Students> getStudentsCF() {
-		CompletableFuture<Students> cf = new CompletableFuture<Students>();
-		cf.complete(getStudents());
+	public CompletableFuture<List<Student>> getStudentsCF() {
+		CompletableFuture<List<Student>> cf = new CompletableFuture<List<Student>>();
+		cf.complete(new ArrayList<Student>(students.values()));
 		return cf;
 	}
 
