@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint-descriptions xmlns="http://www.osgi.org/xmlns/rsa/v1.0.0">
+	<endpoint-description>
+	
+		<!-- Properties unique to service -->
+		
+		<property name="ecf.endpoint.id" value-type="String" value="https://api.spacexdata.com/v3" />
+
+		<property name="objectClass" value-type="String">
+			<array>
+				<value>org.eclipse.ecf.example.spacex.launch.api.LaunchService</value>
+			</array>
+		</property>
+		
+		<!--  Properties same for all services -->
+		
+		<property name="ecf.endpoint.id.ns" value-type="String" value="ecf.namespace.jaxrs" />
+		<property name="endpoint.id" value-type="String" value="87d3ef4f-8e8f-4187-873e-166dcc58c9eb" />
+		<property name="ecf.rsvc.id" value-type="Long" value="0" />
+		<property name="ecf.endpoint.rsfilter" value-type="String" value="(objectClass=*)" />
+
+		<property name="remote.configs.supported" value-type="String">
+			<array>
+				<value>ecf.jaxrs.jersey.server</value>
+			</array>
+		</property>
+
+		<property name="remote.intents.supported" value-type="String">
+			<array>
+				<value>passByValue</value>
+				<value>exactlyOnce</value>
+				<value>ordered</value>
+				<value>jaxrs</value>
+			</array>
+		</property>
+
+		<property name="service.imported.configs" value-type="String">
+			<array>
+				<value>ecf.jaxrs.jersey.server</value>
+			</array>
+		</property>
+
+		<property name="service.intents" value-type="String">
+			<array>
+				<value>osgi.async</value>
+			</array>
+		</property>
+	</endpoint-description>
+</endpoint-descriptions>
