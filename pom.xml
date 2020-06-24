@@ -189,6 +189,7 @@
 		<module>examples/org.eclipse.ecf.provider.jersey.ext.example</module>
 		<module>examples/spacex-launch-service/org.eclipse.ecf.example.spacex.launch.api</module>
 		<module>examples/spacex-launch-service/org.eclipse.ecf.example.spacex.launch.api.test</module>
+		<module>examples/spacex-launch-service/org.eclipse.ecf.example.spacex.launch.api.consumer</module>
 		<module>releng/org.eclipse.ecf.jaxrs.releng.target</module>
 		<module>bundles/org.eclipse.ecf.provider.jaxrs</module>
 		<module>bundles/org.eclipse.ecf.provider.jaxrs.server</module>
@@ -202,6 +203,7 @@
 		<module>features/org.eclipse.ecf.provider.cxf.server.feature</module>
 		<module>features/org.eclipse.ecf.provider.cxf.client.feature</module>
 		<module>features/org.eclipse.ecf.provider.jaxrs.examples.student.feature</module>
+		<module>features/org.eclipse.ecf.example.spacex.launch.consumer.feature</module>
 	</modules>
 
 	<build>

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ECF SpaceX JAX-RS Launch Example Consumer
+Bundle-SymbolicName: org.eclipse.ecf.example.spacex.launch.api.consumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse.org - ECF
+Automatic-Module-Name: org.eclipse.ecf.example.spacex.launch.api.consumer
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.eclipse.ecf.example.spacex.launch.api,
+ org.osgi.service.component.annotations
+Service-Component: OSGI-INF/org.eclipse.ecf.example.spacex.launch.api.consumer.LaunchServiceConsumer.xml
+Bundle-ActivationPolicy: lazy

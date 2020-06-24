@@ -25,4 +25,10 @@ public class Launch {
 	public String getMissionName() {
 		return missionName;
 	}
+
+	@Override
+	public String toString() {
+		return "Launch[flightNumber=" + flightNumber + ", missionName=" + missionName + "]";
+	}
+	
 }

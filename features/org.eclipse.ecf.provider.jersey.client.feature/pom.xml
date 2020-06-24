@@ -10,5 +10,5 @@
   </parent>
   <artifactId>org.eclipse.ecf.provider.jersey.client.feature</artifactId>
   <packaging>eclipse-feature</packaging>
-  <version>1.13.6-SNAPSHOT</version>
+  <version>1.13.7-SNAPSHOT</version>
 </project>
