@@ -147,9 +147,21 @@ public class JaxRSClientContainer extends AbstractRSAClientContainer {
 
 		protected Client createJaxRSClient(Configuration configuration, ClassLoader cl) throws ECFException {
 			ClientBuilder cb = ClientBuilder.newBuilder();
-			if (configuration != null)
+			
+			boolean isContextResolverNeeded = true;
+			if (configuration != null) {
 				cb.withConfig(configuration);
-			cb.register(new ObjectMapperContextResolver(), ContextResolver.class);
+				
+				for (Object registeredInstance : configuration.getInstances()) {
+					if (registeredInstance instanceof ContextResolver) {
+						isContextResolverNeeded = false;
+					}
+				}
+			}
+			
+			if (isContextResolverNeeded)
+				cb.register(new ObjectMapperContextResolver(), ContextResolver.class);
+			
 			cb.register(new JaxRSClientJacksonFeature(getRegistration(), cl), jacksonPriority);
 			return cb.build();
 		}
