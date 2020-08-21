@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <units size='2'>
-  <unit id='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200624-0311' singleton='false' generation='2'>
-    <update id='org.eclipse.ecf.example.spacex.launch.api.consumer' range='[0.0.0,1.0.0.v20200624-0311)' severity='0'/>
+  <unit id='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200718-2039' singleton='false' generation='2'>
+    <update id='org.eclipse.ecf.example.spacex.launch.api.consumer' range='[0.0.0,1.0.0.v20200718-2039)' severity='0'/>
     <properties size='5'>
       <property name='org.eclipse.equinox.p2.name' value='ECF SpaceX JAX-RS Launch Example Consumer'/>
       <property name='org.eclipse.equinox.p2.provider' value='Eclipse.org - ECF'/>
@@ -10,9 +10,9 @@
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>
     </properties>
     <provides size='4'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200624-0311'/>
-      <provided namespace='osgi.bundle' name='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200624-0311'/>
-      <provided namespace='osgi.identity' name='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200624-0311'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200718-2039'/>
+      <provided namespace='osgi.bundle' name='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200718-2039'/>
+      <provided namespace='osgi.identity' name='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200718-2039'>
         <properties size='1'>
           <property name='type' value='osgi.bundle'/>
         </properties>
@@ -25,19 +25,19 @@
       <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'/>
     </requires>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200624-0311'/>
+      <artifact classifier='osgi.bundle' id='org.eclipse.ecf.example.spacex.launch.api.consumer' version='1.0.0.v20200718-2039'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: org.eclipse.ecf.example.spacex.launch.api.consumer&#xA;Bundle-Version: 1.0.0.v20200624-0311&#xA;
+          Bundle-SymbolicName: org.eclipse.ecf.example.spacex.launch.api.consumer&#xA;Bundle-Version: 1.0.0.v20200718-2039&#xA;
         </instruction>
       </instructions>
     </touchpointData>
   </unit>
-  <unit id='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200624-0311' singleton='false'>
-    <update id='org.eclipse.ecf.example.spacex.launch.api.consumer.source' range='[0.0.0,1.0.0.v20200624-0311)' severity='0'/>
+  <unit id='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200718-2039' singleton='false'>
+    <update id='org.eclipse.ecf.example.spacex.launch.api.consumer.source' range='[0.0.0,1.0.0.v20200718-2039)' severity='0'/>
     <properties size='9'>
       <property name='df_LT.bundleVendor' value='Eclipse.org - ECF'/>
       <property name='df_LT.bundleName' value='ECF SpaceX JAX-RS Launch Example Consumer Source'/>
@@ -50,9 +50,9 @@
       <property name='maven-classifier' value='sources'/>
     </properties>
     <provides size='5'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200624-0311'/>
-      <provided namespace='osgi.bundle' name='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200624-0311'/>
-      <provided namespace='osgi.identity' name='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200624-0311'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200718-2039'/>
+      <provided namespace='osgi.bundle' name='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200718-2039'/>
+      <provided namespace='osgi.identity' name='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200718-2039'>
         <properties size='1'>
           <property name='type' value='osgi.bundle'/>
         </properties>
@@ -61,13 +61,13 @@
       <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
     </provides>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200624-0311'/>
+      <artifact classifier='osgi.bundle' id='org.eclipse.ecf.example.spacex.launch.api.consumer.source' version='1.0.0.v20200718-2039'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: org.eclipse.ecf.example.spacex.launch.api.consumer.source&#xA;Bundle-Version: 1.0.0.v20200624-0311&#xA;
+          Bundle-SymbolicName: org.eclipse.ecf.example.spacex.launch.api.consumer.source&#xA;Bundle-Version: 1.0.0.v20200718-2039&#xA;
         </instruction>
       </instructions>
     </touchpointData>
