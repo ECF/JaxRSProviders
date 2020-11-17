@@ -1,7 +1,7 @@
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
 	name="ecf-remoteservices-jaxrs-1.13.8">
 
-    <repository>mvn:org.apache.cxf.karaf/apache-cxf/3.3.4</repository>
+    <repository>mvn:org.apache.cxf.karaf/apache-cxf/3.3.4/apache-cxf-3.3.4-features.xml</repository>
 
     <repository>http://download.eclipse.org/rt/ecf/RELEASE/site.p2/karaf-features.xml</repository>
 
