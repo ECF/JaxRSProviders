@@ -110,7 +110,7 @@
 		</bundle>
 	</feature>
 
-	<feature name="ecf-rs-distribution-cxf-server" version="1.12.0"
+	<feature name="ecf-rs-distribution-cxf-server" version="1.13.8"
 		description="ECF CXF Server Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.12.0">ecf-rs-distribution-jaxrs-server</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>		
