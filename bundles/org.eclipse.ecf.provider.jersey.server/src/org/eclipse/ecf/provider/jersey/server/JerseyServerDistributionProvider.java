@@ -10,65 +10,14 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jersey.server;
 
-import java.net.URI;
-import java.util.Map;
-
-import javax.ws.rs.core.Configurable;
-import javax.ws.rs.core.Configuration;
-
-import org.eclipse.ecf.core.ContainerCreateException;
-import org.eclipse.ecf.core.ContainerTypeDescription;
-import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
-import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainerInstantiator;
-import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerDistributionProvider;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.osgi.framework.BundleContext;
 
-public class JerseyServerDistributionProvider extends JaxRSServerDistributionProvider {
+public class JerseyServerDistributionProvider extends AbstractJerseyServerDistributionProvider {
 
 	public static final String JERSEY_SERVER_CONFIG = "ecf.jaxrs.jersey.server";
-	public static final String BINDING_PRIORITY = "bindingPriority";
-	public static final String JACKSON_PRIORITY = "jacksonPriority";
 
 	public JerseyServerDistributionProvider(final BundleContext context) {
-		super();
-		setName(JERSEY_SERVER_CONFIG);
-		JaxRSNamespace.class.getName();
-		setInstantiator(new JaxRSServerContainerInstantiator(JERSEY_SERVER_CONFIG) {
-			@Override
-			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
-					Configuration configuration) throws ContainerCreateException {
-				URI uri = getUri(parameters, JERSEY_SERVER_CONFIG);
-				checkOSGIIntents(description, uri, parameters);
-				return new JerseyServerContainer(description.getName(), createJaxRSID(uri), context, (ResourceConfig) configuration,
-						getJacksonPriority(parameters),
-						getParameterValue(parameters, BINDING_PRIORITY, Integer.class,
-								JerseyServerContainer.BINDING_DEFAULT_PRIORITY),getIncludeRemoteServiceId(parameters, JERSEY_SERVER_CONFIG));
-			}
-
-			@Override
-			protected boolean supportsOSGIConfidentialIntent(ContainerTypeDescription description) {
-				return true;
-			}
-
-			@Override
-			protected boolean supportsOSGIPrivateIntent(ContainerTypeDescription description) {
-				return true;
-			}
-
-			@Override
-			protected boolean supportsOSGIAsyncIntent(ContainerTypeDescription description) {
-				return true;
-			}
-		});
-		setDescription("Jersey Jax-RS Server Distribution Provider");
-		setServer(true);
+		super(context, JERSEY_SERVER_CONFIG, "Jersey Jax-RS Server Distribution Provider");
 	}
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	protected Configurable createConfigurable() {
-		return new ResourceConfig();
-	}
 }

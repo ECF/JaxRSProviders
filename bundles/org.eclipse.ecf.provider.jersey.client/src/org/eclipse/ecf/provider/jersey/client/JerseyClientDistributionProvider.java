@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2015 Composent, Inc. and others. All rights reserved. This
+* Copyright (c) 2020 Composent, Inc. and others. All rights reserved. This
 * program and the accompanying materials are made available under the terms of
 * the Eclipse Public License v1.0 which accompanies this distribution, and is
 * available at http://www.eclipse.org/legal/epl-v10.html
@@ -13,8 +13,6 @@ import java.util.Map;
 
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.ClientResponseFilter;
-import javax.ws.rs.core.Configurable;
-import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -23,44 +21,22 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.WriterInterceptor;
 
-import org.eclipse.ecf.core.ContainerTypeDescription;
-import org.eclipse.ecf.core.IContainer;
-import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
-import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
-import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientDistributionProvider;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
-import org.glassfish.jersey.client.ClientConfig;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 
 @Component(service = IRemoteServiceDistributionProvider.class)
-public class JerseyClientDistributionProvider extends JaxRSClientDistributionProvider {
+public class JerseyClientDistributionProvider extends AbstractJerseyClientDistributionProvider {
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
 	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.jersey.server";
 
-	public static final String JACKSON_PRIORITY = "jacksonPriority";
-
 	public JerseyClientDistributionProvider() {
-		super(CLIENT_PROVIDER_NAME, new JaxRSContainerInstantiator(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME) {
-			@Override
-			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
-					final Configuration configuration) {
-				Integer jacksonPriority = getParameterValue(parameters, JACKSON_PRIORITY, Integer.class,
-						JaxRSClientContainer.JACKSON_DEFAULT_PRIORITY);
-				return new JaxRSClientContainer(createJaxRSID(), configuration, jacksonPriority);
-			}
-		});
+		super(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME);
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Override
-	protected Configurable createConfigurable() {
-		return new ClientConfig();
-	}
-
-	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE) 
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
 		bindJaxComponent(instance, serviceProps);
 	}
@@ -112,7 +88,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	protected void unbindFeature(Feature instance) {
 		removeJaxComponent(instance);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
 	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {

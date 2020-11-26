@@ -205,6 +205,10 @@
 		<module>features/org.eclipse.ecf.provider.cxf.client.feature</module>
 		<module>features/org.eclipse.ecf.provider.jaxrs.examples.student.feature</module>
 		<module>features/org.eclipse.ecf.example.spacex.launch.consumer.feature</module>
+	    <module>examples/org.eclipse.ecf.example.jersey.server.basicauth</module>
+	    <module>examples/org.eclipse.ecf.example.jersey.client.basicauth</module>		
+		<module>features/org.eclipse.ecf.provider.jersey.server.basicauth.feature</module>
+		<module>features/org.eclipse.ecf.provider.jersey.client.basicauth.feature</module>
 	</modules>
 
 	<build>

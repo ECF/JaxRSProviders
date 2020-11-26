@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.ecf.provider.jersey.server.basicauth.feature"
+      label="Jersey Server with BasicAuth Feature"
+      version="1.0.0.qualifier"
+      provider-name="%providerName">
+
+   <description url="http://www.eclipse.org/ecf">
+      This feature provides the a Remote Service distribution provider based upon the Jersey implementation
+      of the Jax-RS specification.
+      For tutorials, documentation, and examples with ECF&apos;s Implementation of OSGi RS/RSA see
+
+https://wiki.eclipse.org/ECF#OSGi_Remote_Services
+   </description>
+
+   <copyright>
+      #################################################
+# Copyright (c) 2016 Composent, Inc. and others. All rights reserved.
+# This program and the accompanying materials are made available under the 
+# terms of the Eclipse Public License v1.0 which accompanies this 
+# distribution, and is available at 
+# http://www.eclipse.org/legal/epl-v10.html
+#
+# Contributors: Composent, Inc. - initial API and implementation
+#################################################
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.ecf.provider.jersey.server.feature" version="1.14" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.ecf.example.jersey.server.basicauth"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.jersey.client.feature"
       label="ECF Remote Services JAX-RS Jersey Client Provider"
-      version="1.13.8.qualifier"
+      version="1.14.0.qualifier"
       provider-name="%providerName">
 
    <description url="http://www.eclipse.org/ecf">
