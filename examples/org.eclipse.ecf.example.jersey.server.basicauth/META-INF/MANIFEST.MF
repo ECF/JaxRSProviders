@@ -9,4 +9,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/org.eclipse.ecf.example.jersey.server.basicauth.BasicAuthContainerRequestFilter.xml
 Import-Package: javax.ws.rs.container,
- javax.ws.rs.core
+ javax.ws.rs.core,
+ org.osgi.service.component.annotations;resolution:=optional
