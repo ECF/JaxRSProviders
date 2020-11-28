@@ -19,6 +19,13 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
+import javax.ws.rs.core.Feature;
+import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.ReaderInterceptor;
+import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
@@ -100,6 +107,80 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	@Override
 	protected Configurable createConfigurable() {
 		return new ResourceConfig();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
+		super.bindMessageBodyWriter(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindMessageBodyWriter(MessageBodyWriter instance) {
+		super.unbindMessageBodyWriter(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
+		super.bindMessageBodyReader(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindMessageBodyReader(MessageBodyReader instance) {
+		super.unbindMessageBodyReader(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
+		super.bindContextResolver(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindContextResolver(ContextResolver instance) {
+		super.unbindContextResolver(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
+		super.bindExceptionMapper(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindExceptionMapper(ExceptionMapper instance) {
+		super.unbindExceptionMapper(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	protected void bindFeature(Feature instance, Map serviceProps) {
+		super.bindFeature(instance, serviceProps);
+	}
+
+	protected void unbindFeature(Feature instance) {
+		super.unbindFeature(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
+		super.bindReaderInterceptor(instance, serviceProps);
+	}
+
+	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
+		super.unbindReaderInterceptor(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
+		super.bindWriterInterceptor(instance, serviceProps);
+	}
+
+	protected void unbindWriterInterceptor(WriterInterceptor instance) {
+		super.unbindWriterInterceptor(instance);
 	}
 
 	@SuppressWarnings("rawtypes")

@@ -35,6 +35,7 @@ import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
 public abstract class JaxRSDistributionProvider extends RemoteServiceDistributionProvider {
 
 	public static final String JAXRS_COMPONENT_TARGET_PROPERTY = "jaxrs-configurable-target";
+	public static final String JAXRS_COMPONENT_CONFIG_TARGET_PROPERTY = "jaxrs-service-exported-config-target";
 	public static final String JAXRS_COMPONENT_PRIORITY_PROPERTY = "jaxrs-component-priority";
 	public static final String JAXRS_COMPONENT_CONTRACT_PRIORITY_PROPERTY_ = "jaxrs-component-contract-priority_";
 
@@ -126,22 +127,33 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 		}
 	}
 
-	protected boolean isValidComponentTarget(Object componentTarget) {
-		if (componentTarget instanceof String) {
-			String val = (String) componentTarget;
-			if (val.equals(this.getClass().getName()))
+	protected boolean isValidTarget(Object target, String value) {
+		if (target instanceof String) {
+			String val = (String) target;
+			if (val.equals(value))
 				return true;
 			else
 				return false;
 		}
-		return false;
+		return false;		
+	}
+	
+	protected boolean isValidComponentTarget(Object componentTarget) {
+		return isValidTarget(componentTarget,this.getClass().getName());
 	}
 
+	protected boolean isValidConfigTarget(Object configTarget) {
+		return isValidTarget(configTarget, getName());
+	}
+	
 	protected boolean isValidComponent(Object instance, @SuppressWarnings("rawtypes") Map serviceProps) {
 		if (instance != null && serviceProps != null) {
 			Object o = serviceProps.get(JAXRS_COMPONENT_TARGET_PROPERTY);
 			if (o != null)
 				return isValidComponentTarget(o);
+			o = serviceProps.get(JAXRS_COMPONENT_CONFIG_TARGET_PROPERTY);
+			if (o != null)
+				return isValidConfigTarget(o);
 			return true;
 		}
 		return false;

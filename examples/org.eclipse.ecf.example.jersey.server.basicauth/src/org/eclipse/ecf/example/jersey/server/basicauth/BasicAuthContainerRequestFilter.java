@@ -22,7 +22,7 @@ import javax.ws.rs.core.Response;
 import org.osgi.service.component.annotations.Component;
 
 @Component(property = {
-		"jaxrs-configurable-target=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider" })
+		"jaxrs-service-exported-config-target=ecf.jaxrs.jersey.server" })
 public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";

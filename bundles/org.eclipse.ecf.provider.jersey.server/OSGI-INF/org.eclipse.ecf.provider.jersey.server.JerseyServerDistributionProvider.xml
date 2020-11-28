@@ -7,5 +7,12 @@
    <reference bind="bindConnectionCallback" cardinality="0..n" interface="javax.ws.rs.container.ConnectionCallback" name="ConnectionCallback" unbind="unbindConnectionCallback"/>
    <reference bind="bindContainerRequestFilter" cardinality="0..n" interface="javax.ws.rs.container.ContainerRequestFilter" name="ContainerRequestFilter" unbind="unbindContainerRequestFilter"/>
    <reference bind="bindContainerResponseFilter" cardinality="0..n" interface="javax.ws.rs.container.ContainerResponseFilter" name="ContainerResponseFilter" unbind="unbindContainerResponseFilter"/>
+   <reference bind="bindContextResolver" cardinality="0..n" interface="javax.ws.rs.ext.ContextResolver" name="ContextResolver" unbind="unbindContextResolver"/>
+   <reference bind="bindExceptionMapper" cardinality="0..n" interface="javax.ws.rs.ext.ExceptionMapper" name="ExceptionMapper" unbind="unbindExceptionMapper"/>
+   <reference bind="bindFeature" cardinality="0..n" interface="javax.ws.rs.core.Feature" name="Feature" unbind="unbindFeature"/>
+   <reference bind="bindMessageBodyReader" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyReader" name="MessageBodyReader" unbind="unbindMessageBodyReader"/>
+   <reference bind="bindMessageBodyWriter" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyWriter" name="MessageBodyWriter" unbind="unbindMessageBodyWriter"/>
+   <reference bind="bindReaderInterceptor" cardinality="0..n" interface="javax.ws.rs.ext.ReaderInterceptor" name="ReaderInterceptor" unbind="unbindReaderInterceptor"/>
+   <reference bind="bindWriterInterceptor" cardinality="0..n" interface="javax.ws.rs.ext.WriterInterceptor" name="WriterInterceptor" unbind="unbindWriterInterceptor"/>
    <implementation class="org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider"/>
 </scr:component>
