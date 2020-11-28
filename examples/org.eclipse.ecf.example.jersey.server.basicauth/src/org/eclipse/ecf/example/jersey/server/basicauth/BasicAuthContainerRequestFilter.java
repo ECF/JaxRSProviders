@@ -19,6 +19,10 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 
+import org.osgi.service.component.annotations.Component;
+
+@Component(property = {
+		"jaxrs-configurable-target=org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider" })
 public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";
@@ -67,8 +71,8 @@ public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 		} catch (Exception e) {
 			// log error
 			e.printStackTrace(System.err);
-			containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-					.entity("Authentication error").build());
+			containerRequestContext
+					.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("Authentication error").build());
 		}
 	}
 }

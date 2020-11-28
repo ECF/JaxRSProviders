@@ -13,6 +13,8 @@ import java.util.Map;
 
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.ClientResponseFilter;
+import javax.ws.rs.core.Configurable;
+import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -21,18 +23,44 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.WriterInterceptor;
 
+import org.eclipse.ecf.core.ContainerTypeDescription;
+import org.eclipse.ecf.core.IContainer;
+import org.eclipse.ecf.provider.jaxrs.JaxRSContainerInstantiator;
+import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientContainer;
+import org.eclipse.ecf.provider.jaxrs.client.JaxRSClientDistributionProvider;
 import org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider;
+import org.glassfish.jersey.client.ClientConfig;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 
 @Component(service = IRemoteServiceDistributionProvider.class)
-public class JerseyClientDistributionProvider extends AbstractJerseyClientDistributionProvider {
+public class JerseyClientDistributionProvider extends JaxRSClientDistributionProvider {
+	
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
 	public static final String SERVER_PROVIDER_NAME = "ecf.jaxrs.jersey.server";
+	public static final String JACKSON_PRIORITY = "jacksonPriority";
 
 	public JerseyClientDistributionProvider() {
-		super(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME);
+		this(SERVER_PROVIDER_NAME, CLIENT_PROVIDER_NAME);
+	}
+
+	protected JerseyClientDistributionProvider(String serverProviderName, String clientProviderName) {
+		super(clientProviderName, new JaxRSContainerInstantiator(serverProviderName, clientProviderName) {
+			@Override
+			public IContainer createInstance(ContainerTypeDescription description, Map<String, ?> parameters,
+					final Configuration configuration) {
+				Integer jacksonPriority = getParameterValue(parameters, JACKSON_PRIORITY, Integer.class,
+						JaxRSClientContainer.JACKSON_DEFAULT_PRIORITY);
+				return new JaxRSClientContainer(createJaxRSID(), configuration, jacksonPriority);
+			}
+		});
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	protected Configurable createConfigurable() {
+		return new ClientConfig();
 	}
 
 	@SuppressWarnings("rawtypes")

@@ -18,11 +18,11 @@ import javax.ws.rs.client.ClientRequestFilter;
 import org.osgi.service.component.annotations.Component;
 
 @Component(property = {
-		"jaxrs-configurable-target=org.eclipse.ecf.example.jersey.client.basicauth.BasicAuthJerseyClientDistributionProvider" })
+		"jaxrs-configurable-target=org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider" })
 public class BasicAuthClientRequestFilter implements ClientRequestFilter {
 
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";
-	private static final String AUTHENTICATION_SCHEME = "Basic";
+	private static final String AUTHENTICATION_SCHEME = "Basic ";
 
 	private static final String testUsername = System.getProperty("rs.basicauth.username", "testusername");
 	private static final String testPassword = System.getProperty("rs.basicauth.password", "testpassword");

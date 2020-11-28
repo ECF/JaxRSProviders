@@ -21,8 +21,8 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 		JaxRSNamespace ns = new JaxRSNamespace();
 		ns.getName();
-		context.registerService(IRemoteServiceDistributionProvider.class, new JerseyServerDistributionProvider(context),
-				null);
+//		context.registerService(IRemoteServiceDistributionProvider.class, new JerseyServerDistributionProvider(context),
+//				null);
 	}
 
 	@Override

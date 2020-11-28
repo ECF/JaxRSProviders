@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.eclipse.ecf.example.jersey.client.basicauth.BasicAuthJerseyClientDistributionProvider">
-   <service>
-      <provide interface="org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider"/>
-   </service>
-   <reference bind="bindClientRequestFilter" cardinality="0..n" interface="javax.ws.rs.client.ClientRequestFilter" name="ClientRequestFilter" unbind="unbindClientRequestFilter"/>
-   <implementation class="org.eclipse.ecf.example.jersey.client.basicauth.BasicAuthJerseyClientDistributionProvider"/>
-</scr:component>

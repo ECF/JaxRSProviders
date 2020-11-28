@@ -13,7 +13,6 @@ import java.util.Map;
 
 import javax.ws.rs.container.CompletionCallback;
 import javax.ws.rs.container.ConnectionCallback;
-import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseFilter;
 
@@ -54,15 +53,6 @@ public abstract class JaxRSServerDistributionProvider extends JaxRSDistributionP
 	}
 	
 	protected void unbindConnectionCallback(ConnectionCallback instance) {
-		super.unbindJaxComponent(instance);
-	}
-	
-	@SuppressWarnings("rawtypes")
-	protected void bindContainerRequestContext(ContainerRequestContext instance, Map serviceProps) {
-		super.bindJaxComponent(instance, serviceProps);
-	}
-
-	protected void unbindContainerRequestContext(ContainerRequestContext instance) {
 		super.unbindJaxComponent(instance);
 	}
 	
