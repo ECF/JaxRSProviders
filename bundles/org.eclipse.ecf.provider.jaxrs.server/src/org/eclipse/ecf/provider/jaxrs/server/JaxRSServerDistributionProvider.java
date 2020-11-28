@@ -9,6 +9,14 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jaxrs.server;
 
+import java.util.Map;
+
+import javax.ws.rs.container.CompletionCallback;
+import javax.ws.rs.container.ConnectionCallback;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.container.ContainerResponseFilter;
+
 import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.provider.jaxrs.JaxRSDistributionProvider;
 
@@ -31,4 +39,48 @@ public abstract class JaxRSServerDistributionProvider extends JaxRSDistributionP
 		super(name, instantiator, description, server);
 	}
 
+	@SuppressWarnings("rawtypes")
+	protected void bindCompletionCallback(CompletionCallback instance, Map serviceProps) {
+		super.bindJaxComponent(instance, serviceProps);
+	}
+	
+	protected void unbindCompletionCallback(CompletionCallback instance) {
+		super.unbindJaxComponent(instance);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected void bindConnectionCallback(ConnectionCallback instance, Map serviceProps) {
+		super.bindJaxComponent(instance, serviceProps);
+	}
+	
+	protected void unbindConnectionCallback(ConnectionCallback instance) {
+		super.unbindJaxComponent(instance);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected void bindContainerRequestContext(ContainerRequestContext instance, Map serviceProps) {
+		super.bindJaxComponent(instance, serviceProps);
+	}
+
+	protected void unbindContainerRequestContext(ContainerRequestContext instance) {
+		super.unbindJaxComponent(instance);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected void bindContainerRequestFilter(ContainerRequestFilter instance, Map serviceProps) {
+		super.bindJaxComponent(instance, serviceProps);
+	}
+
+	protected void unbindContainerRequestFilter(ContainerRequestFilter instance) {
+		super.unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindContainerResponseFilter(ContainerResponseFilter instance, Map serviceProps) {
+		super.bindJaxComponent(instance, serviceProps);
+	}
+
+	protected void unbindContainerResponseFilter(ContainerResponseFilter instance) {
+		super.unbindJaxComponent(instance);
+	}
 }

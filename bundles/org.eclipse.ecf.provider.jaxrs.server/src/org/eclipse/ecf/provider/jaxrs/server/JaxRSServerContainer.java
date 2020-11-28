@@ -20,6 +20,7 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
@@ -102,9 +103,9 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 		configurable.register(registration.getService());
 	}
 
-	protected void registerExtensions(Configurable<?> configurable, RSARemoteServiceRegistration registration) {
+	protected void registerExtensions(Configurable<?> configurable, final RSARemoteServiceRegistration registration) {
 		configurable.register(new ObjectMapperContextResolver(), ContextResolver.class);
-		configurable.register(new JaxRSServerJacksonFeature(registration), jacksonPriority);
+		configurable.register(new JaxRSServerWriterInterceptor(registration), WriterInterceptor.class);
 	}
 
 	@SuppressWarnings("unchecked")

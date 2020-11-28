@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2016 Composent, Inc. and Erdal Karaca. All rights reserved. This
+* Copyright (c) 2020 Composent, Inc. and Erdal Karaca. All rights reserved. This
 * program and the accompanying materials are made available under the terms of
 * the Eclipse Public License v1.0 which accompanies this distribution, and is
 * available at http://www.eclipse.org/legal/epl-v10.html
@@ -20,6 +20,14 @@ import java.util.Map;
 
 import javax.ws.rs.core.Configurable;
 import javax.ws.rs.core.Configuration;
+import javax.ws.rs.core.Feature;
+import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.ParamConverterProvider;
+import javax.ws.rs.ext.ReaderInterceptor;
+import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.ecf.core.provider.IContainerInstantiator;
 import org.eclipse.ecf.remoteservice.provider.RemoteServiceDistributionProvider;
@@ -179,6 +187,10 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 		removeJaxComponent(instance);
 	}
 
+	protected void unbindJaxComponent(Object instance) {
+		removeJaxComponent(instance);
+	}
+
 	protected Configurable<?> registerComponents(Configurable<?> configurable) {
 		synchronized (components) {
 			for (JaxRSComponent ext : components) {
@@ -213,6 +225,82 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 
 	protected Configuration getConfiguration(Configurable<?> configurable) {
 		return registerComponents(configurable).getConfiguration();
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindMessageBodyWriter(MessageBodyWriter instance) {
+		unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindMessageBodyReader(MessageBodyReader instance) {
+		unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindContextResolver(ContextResolver instance) {
+		unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void unbindExceptionMapper(ExceptionMapper instance) {
+		unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindFeature(Feature instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	protected void unbindFeature(Feature instance) {
+		unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	protected void unbindReaderInterceptor(ReaderInterceptor instance) {
+		unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	protected void unbindWriterInterceptor(WriterInterceptor instance) {
+		unbindJaxComponent(instance);
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void bindParamConverterProvider(ParamConverterProvider instance, Map serviceProps) {
+		bindJaxComponent(instance, serviceProps);
+	}
+
+	protected void unbindParamConverter(ParamConverterProvider instance) {
+		unbindJaxComponent(instance);
 	}
 
 }

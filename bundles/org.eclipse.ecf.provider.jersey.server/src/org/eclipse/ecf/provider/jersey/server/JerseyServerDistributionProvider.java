@@ -16,8 +16,9 @@ public class JerseyServerDistributionProvider extends AbstractJerseyServerDistri
 
 	public static final String JERSEY_SERVER_CONFIG = "ecf.jaxrs.jersey.server";
 
-	public JerseyServerDistributionProvider(final BundleContext context) {
-		super(context, JERSEY_SERVER_CONFIG, "Jersey Jax-RS Server Distribution Provider");
+	public JerseyServerDistributionProvider(BundleContext context) {
+		super(JERSEY_SERVER_CONFIG, "Jersey Jax-RS Server Distribution Provider");
+		activate(context);
 	}
 
 }
