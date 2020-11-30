@@ -62,7 +62,7 @@ public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 		try {
 			// XXX as this is example, it prints to system out that we are here, so that
 			// can verify this is being called at request time
-			System.out.println("In ContainerRequestFilter.filter for method="+containerRequestContext.getMethod());
+			System.out.println("ContainerRequestFilter.filter for uri="+containerRequestContext.getUriInfo().getRequestUri());
 			BasicAuthCredentials authCreds = new BasicAuthCredentials(containerRequestContext);
 			if (authCreds.authenticate()) {
 				return;
