@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.example.spacex.launch.consumer.feature"
       label="ECF Spacex JAX-RS Launch Consumer Feature"
-      version="1.14.0.qualifier"
+      version="1.14.1.qualifier"
       provider-name="Eclipse.org - ECF">
 
    <description url="http://www.example.com/description">

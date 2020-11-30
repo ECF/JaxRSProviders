@@ -17,7 +17,7 @@ import javax.ws.rs.client.ClientRequestFilter;
 
 import org.osgi.service.component.annotations.Component;
 
-@Component(property = {
+@Component(immediate=true,property = {
 		"jaxrs-service-exported-config-target=ecf.jaxrs.jersey.client" })
 public class BasicAuthClientRequestFilter implements ClientRequestFilter {
 
@@ -29,6 +29,7 @@ public class BasicAuthClientRequestFilter implements ClientRequestFilter {
 
 	@Override
 	public void filter(ClientRequestContext clientRequestContext) throws IOException {
+		System.out.println("In ContainerRequestFilter.filter for method="+clientRequestContext.getMethod());
 		clientRequestContext.getHeaders().add(AUTHORIZATION_PROPERTY, AUTHENTICATION_SCHEME
 				+ Base64.getEncoder().encodeToString(new String(testUsername + ":" + testPassword).getBytes()));
 	}

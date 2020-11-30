@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 
-@Component(property = {
+@Component(immediate=true,property = {
 		"jaxrs-service-exported-config-target=ecf.jaxrs.jersey.server" })
 public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 
@@ -60,11 +60,14 @@ public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext containerRequestContext) throws IOException {
 		try {
+			// XXX as this is example, it prints to system out that we are here, so that
+			// can verify this is being called at request time
+			System.out.println("In ContainerRequestFilter.filter for method="+containerRequestContext.getMethod());
 			BasicAuthCredentials authCreds = new BasicAuthCredentials(containerRequestContext);
 			if (authCreds.authenticate()) {
 				return;
 			} else {
-				throw new IOException("Incorrect Username or Password");
+				throw new IOException("Incorrect or invalid username or password");
 			}
 		} catch (IOException e) {
 			throw e;

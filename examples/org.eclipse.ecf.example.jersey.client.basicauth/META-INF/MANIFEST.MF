@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jersey Basicauth Client
 Bundle-SymbolicName: org.eclipse.ecf.example.jersey.client.basicauth
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.1.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Automatic-Module-Name: org.eclipse.ecf.example.jersey.client.basicauth
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
