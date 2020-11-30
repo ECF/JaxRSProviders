@@ -63,7 +63,7 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpcore_4.4.12.v20200108-1212.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.codec_1.14.1.v20200818-1422.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.codec_1.14.0.v20200818-1422.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.logging_1.2.0.v20180409-1502.jar
 		</bundle>
