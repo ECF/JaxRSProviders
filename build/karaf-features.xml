@@ -59,11 +59,11 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/javax.validation.api_2.0.1.Final.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.10.v20200114-1512.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpclient_4.5.10.v20200830-2311.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.httpcomponents.httpcore_4.4.12.v20200108-1212.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.codec_1.13.0.v20200108-0001.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.codec_1.14.0.v20200818-1422.jar
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.apache.commons.logging_1.2.0.v20180409-1502.jar
 		</bundle>
