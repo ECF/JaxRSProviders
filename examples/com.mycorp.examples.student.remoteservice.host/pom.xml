@@ -8,5 +8,5 @@
   </parent>
   <artifactId>com.mycorp.examples.student.remoteservice.host</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <version>2.1.0-SNAPSHOT</version>
+  <version>2.2.0-SNAPSHOT</version>
 </project>

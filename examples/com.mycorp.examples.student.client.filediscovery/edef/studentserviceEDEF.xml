@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoint-descriptions xmlns="http://www.osgi.org/xmlns/rsa/v1.0.0">
   <endpoint-description>
-    <property name="ecf.endpoint.id" value-type="String" value="http://localhost:8080/studentresource/rs"/>
     <property name="ecf.endpoint.id.ns" value-type="String" value="ecf.namespace.jaxrs"/>
-    <property name="ecf.endpoint.ts" value-type="Long" value="1387233380373"/>
-    <property name="endpoint.framework.uuid" value-type="String" value="20cc5d57-e8f0-0012-192b-c570b422d1f9"/>
+    <property name="ecf.rsvc.id" value-type="Long" value="1"/>
+    <property name="endpoint.framework.uuid" value-type="String" value="f838e874-d17d-4328-806e-a9cd869b3f35"/>
+    <property name="endpoint.id" value-type="String" value="fabcb5ab-6937-4f31-9f97-c10bb9660bb8"/>
     <property name="endpoint.package.version.com.mycorp.examples.student" value-type="String" value="1.0.0"/>
-    <property name="endpoint.id" value-type="String" value="87d3ef4f-8e8f-4187-873e-166dcc58c9ea"/>
-    <property name="endpoint.service.id" value-type="Long" value="0"/>
+    <property name="endpoint.service.id" value-type="Long" value="94"/>
     <property name="objectClass" value-type="String">
       <array>
         <value>com.mycorp.examples.student.StudentService</value>
       </array>
     </property>
+    <property name="osgi.basic.timeout" value-type="String" value="5000000"/>
     <property name="remote.configs.supported" value-type="String">
       <array>
         <value>ecf.jaxrs.jersey.server</value>
@@ -23,14 +23,22 @@
         <value>passByValue</value>
         <value>exactlyOnce</value>
         <value>ordered</value>
+        <value>osgi.async</value>
+        <value>osgi.private</value>
+        <value>osgi.confidential</value>
         <value>jaxrs</value>
       </array>
     </property>
-    <property name="service.id" value-type="Long" value="66"/>
     <property name="service.imported" value-type="String" value="true"/>
     <property name="service.imported.configs" value-type="String">
       <array>
         <value>ecf.jaxrs.jersey.server</value>
+      </array>
+    </property>
+    <property name="service.intents" value-type="String">
+      <array>
+        <value>osgi.async</value>
+        <value>jaxrs</value>
       </array>
     </property>
   </endpoint-description>

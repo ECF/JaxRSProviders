@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Student Remote Service Filediscovery
 Bundle-SymbolicName: com.mycorp.examples.student.client.filediscovery
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Remote-Service: studentserviceEDEF.xml
+Remote-Service: edef/studentserviceEDEF.xml
 Automatic-Module-Name: com.mycorp.examples.student.client.filediscovery
