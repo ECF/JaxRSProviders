@@ -13,7 +13,7 @@ package org.eclipse.ecf.provider.jersey.server;
 import java.lang.reflect.InvocationHandler;
 
 import javax.servlet.Servlet;
-import javax.ws.rs.core.Configurable;
+import jakarta.ws.rs.core.Configurable;
 
 import org.eclipse.ecf.core.identity.URIID;
 import org.eclipse.ecf.provider.jaxrs.server.JaxRSServerContainer;

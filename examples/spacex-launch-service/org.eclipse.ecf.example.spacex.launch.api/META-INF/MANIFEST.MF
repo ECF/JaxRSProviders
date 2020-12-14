@@ -9,8 +9,8 @@ Import-Package: com.fasterxml.jackson.annotation;version="2.10.1",
  com.fasterxml.jackson.databind;version="2.10.1",
  com.fasterxml.jackson.databind.annotation;version="2.10.1",
  javax.annotation;version="0.0.0",
- javax.ws.rs;version="2.1.5",
- javax.ws.rs.core;version="2.1.5"
+ jakarta.ws.rs;version="2.1.5",
+ jakarta.ws.rs.core;version="2.1.5"
 Remote-Service: OSGI-INF/LaunchService_EDEF.xml
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.ecf.example.spacex.launch.api

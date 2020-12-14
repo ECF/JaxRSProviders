@@ -18,9 +18,9 @@ import java.util.concurrent.TimeoutException;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
-import javax.ws.rs.core.Configurable;
-import javax.ws.rs.ext.ContextResolver;
-import javax.ws.rs.ext.WriterInterceptor;
+import jakarta.ws.rs.core.Configurable;
+import jakarta.ws.rs.ext.ContextResolver;
+import jakarta.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;

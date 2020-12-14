@@ -12,8 +12,8 @@ package org.eclipse.ecf.example.jersey.client.basicauth;
 import java.io.IOException;
 import java.util.Base64;
 
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
+import jakarta.ws.rs.client.ClientRequestContext;
+import jakarta.ws.rs.client.ClientRequestFilter;
 
 import org.osgi.service.component.annotations.Component;
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="JaxRS 2019-12 Jersey3 Target Platform" sequenceNumber="68">
+<locations>
+<location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/cxf" type="Directory"/>
+<location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/validation" type="Directory"/>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.feature.group" version="0.0.0"/>
+		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.source.feature.group" version="0.0.0"/>
+		<repository location="http://download.eclipse.org/rt/ecf/3.14.18/site.p2"/>
+	</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
+		<repository location="http://download.eclipse.org/releases/2019-12"/>
+	</location>
+	<location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/jersey-3.0.0" type="Directory"/>
+</locations>
+</target>

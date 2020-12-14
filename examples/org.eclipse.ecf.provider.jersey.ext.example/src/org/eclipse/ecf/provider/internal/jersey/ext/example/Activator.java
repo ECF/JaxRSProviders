@@ -3,8 +3,8 @@ package org.eclipse.ecf.provider.internal.jersey.ext.example;
 import java.net.URI;
 import java.util.Map;
 
-import javax.ws.rs.core.Configurable;
-import javax.ws.rs.core.Configuration;
+import jakarta.ws.rs.core.Configurable;
+import jakarta.ws.rs.core.Configuration;
 
 import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;

@@ -10,7 +10,7 @@
 ******************************************************************************/
 package org.eclipse.ecf.provider.jaxrs;
 
-import javax.ws.rs.ext.ContextResolver;
+import jakarta.ws.rs.ext.ContextResolver;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -9,7 +9,7 @@
 ******************************************************************************/
 package com.mycorp.examples.student.remoteservice.host;
 
-import javax.ws.rs.Path;
+import jakarta.ws.rs.Path;
 
 import org.osgi.service.component.annotations.Component;
 

@@ -8,6 +8,6 @@ Automatic-Module-Name: org.eclipse.ecf.example.jersey.client.basicauth
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Service-Component: OSGI-INF/org.eclipse.ecf.example.jersey.client.basicauth.BasicAuthClientRequestFilter.xml
 Bundle-ActivationPolicy: lazy
-Import-Package: javax.ws.rs.client,
- javax.ws.rs.core,
+Import-Package: jakarta.ws.rs.client,
+ jakarta.ws.rs.core,
  org.osgi.service.component.annotations;resolution:=optional
