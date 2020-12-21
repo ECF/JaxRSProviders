@@ -185,7 +185,7 @@
 		version="1.14.2"
 		description="ECF JaxRS Student Example Service Host.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-examples-jaxrs-student</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.remoteservice.host_2.1.0.202012201802.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.remoteservice.host_2.2.0.202012201802.jar
 		</bundle>
 	</feature>
 
