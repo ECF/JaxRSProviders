@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="org.eclipse.ecf.example.jersey.server.objectmapper.MyObjectMapperContextResolver">
+   <property name="jaxrs-service-exported-config-target" value="ecf.jaxrs.jersey.server"/>
+   <service>
+      <provide interface="javax.ws.rs.ext.ContextResolver"/>
+   </service>
+   <implementation class="org.eclipse.ecf.example.jersey.server.objectmapper.MyObjectMapperContextResolver"/>
+</scr:component>

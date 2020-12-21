@@ -23,7 +23,7 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.fasterxml.jackson.module.jackson-module-jaxb-annotations_2.10.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.5.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.6.0.202012201802.jar
 		</bundle>
 		
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/jakarta.xml.bind-api_2.3.2.jar
@@ -35,7 +35,7 @@
 		description="ECF JaxRS Distribution Provider Server Support. See https://github.com/ECF/JaxRSProviders">
 		<feature>http</feature>
 		<feature version="1.14.2">ecf-rs-distribution-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.server_1.10.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.server_1.11.0.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -43,7 +43,7 @@
 		version="1.14.2"
 		description="ECF JaxRS Distribution Provider Client Support. See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-distribution-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.client_1.7.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs.client_1.8.0.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -106,7 +106,7 @@
 		</bundle>
 		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.glassfish.jersey.containers.jersey-container-servlet-core_2.30.1.jar
 		</bundle>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.server_1.9.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.server_1.10.0.202012201802.jar
 		</bundle>
 	</feature>
 	
@@ -114,7 +114,7 @@
 		version="1.14.2"
 		description="ECF Jersey Server Basic Auth Extension Example.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-distribution-jersey-server</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.server.basicauth_1.0.1.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.server.basicauth_1.0.1.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -122,7 +122,7 @@
 		version="1.14.2"
 		description="ECF Jersey Client Distribution Provider Basic Auth Extension Example.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-distribution-jersey-client</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.client.basicauth_1.0.1.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.client.basicauth_1.0.1.202012201802.jar
 		</bundle>
 	</feature>
 	
@@ -131,7 +131,7 @@
 		<feature version="1.14.2">ecf-rs-distribution-jaxrs-server</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>		
 		<feature>cxf-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.server_1.8.2.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.server_1.8.2.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -140,7 +140,7 @@
 		description="ECF Jersey Client Distribution Provider.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-distribution-jaxrs-client</feature>
 		<feature version="1.14.2">ecf-rs-jersey-deps</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.client_1.7.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jersey.client_1.7.0.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -156,10 +156,10 @@
 		<feature>ecf-rs-console</feature>
 		<feature>ecf-rs-discovery-jmdns</feature>		
 		<feature>cxf-jaxrs</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.5.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.jaxrs_1.6.0.202012201802.jar
 		</bundle>
 		<feature version="1.14.2">ecf-rs-distribution-jaxrs-client</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.client_1.5.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.provider.cxf.client_1.5.0.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -171,13 +171,13 @@
 
 	<feature name="ecf-rs-examples-jaxrs-student" version="1.14.2"
 		description="ECF JaxRS Student Example Service API.  See https://github.com/ECF/JaxRSProviders">
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student_2.0.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student_2.0.0.202012201802.jar
 		</bundle>
 	</feature>
 
 	<feature name="ecf-rs-examples-jaxrs-spacex-launch" version="1.14.2"
 		description="ECF JaxRS SpaceX Launch Example Service API.  See https://github.com/ECF/JaxRSProviders">
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.spacex.launch.api_1.0.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.spacex.launch.api_1.0.0.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -185,7 +185,7 @@
 		version="1.14.2"
 		description="ECF JaxRS Student Example Service Host.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-examples-jaxrs-student</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.remoteservice.host_2.1.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.remoteservice.host_2.1.0.202012201802.jar
 		</bundle>
 	</feature>
 
@@ -193,7 +193,7 @@
 		version="1.14.2"
 		description="ECF JaxRS Student Example Service Client.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-examples-jaxrs-student</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.client_2.0.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/com.mycorp.examples.student.client_2.0.0.202012201802.jar
 		</bundle>
 	</feature>
 	
@@ -201,7 +201,7 @@
 		version="1.14.2"
 		description="ECF JaxRS Spacex Launch Example Service Client.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.2">ecf-rs-examples-jaxrs-spacex-launch</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.spacex.launch.api.consumer_1.0.0.202011292111.jar
+		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.spacex.launch.api.consumer_1.0.0.202012201802.jar
 		</bundle>
 	</feature>
 </features>
