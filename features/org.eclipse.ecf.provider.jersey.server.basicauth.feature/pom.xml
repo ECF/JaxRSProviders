@@ -10,5 +10,5 @@
   </parent>
   <artifactId>org.eclipse.ecf.provider.jersey.server.basicauth.feature</artifactId>
   <packaging>eclipse-feature</packaging>
-  <version>1.14.1-SNAPSHOT</version>
+  <version>1.14.2-SNAPSHOT</version>
 </project>

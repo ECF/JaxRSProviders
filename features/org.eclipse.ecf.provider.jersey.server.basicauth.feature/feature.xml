@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.ecf.provider.jersey.server.basicauth.feature"
       label="Jersey Server with BasicAuth Feature"
-      version="1.14.1.qualifier"
+      version="1.14.2.qualifier"
       provider-name="%providerName">
 
    <description url="http://www.eclipse.org/ecf">

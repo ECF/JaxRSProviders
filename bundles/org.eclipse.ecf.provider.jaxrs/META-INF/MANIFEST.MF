@@ -2,12 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Distribution Provider - Jax RS Support
 Bundle-SymbolicName: org.eclipse.ecf.provider.jaxrs
-Bundle-Version: 1.5.0.qualifier
+Bundle-Version: 1.6.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  com.fasterxml.jackson.databind;version="2.9.2",
+ javax.ws.rs;version="2.1.5",
  javax.ws.rs.core;version="2.0.1",
  javax.ws.rs.ext;version="2.0.1",
  org.eclipse.ecf.remoteservice;version="7.2.0",

@@ -39,7 +39,7 @@ import org.eclipse.ecf.remoteservice.events.IRemoteCallCompleteEvent;
 public class JaxRSClientContainer extends AbstractRSAClientContainer {
 
 	public static final int JACKSON_DEFAULT_PRIORITY = Integer
-			.valueOf(System.getProperty(JaxRSClientContainer.class.getName() + ".jacksonDefaultPriority", "1"));
+			.valueOf(System.getProperty(JaxRSClientContainer.class.getName() + ".jacksonDefaultPriority", String.valueOf(javax.ws.rs.Priorities.USER)));
 	protected Configuration configuration;
 	protected int jacksonPriority = JACKSON_DEFAULT_PRIORITY;
 

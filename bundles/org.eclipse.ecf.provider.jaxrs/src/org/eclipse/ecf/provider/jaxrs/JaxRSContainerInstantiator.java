@@ -38,7 +38,7 @@ public abstract class JaxRSContainerInstantiator extends RemoteServiceContainerI
 	public static final String JACKSON_PRIORITY_PROP = "jacksonPriority";
 
 	public static final int JACKSON_DEFAULT_PRIORITY = Integer
-			.valueOf(System.getProperty(JaxRSContainerInstantiator.class.getName() + ".jacksonPriority", "1"));
+			.valueOf(System.getProperty(JaxRSContainerInstantiator.class.getName() + ".jacksonPriority", String.valueOf(javax.ws.rs.Priorities.USER)));
 
 	private JaxRSDistributionProvider distprovider;
 

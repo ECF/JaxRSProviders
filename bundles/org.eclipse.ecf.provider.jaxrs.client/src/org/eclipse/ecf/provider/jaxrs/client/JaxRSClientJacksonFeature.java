@@ -16,7 +16,6 @@ import org.eclipse.ecf.remoteservice.client.RemoteServiceClientRegistration;
 
 import com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper;
 import com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper;
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 public class JaxRSClientJacksonFeature implements Feature {
 
@@ -36,7 +35,7 @@ public class JaxRSClientJacksonFeature implements Feature {
 
 	@Override
 	public boolean configure(final FeatureContext context) {
-		if (!context.getConfiguration().isRegistered(JacksonJaxbJsonProvider.class)) {
+		if (!context.getConfiguration().isRegistered(JaxRSClientJacksonJaxbJsonProvider.class)) {
 			context.register(JsonParseExceptionMapper.class);
 			context.register(JsonMappingExceptionMapper.class);
 			context.register(new JaxRSClientJacksonJaxbJsonProvider(reg, cl));

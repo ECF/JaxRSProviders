@@ -28,14 +28,14 @@ import org.osgi.framework.BundleContext;
 
 public class JerseyServerContainer extends JaxRSServerContainer {
 
-	public static final int BINDING_DEFAULT_PRIORITY = Integer
-			.valueOf(System.getProperty(JaxRSServerContainer.class.getName() + ".bindingPriority", "1"));
+	public static final int BINDING_DEFAULT_PRIORITY = Integer.valueOf(System.getProperty(
+			JaxRSServerContainer.class.getName() + ".bindingPriority", String.valueOf(javax.ws.rs.Priorities.USER)));
 
 	private ResourceConfig originalConfiguration;
 	private int bindingPriority = BINDING_DEFAULT_PRIORITY;
 
-	public JerseyServerContainer(String configType, URIID containerID, BundleContext context, ResourceConfig configuration,
-			int jacksonPriority, int bindingPriority, boolean includeRemoteServiceId) {
+	public JerseyServerContainer(String configType, URIID containerID, BundleContext context,
+			ResourceConfig configuration, int jacksonPriority, int bindingPriority, boolean includeRemoteServiceId) {
 		super(configType, containerID, context, jacksonPriority, includeRemoteServiceId);
 		this.originalConfiguration = configuration;
 		this.bindingPriority = bindingPriority;

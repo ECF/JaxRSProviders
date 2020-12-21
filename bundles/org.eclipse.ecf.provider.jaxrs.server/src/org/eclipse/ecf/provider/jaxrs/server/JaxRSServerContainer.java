@@ -19,13 +19,11 @@ import java.util.concurrent.TimeoutException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.ws.rs.core.Configurable;
-import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.WriterInterceptor;
 
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.ecf.core.identity.URIID;
-import org.eclipse.ecf.provider.jaxrs.ObjectMapperContextResolver;
 import org.eclipse.ecf.remoteservice.AbstractRSAContainer;
 import org.eclipse.ecf.remoteservice.Constants;
 import org.eclipse.ecf.remoteservice.RSARemoteServiceContainerAdapter.RSARemoteServiceRegistration;
@@ -104,7 +102,6 @@ public abstract class JaxRSServerContainer extends AbstractRSAContainer {
 	}
 
 	protected void registerExtensions(Configurable<?> configurable, final RSARemoteServiceRegistration registration) {
-		configurable.register(new ObjectMapperContextResolver(), ContextResolver.class);
 		configurable.register(new JaxRSServerWriterInterceptor(registration), WriterInterceptor.class);
 	}
 

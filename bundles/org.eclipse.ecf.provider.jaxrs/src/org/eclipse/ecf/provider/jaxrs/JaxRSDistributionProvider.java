@@ -39,7 +39,7 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 	public static final String JAXRS_COMPONENT_PRIORITY_PROPERTY = "jaxrs-component-priority";
 	public static final String JAXRS_COMPONENT_CONTRACT_PRIORITY_PROPERTY_ = "jaxrs-component-contract-priority_";
 
-	static final Integer DEFAULT_PRIORITY = 0;
+	static final Integer DEFAULT_PRIORITY = javax.ws.rs.Priorities.USER;
 	static final Integer NO_PRIORITY = -1;
 
 	public static class JaxRSComponent {
