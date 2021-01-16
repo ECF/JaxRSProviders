@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Dist Provider - Jersey Jax RS Server
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
-Bundle-Version: 1.10.0.qualifier
+Bundle-Version: 1.10.1.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.fasterxml.jackson.core;version="2.6.2",
  com.fasterxml.jackson.databind;version="2.6.2",
  com.fasterxml.jackson.jaxrs.base;version="2.9.2",
  com.fasterxml.jackson.jaxrs.json;version="2.9.2",
- javax.annotation;version="1.3",
+ javax.annotation;version="1.2",
  javax.servlet,
  javax.ws.rs,
  javax.ws.rs.container,

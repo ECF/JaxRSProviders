@@ -10,5 +10,5 @@
   </parent>
   <artifactId>org.eclipse.ecf.provider.cxf.server.feature</artifactId>
   <packaging>eclipse-feature</packaging>
-  <version>1.14.2-SNAPSHOT</version>
+  <version>1.14.3-SNAPSHOT</version>
 </project>

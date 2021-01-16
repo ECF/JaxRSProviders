@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Student Example Using CXF Server Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.12.0.qualfier" useFeatures="false" includeLaunchers="false">
+<product name="Student Example Using CXF Server Provider" uid="com.mycorp.examples.student.remoteservice.host.StudentRSHost.cxf" version="1.13.0.qualfier" useFeatures="false" includeLaunchers="false">
 
    <configIni use="default">
    </configIni>
@@ -78,7 +78,6 @@
       <plugin id="org.eclipse.equinox.event"/>
       <plugin id="org.eclipse.equinox.http.jetty"/>
       <plugin id="org.eclipse.equinox.http.servlet"/>
-      <plugin id="org.eclipse.equinox.util"/>
       <plugin id="org.eclipse.jetty.http"/>
       <plugin id="org.eclipse.jetty.io"/>
       <plugin id="org.eclipse.jetty.security"/>
@@ -138,7 +137,6 @@
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.jetty.http" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.jetty.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.jetty.security" autoStart="true" startLevel="0" />

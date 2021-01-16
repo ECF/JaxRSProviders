@@ -9,5 +9,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.fasterxml.jackson.core;version="2.10.1",
  com.fasterxml.jackson.databind;version="2.10.1",
  javax.ws.rs.ext;version="2.1.5"
-Service-Component: OSGI-INF/org.eclipse.ecf.example.jersey.server.objectmapper.MyObjectMapperContextResolver.xml
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/org.eclipse.ecf.example.jersey.server.objectmapper.MyObjectMapperContextResolver.xml
