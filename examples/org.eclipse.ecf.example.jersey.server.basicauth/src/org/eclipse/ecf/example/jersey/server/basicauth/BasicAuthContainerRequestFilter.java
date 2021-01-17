@@ -22,8 +22,8 @@ import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 
-@Component(immediate=true,property = {
-		"jaxrs-service-exported-config-target=ecf.jaxrs.jersey.server" })
+@Component(immediate = true, property = { "jaxrs-service-exported-config-target=ecf.jaxrs.jersey.server",
+		"jaxrs-component-intents=ecf.jaxrs.basicauth" })
 public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";
@@ -49,10 +49,8 @@ public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 			if (authHeaderValue == null) {
 				throw new IllegalArgumentException("Request does not have authorization header value");
 			}
-			final StringTokenizer tokenizer = new StringTokenizer(new String(
-					Base64.getDecoder().decode(authHeaderValue
-							.replaceFirst(AUTHENTICATION_SCHEME + " ", "").getBytes())),
-					":");
+			final StringTokenizer tokenizer = new StringTokenizer(new String(Base64.getDecoder()
+					.decode(authHeaderValue.replaceFirst(AUTHENTICATION_SCHEME + " ", "").getBytes())), ":");
 			this.username = tokenizer.nextToken();
 			this.password = tokenizer.nextToken();
 		}
@@ -71,7 +69,8 @@ public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 		try {
 			// XXX as this is example, it prints to system out that we are here, so that
 			// can verify this is being called at request time
-			System.out.println("ContainerRequestFilter.filter for uri="+containerRequestContext.getUriInfo().getRequestUri());
+			System.out.println(
+					"ContainerRequestFilter.filter for uri=" + containerRequestContext.getUriInfo().getRequestUri());
 			BasicAuthCredentials authCreds = new BasicAuthCredentials(containerRequestContext);
 			if (authCreds.authenticate()) {
 				return;

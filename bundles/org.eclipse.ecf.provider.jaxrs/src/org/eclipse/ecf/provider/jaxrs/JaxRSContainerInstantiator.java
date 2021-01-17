@@ -103,11 +103,16 @@ public abstract class JaxRSContainerInstantiator extends RemoteServiceContainerI
 	public String[] getSupportedIntents(ContainerTypeDescription description) {
 		List<String> results = new ArrayList<String>(Arrays.asList(super.getSupportedIntents(description)));
 		results.addAll(Arrays.asList(jaxIntents));
+		results.addAll(Arrays.asList(getJaxRSComponentIntents()));
 		// remove basic intent
 		return removeSupportedIntent(Constants.OSGI_BASIC_INTENT,
 				(String[]) results.toArray(new String[results.size()]));
 	}
 
+	protected String[] getJaxRSComponentIntents() {
+		return this.distprovider.getJaxRSComponentIntents();
+	}
+	
 	void setDistributionProvider(JaxRSDistributionProvider jaxRSDistributionProvider) {
 		this.distprovider = jaxRSDistributionProvider;
 	}

@@ -13,6 +13,7 @@ package org.eclipse.ecf.provider.jaxrs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +39,8 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 	public static final String JAXRS_COMPONENT_CONFIG_TARGET_PROPERTY = "jaxrs-service-exported-config-target";
 	public static final String JAXRS_COMPONENT_PRIORITY_PROPERTY = "jaxrs-component-priority";
 	public static final String JAXRS_COMPONENT_CONTRACT_PRIORITY_PROPERTY_ = "jaxrs-component-contract-priority_";
+
+	public static final String JAXRS_COMPONENT_INTENTS_PROPERTY = "jaxrs-component-intents";
 
 	static final Integer DEFAULT_PRIORITY = javax.ws.rs.Priorities.USER;
 	static final Integer NO_PRIORITY = -1;
@@ -135,17 +138,17 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 			else
 				return false;
 		}
-		return false;		
+		return false;
 	}
-	
+
 	protected boolean isValidComponentTarget(Object componentTarget) {
-		return isValidTarget(componentTarget,this.getClass().getName());
+		return isValidTarget(componentTarget, this.getClass().getName());
 	}
 
 	protected boolean isValidConfigTarget(Object configTarget) {
 		return isValidTarget(configTarget, getName());
 	}
-	
+
 	protected boolean isValidComponent(Object instance, @SuppressWarnings("rawtypes") Map serviceProps) {
 		if (instance != null && serviceProps != null) {
 			Object o = serviceProps.get(JAXRS_COMPONENT_TARGET_PROPERTY);
@@ -190,8 +193,30 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 						contracts.put(serviceClass, DEFAULT_PRIORITY);
 				}
 			}
-			if (contracts.size() > 0)
+			if (contracts.size() > 0) {
 				addJaxRSComponent(instance, contracts);
+				addJaxRSComponentIntents(serviceProps);
+			}
+		}
+	}
+
+	protected List<String> jaxRSComponentIntents = Collections.synchronizedList(new ArrayList<String>());
+
+	protected void addJaxRSComponentIntents(Map serviceProps) {
+		Object o = serviceProps.get(JAXRS_COMPONENT_INTENTS_PROPERTY);
+		if (o != null) {
+			String[] is = null;
+			if (o instanceof String[]) {
+				is = (String[]) o;
+			} else if (o instanceof String) {
+				String i = (String) o;
+				is = i.split(",");
+			} else if (o instanceof List) {
+				@SuppressWarnings("rawtypes")
+				List l = (List) o;
+				is = (String[]) l.toArray();
+			}
+			jaxRSComponentIntents.addAll(Arrays.asList(is));
 		}
 	}
 
@@ -315,4 +340,7 @@ public abstract class JaxRSDistributionProvider extends RemoteServiceDistributio
 		unbindJaxComponent(instance);
 	}
 
+	public String[] getJaxRSComponentIntents() {
+		return jaxRSComponentIntents.toArray(new String[jaxRSComponentIntents.size()]);
+	}
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="org.eclipse.ecf.example.jersey.server.basicauth.BasicAuthContainerRequestFilter">
    <property name="jaxrs-service-exported-config-target" value="ecf.jaxrs.jersey.server"/>
+   <property name="jaxrs-component-intents" value="ecf.jaxrs.basicauth"/>
    <service>
       <provide interface="javax.ws.rs.container.ContainerRequestFilter"/>
    </service>
