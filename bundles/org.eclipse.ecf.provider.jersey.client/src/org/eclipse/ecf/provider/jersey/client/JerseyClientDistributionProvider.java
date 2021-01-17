@@ -33,8 +33,9 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
-@Component(service = IRemoteServiceDistributionProvider.class)
+@Component(immediate=true,service = IRemoteServiceDistributionProvider.class)
 public class JerseyClientDistributionProvider extends JaxRSClientDistributionProvider {
 	
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
@@ -64,7 +65,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
 		super.bindMessageBodyWriter(instance, serviceProps);
 	}
@@ -75,7 +76,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
 		super.bindMessageBodyReader(instance, serviceProps);
 	}
@@ -86,7 +87,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
 		super.bindContextResolver(instance, serviceProps);
 	}
@@ -97,7 +98,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
 		super.bindExceptionMapper(instance, serviceProps);
 	}
@@ -108,7 +109,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindFeature(Feature instance, Map serviceProps) {
 		super.bindFeature(instance, serviceProps);
 	}
@@ -118,7 +119,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
 		super.bindReaderInterceptor(instance, serviceProps);
 	}
@@ -128,7 +129,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
 		super.bindWriterInterceptor(instance, serviceProps);
 	}
@@ -138,7 +139,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindClientRequestFilter(ClientRequestFilter instance, Map serviceProps) {
 		super.bindClientRequestFilter(instance, serviceProps);
 	}
@@ -148,7 +149,7 @@ public class JerseyClientDistributionProvider extends JaxRSClientDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindClientResponseFilter(ClientResponseFilter instance, Map serviceProps) {
 		super.bindClientResponseFilter(instance, serviceProps);
 	}

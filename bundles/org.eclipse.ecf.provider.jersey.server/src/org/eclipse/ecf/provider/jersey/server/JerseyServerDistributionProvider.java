@@ -39,6 +39,7 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 @Component(service = IRemoteServiceDistributionProvider.class)
 public class JerseyServerDistributionProvider extends JaxRSServerDistributionProvider
@@ -110,7 +111,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindMessageBodyWriter(MessageBodyWriter instance, Map serviceProps) {
 		super.bindMessageBodyWriter(instance, serviceProps);
 	}
@@ -121,7 +122,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindMessageBodyReader(MessageBodyReader instance, Map serviceProps) {
 		super.bindMessageBodyReader(instance, serviceProps);
 	}
@@ -132,7 +133,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindContextResolver(ContextResolver instance, Map serviceProps) {
 		super.bindContextResolver(instance, serviceProps);
 	}
@@ -143,7 +144,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindExceptionMapper(ExceptionMapper instance, Map serviceProps) {
 		super.bindExceptionMapper(instance, serviceProps);
 	}
@@ -154,7 +155,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindFeature(Feature instance, Map serviceProps) {
 		super.bindFeature(instance, serviceProps);
 	}
@@ -164,7 +165,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindReaderInterceptor(ReaderInterceptor instance, Map serviceProps) {
 		super.bindReaderInterceptor(instance, serviceProps);
 	}
@@ -174,7 +175,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindWriterInterceptor(WriterInterceptor instance, Map serviceProps) {
 		super.bindWriterInterceptor(instance, serviceProps);
 	}
@@ -184,7 +185,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindCompletionCallback(CompletionCallback instance, Map serviceProps) {
 		super.bindCompletionCallback(instance, serviceProps);
 	}
@@ -194,7 +195,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindConnectionCallback(ConnectionCallback instance, Map serviceProps) {
 		super.bindConnectionCallback(instance, serviceProps);
 	}
@@ -204,7 +205,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindContainerRequestFilter(ContainerRequestFilter instance, Map serviceProps) {
 		super.bindContainerRequestFilter(instance, serviceProps);
 	}
@@ -214,7 +215,7 @@ public class JerseyServerDistributionProvider extends JaxRSServerDistributionPro
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+	@Reference(cardinality = ReferenceCardinality.MULTIPLE,policyOption = ReferencePolicyOption.GREEDY)
 	protected void bindContainerResponseFilter(ContainerResponseFilter instance, Map serviceProps) {
 		super.bindContainerResponseFilter(instance, serviceProps);
 	}

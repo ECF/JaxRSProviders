@@ -12,6 +12,7 @@ package org.eclipse.ecf.example.jersey.server.basicauth;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -40,8 +41,16 @@ public class BasicAuthContainerRequestFilter implements ContainerRequestFilter {
 		private final String password;
 
 		public BasicAuthCredentials(ContainerRequestContext containerRequestContext) {
+			List<String> authHeaders = containerRequestContext.getHeaders().get(AUTHORIZATION_PROPERTY);
+			if (authHeaders == null) {
+				throw new IllegalArgumentException("Request does not have Authorization header");
+			}
+			String authHeaderValue = authHeaders.get(0);
+			if (authHeaderValue == null) {
+				throw new IllegalArgumentException("Request does not have authorization header value");
+			}
 			final StringTokenizer tokenizer = new StringTokenizer(new String(
-					Base64.getDecoder().decode(containerRequestContext.getHeaders().get(AUTHORIZATION_PROPERTY).get(0)
+					Base64.getDecoder().decode(authHeaderValue
 							.replaceFirst(AUTHENTICATION_SCHEME + " ", "").getBytes())),
 					":");
 			this.username = tokenizer.nextToken();

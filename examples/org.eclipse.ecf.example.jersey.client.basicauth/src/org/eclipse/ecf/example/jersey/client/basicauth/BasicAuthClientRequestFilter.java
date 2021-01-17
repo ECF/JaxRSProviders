@@ -17,7 +17,7 @@ import javax.ws.rs.client.ClientRequestFilter;
 
 import org.osgi.service.component.annotations.Component;
 
-@Component(property = {"jaxrs-service-exported-config-target=ecf.jaxrs.jersey.client" })
+@Component(immediate=true,property = {"jaxrs-service-exported-config-target=ecf.jaxrs.jersey.client" })
 public class BasicAuthClientRequestFilter implements ClientRequestFilter {
 
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider">
    <service>
       <provide interface="org.eclipse.ecf.remoteservice.provider.IRemoteServiceDistributionProvider"/>
    </service>
-   <reference bind="bindClientRequestFilter" cardinality="0..n" interface="javax.ws.rs.client.ClientRequestFilter" name="ClientRequestFilter" unbind="unbindClientRequestFilter"/>
-   <reference bind="bindClientResponseFilter" cardinality="0..n" interface="javax.ws.rs.client.ClientResponseFilter" name="ClientResponseFilter" unbind="unbindClientResponseFilter"/>
-   <reference bind="bindContextResolver" cardinality="0..n" interface="javax.ws.rs.ext.ContextResolver" name="ContextResolver" unbind="unbindContextResolver"/>
-   <reference bind="bindExceptionMapper" cardinality="0..n" interface="javax.ws.rs.ext.ExceptionMapper" name="ExceptionMapper" unbind="unbindExceptionMapper"/>
-   <reference bind="bindFeature" cardinality="0..n" interface="javax.ws.rs.core.Feature" name="Feature" unbind="unbindFeature"/>
-   <reference bind="bindMessageBodyReader" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyReader" name="MessageBodyReader" unbind="unbindMessageBodyReader"/>
-   <reference bind="bindMessageBodyWriter" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyWriter" name="MessageBodyWriter" unbind="unbindMessageBodyWriter"/>
-   <reference bind="bindReaderInterceptor" cardinality="0..n" interface="javax.ws.rs.ext.ReaderInterceptor" name="ReaderInterceptor" unbind="unbindReaderInterceptor"/>
-   <reference bind="bindWriterInterceptor" cardinality="0..n" interface="javax.ws.rs.ext.WriterInterceptor" name="WriterInterceptor" unbind="unbindWriterInterceptor"/>
+   <reference bind="bindClientRequestFilter" cardinality="0..n" interface="javax.ws.rs.client.ClientRequestFilter" name="ClientRequestFilter" policy-option="greedy" unbind="unbindClientRequestFilter"/>
+   <reference bind="bindClientResponseFilter" cardinality="0..n" interface="javax.ws.rs.client.ClientResponseFilter" name="ClientResponseFilter" policy-option="greedy" unbind="unbindClientResponseFilter"/>
+   <reference bind="bindContextResolver" cardinality="0..n" interface="javax.ws.rs.ext.ContextResolver" name="ContextResolver" policy-option="greedy" unbind="unbindContextResolver"/>
+   <reference bind="bindExceptionMapper" cardinality="0..n" interface="javax.ws.rs.ext.ExceptionMapper" name="ExceptionMapper" policy-option="greedy" unbind="unbindExceptionMapper"/>
+   <reference bind="bindFeature" cardinality="0..n" interface="javax.ws.rs.core.Feature" name="Feature" policy-option="greedy" unbind="unbindFeature"/>
+   <reference bind="bindMessageBodyReader" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyReader" name="MessageBodyReader" policy-option="greedy" unbind="unbindMessageBodyReader"/>
+   <reference bind="bindMessageBodyWriter" cardinality="0..n" interface="javax.ws.rs.ext.MessageBodyWriter" name="MessageBodyWriter" policy-option="greedy" unbind="unbindMessageBodyWriter"/>
+   <reference bind="bindReaderInterceptor" cardinality="0..n" interface="javax.ws.rs.ext.ReaderInterceptor" name="ReaderInterceptor" policy-option="greedy" unbind="unbindReaderInterceptor"/>
+   <reference bind="bindWriterInterceptor" cardinality="0..n" interface="javax.ws.rs.ext.WriterInterceptor" name="WriterInterceptor" policy-option="greedy" unbind="unbindWriterInterceptor"/>
    <implementation class="org.eclipse.ecf.provider.jersey.client.JerseyClientDistributionProvider"/>
 </scr:component>
