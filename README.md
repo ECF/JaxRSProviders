@@ -3,6 +3,8 @@ JaxRS OSGi Remote Services
 
 ECF Distribution Providers based upon the JaxRS specification that supports [OSGi R7 Remote Services](https://osgi.org/specification/osgi.cmpn/7.0.0/service.remoteservices.html).   Implementations based on [Apache CXF](http://cxf.apache.org/) or [Jersey](https://jersey.github.io/) are provided.  
 
+## NEW:  Tutorial for Extending the JaxRS Jersey Provider by adding customized request-level Basic Authentication. [See the documentation on the ECF Wiki](https://wiki.eclipse.org/Tutorial:_Extending_the_JaxRS_Remote_Services_Provider)
+
 ## NEW:  Support for Endpoint Description Extender Format (EDEF) Properties substitution
 This makes it much easier and more flexible to use EDEF files for importing Endpoint Descriptions.  [See the documentation on the ECF Wiki](https://wiki.eclipse.org/Using_Properties_to_Import_Endpoint_Descriptions)
 
