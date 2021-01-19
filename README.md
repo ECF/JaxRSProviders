@@ -1,4 +1,4 @@
-JaxRS OSGi Remote Services
+OSGi Remote Services JaxRS Distribution Providers
 ===========================
 
 ECF Distribution Providers based upon the JaxRS specification that supports [OSGi R7 Remote Services](https://osgi.org/specification/osgi.cmpn/7.0.0/service.remoteservices.html).   Implementations based on [Apache CXF](http://cxf.apache.org/) or [Jersey](https://jersey.github.io/) are provided.  
