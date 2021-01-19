@@ -114,7 +114,7 @@
 		version="1.14.4"
 		description="ECF Jersey Server Basic Auth Extension Example.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.4">ecf-rs-distribution-jersey-server</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.server.basicauth_1.0.2.202101171410.jar
+		<bundle start-level="30">https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.server.basicauth_1.0.2.202101171410.jar
 		</bundle>
 	</feature>
 
@@ -122,7 +122,7 @@
 		version="1.14.4"
 		description="ECF Jersey Client Distribution Provider Basic Auth Extension Example.  See https://github.com/ECF/JaxRSProviders">
 		<feature version="1.14.4">ecf-rs-distribution-jersey-client</feature>
-		<bundle>https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.client.basicauth_1.0.1.202101171410.jar
+		<bundle start-level="30">https://raw.githubusercontent.com/ECF/JaxRSProviders/master/build/plugins/org.eclipse.ecf.example.jersey.client.basicauth_1.0.1.202101171410.jar
 		</bundle>
 	</feature>
 	
