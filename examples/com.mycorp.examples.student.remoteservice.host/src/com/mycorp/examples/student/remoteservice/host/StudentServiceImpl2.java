@@ -19,7 +19,7 @@ import com.mycorp.examples.student.StudentService;
 @Path("/studentservice")
 // The OSGi DS (declarative services) component annotation. 
 @Component(immediate = true, property = { "service.exported.interfaces=*", "service.exported.intents=osgi.async",
-		"service.exported.intents=jaxrs", "osgi.basic.timeout=50000", "ecf.jaxrs.server.pathPrefix=/rs2" })
+		"service.exported.intents=jaxrs", "osgi.basic.timeout=1000000", "ecf.jaxrs.server.pathPrefix=/rs2" })
 public class StudentServiceImpl2 extends AbstractStudentService implements StudentService {
 
 }

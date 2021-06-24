@@ -4,7 +4,7 @@
    <property name="service.exported.intents">osgi.async
 jaxrs
    </property>
-   <property name="osgi.basic.timeout" value="50000"/>
+   <property name="osgi.basic.timeout" value="1000000"/>
    <property name="ecf.jaxrs.server.pathPrefix" value="/rs2"/>
    <service>
       <provide interface="com.mycorp.examples.student.StudentService"/>
