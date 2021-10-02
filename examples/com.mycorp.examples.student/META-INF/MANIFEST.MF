@@ -6,7 +6,8 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.ws.rs;version="2.0.1",
- javax.ws.rs.core;version="2.0.1"
+ javax.ws.rs.core;version="2.0.1",
+ javax.xml.bind.annotation;version="2.2.12"
 Export-Package: com.mycorp.examples.student;version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: com.mycorp.examples.student
