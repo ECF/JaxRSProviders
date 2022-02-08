@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SpaceX REST Launch Service via JAX-RS
 Bundle-SymbolicName: org.eclipse.ecf.example.spacex.launch.api
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Automatic-Module-Name: oreg.eclipse.ecf.example.spacex.launch.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.fasterxml.jackson.annotation;version="2.10.1",

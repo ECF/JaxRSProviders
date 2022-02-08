@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -39,6 +40,7 @@ public interface LaunchService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/latest")
-	public Launch getLatestLaunch();
+	@Path("/{value}")
+	public Launch getLaunch(@PathParam("value") int flightNumber);
+
 }

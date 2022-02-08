@@ -4,6 +4,7 @@
    <property name="service.exported.intents">osgi.async
 jaxrs
    </property>
+   <property name="service.exported.configs" value="ecf.jaxrs.jersey.server"/>
    <property name="osgi.basic.timeout" value="0"/>
    <property name="ecf.jaxrs.server.pathPrefix" value="/rs1"/>
    <service>

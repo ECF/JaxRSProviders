@@ -10,13 +10,19 @@
 package org.eclipse.ecf.provider.internal.jaxrs;
 
 import org.eclipse.ecf.core.identity.Namespace;
+import org.eclipse.ecf.core.util.BundleStarter;
 import org.eclipse.ecf.provider.jaxrs.JaxRSNamespace;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
 	private static BundleContext context;
+	
+	private static final String[] dependencies = { "com.fasterxml.jackson.core.jackson-annotations",
+			"com.fasterxml.jackson.core.jackson-core", "com.fasterxml.jackson.core.jackson-databind",
+			"javax.ws.rs-api" };
 
 	static BundleContext getContext() {
 		return context;
@@ -24,6 +30,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
+		BundleStarter.startDependents(bundleContext, dependencies, Bundle.ACTIVE | Bundle.STARTING);
 		bundleContext.registerService(Namespace.class, new JaxRSNamespace(), null);
 	}
 

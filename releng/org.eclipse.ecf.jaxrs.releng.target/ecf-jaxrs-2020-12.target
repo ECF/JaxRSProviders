@@ -5,14 +5,26 @@
 <location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/cxf" type="Directory"/>
 <location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/validation" type="Directory"/>
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.feature.group" version="0.0.0"/>
-		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.source.feature.group" version="0.0.0"/>
-		<repository location="http://download.eclipse.org/rt/ecf/3.14.22/site.p2"/>
-	</location>
-	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
 		<repository location="http://download.eclipse.org/releases/2020-12"/>
 	</location>
 	<location path="${project_loc:org.eclipse.ecf.jaxrs.releng.target}/lib/jersey-2.30.1" type="Directory"/>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://download.eclipse.org/rt/ecf/3.14.31/site.p2"/>
+		<unit id="com.sun.syndication" version="0.9.0.v200803061811"/>
+		<unit id="javax.servlet" version="3.1.0.v201410161800"/>
+		<unit id="org.apache.hadoop.zookeeper" version="3.3.3.v201105210832"/>
+		<unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
+		<unit id="org.eclipse.ecf.core.feature.group" version="3.14.31.v20220108-1858"/>
+		<unit id="org.eclipse.ecf.core.source.feature.group" version="3.14.31.v20220108-1858"/>
+		<unit id="org.eclipse.ecf.remoteservice.sdk.examples.feature.feature.group" version="1.0.200.v20211005-1944"/>
+		<unit id="org.eclipse.ecf.remoteservice.sdk.examples.feature.source.feature.group" version="1.0.200.v20211005-1944"/>
+		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.feature.group" version="3.14.25.v20211005-1944"/>
+		<unit id="org.eclipse.ecf.remoteservice.sdk.feature.source.feature.group" version="3.14.25.v20211005-1944"/>
+		<unit id="org.jdom" version="1.1.1.v201101151400"/>
+		<unit id="org.json" version="1.0.0.v201011060100"/>
+		<unit id="org.objectweb.asm" version="9.2.0.v20210813-1119"/>
+		<unit id="org.xbill.dns" version="2.0.8.v201112050911"/>
+	</location>
 </locations>
 </target>

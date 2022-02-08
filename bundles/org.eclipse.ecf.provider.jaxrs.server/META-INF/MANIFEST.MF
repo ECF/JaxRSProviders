@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF JaxRS Server Support
 Bundle-SymbolicName: org.eclipse.ecf.provider.jaxrs.server
-Bundle-Version: 1.11.0.qualifier
+Bundle-Version: 1.11.1.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -31,3 +31,5 @@ Require-Bundle: org.eclipse.ecf,
  org.eclipse.equinox.common
 Export-Package: org.eclipse.ecf.provider.jaxrs.server;version="1.1.0"
 Automatic-Module-Name: org.eclipse.ecf.provider.jaxrs.server
+Require-Capability: osgi.service;filter:="(objectClass=org.osgi.service.http.HttpService)";effective:=active
+Bundle-Activator: org.eclipse.ecf.provider.jaxrs.server.Activator

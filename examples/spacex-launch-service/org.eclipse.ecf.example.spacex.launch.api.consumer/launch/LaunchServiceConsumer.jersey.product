@@ -37,12 +37,15 @@
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"/>
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
       <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"/>
+      <plugin id="com.sun.activation.javax.activation"/>
       <plugin id="jakarta.annotation-api"/>
       <plugin id="jakarta.ws.rs-api"/>
       <plugin id="jakarta.xml.bind-api"/>
       <plugin id="javassist"/>
+      <plugin id="javax.annotation"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.validation.api"/>
+      <plugin id="javax.ws.rs-api"/>
       <plugin id="org.apache.commons.codec"/>
       <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.felix.gogo.command"/>
@@ -51,12 +54,14 @@
       <plugin id="org.apache.felix.scr"/>
       <plugin id="org.apache.httpcomponents.httpclient"/>
       <plugin id="org.apache.httpcomponents.httpcore"/>
+      <plugin id="org.apiguardian"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.ecf"/>
       <plugin id="org.eclipse.ecf.console"/>
       <plugin id="org.eclipse.ecf.discovery"/>
       <plugin id="org.eclipse.ecf.example.spacex.launch.api"/>
       <plugin id="org.eclipse.ecf.example.spacex.launch.api.consumer"/>
+      <plugin id="org.eclipse.ecf.example.spacex.launch.api.test" fragment="true"/>
       <plugin id="org.eclipse.ecf.identity"/>
       <plugin id="org.eclipse.ecf.osgi.services.distribution"/>
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin"/>
@@ -71,12 +76,13 @@
       <plugin id="org.eclipse.ecf.remoteservice"/>
       <plugin id="org.eclipse.ecf.remoteservice.asyncproxy"/>
       <plugin id="org.eclipse.ecf.sharedobject"/>
+      <plugin id="org.eclipse.ecf.ssl" fragment="true"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.concurrent"/>
       <plugin id="org.eclipse.equinox.console"/>
       <plugin id="org.eclipse.equinox.event"/>
-      <plugin id="org.eclipse.equinox.util"/>
       <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.osgi.services.remoteserviceadmin"/>
       <plugin id="org.eclipse.osgi.util"/>
@@ -86,8 +92,6 @@
       <plugin id="org.glassfish.hk2.locator"/>
       <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
       <plugin id="org.glassfish.hk2.utils"/>
-      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet"/>
-      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core"/>
       <plugin id="org.glassfish.jersey.core.jersey-client"/>
       <plugin id="org.glassfish.jersey.core.jersey-common"/>
       <plugin id="org.glassfish.jersey.core.jersey-server"/>
@@ -95,83 +99,21 @@
       <plugin id="org.glassfish.jersey.inject.jersey-hk2"/>
       <plugin id="org.glassfish.jersey.media.jersey-media-jaxb"/>
       <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
+      <plugin id="org.junit.jupiter.api"/>
+      <plugin id="org.junit.platform.commons"/>
+      <plugin id="org.opentest4j"/>
    </plugins>
 
    <configurations>
-      <plugin id="com.fasterxml.jackson.core.jackson-annotations" autoStart="true" startLevel="0" />
-      <plugin id="com.fasterxml.jackson.core.jackson-core" autoStart="true" startLevel="0" />
-      <plugin id="com.fasterxml.jackson.core.jackson-databind" autoStart="true" startLevel="0" />
-      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base" autoStart="true" startLevel="0" />
-      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" autoStart="true" startLevel="0" />
-      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="true" startLevel="0" />
-      <plugin id="jakarta.annotation-api" autoStart="true" startLevel="0" />
-      <plugin id="jakarta.ws.rs-api" autoStart="true" startLevel="0" />
-      <plugin id="javassist" autoStart="true" startLevel="0" />
-      <plugin id="javax.servlet" autoStart="true" startLevel="0" />
-      <plugin id="javax.validation.api" autoStart="true" startLevel="0" />
-      <plugin id="org.apache.commons.codec" autoStart="true" startLevel="0" />
-      <plugin id="org.apache.commons.logging" autoStart="true" startLevel="0" />
-      <plugin id="org.apache.felix.gogo.command" autoStart="true" startLevel="0" />
-      <plugin id="org.apache.felix.gogo.runtime" autoStart="true" startLevel="0" />
-      <plugin id="org.apache.felix.gogo.shell" autoStart="true" startLevel="0" />
       <plugin id="org.apache.felix.scr" autoStart="true" startLevel="1" />
-      <plugin id="org.apache.httpcomponents.httpclient" autoStart="false" startLevel="0" />
-      <plugin id="org.apache.httpcomponents.httpcore" autoStart="false" startLevel="0" />
-      <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.console" autoStart="false" startLevel="0" />
-      <plugin id="org.eclipse.ecf.discovery" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.example.spacex.launch.api" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.ecf.example.spacex.launch.api.consumer" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.identity" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="3" />
       <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.console" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider.jaxrs" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider.jaxrs.client" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider.jaxrs.server" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider.jersey.client" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider.jersey.server" autoStart="true" startLevel="3" />
-      <plugin id="org.eclipse.ecf.provider.jmdns" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.provider.remoteservice" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.remoteservice" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.remoteservice.asyncproxy" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.sharedobject" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.concurrent" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.console" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.continuation" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.http" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.io" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.security" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.server" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.servlet" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.jetty.util" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.ecf.provider.jersey.client" autoStart="true" startLevel="3" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
-      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.osgi.util" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.hk2.api" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.hk2.external.jakarta.inject" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.hk2.locator" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.hk2.osgi-resource-locator" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.hk2.utils" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.core.jersey-client" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.core.jersey-common" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.core.jersey-server" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.inject.jersey-hk2" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb" autoStart="true" startLevel="0" />
-      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson" autoStart="true" startLevel="0" />
    </configurations>
 
 </product>

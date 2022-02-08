@@ -2,19 +2,23 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Dist Provider - Jersey Jax RS Server
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
-Bundle-Version: 1.11.0.qualifier
+Bundle-Version: 1.11.1.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: com.fasterxml.jackson.core;version="2.6.2",
+Import-Package: com.fasterxml.jackson.annotation;version="2.10.1",
+ com.fasterxml.jackson.core;version="2.6.2",
  com.fasterxml.jackson.databind;version="2.6.2",
  com.fasterxml.jackson.jaxrs.base;version="2.9.2",
  com.fasterxml.jackson.jaxrs.json;version="2.9.2",
- javax.annotation;version="1.2",
+ javax.activation;version="1.2.0",
+ javax.inject;version="1.0.0",
  javax.servlet,
+ javax.validation;version="2.0.1.Final",
  javax.ws.rs,
  javax.ws.rs.container,
  javax.ws.rs.core,
  javax.ws.rs.ext,
+ org.aopalliance.aop;version="1.0.0",
  org.eclipse.ecf.osgi.services.remoteserviceadmin;version="1.2.0",
  org.eclipse.ecf.provider.jaxrs;version="1.1.0",
  org.eclipse.ecf.provider.jaxrs.server;version="1.1.0",
@@ -23,6 +27,9 @@ Import-Package: com.fasterxml.jackson.core;version="2.6.2",
  org.eclipse.ecf.remoteservice.provider;version="1.0.0",
  org.eclipse.ecf.remoteservice.util;version="8.3.0",
  org.eclipse.equinox.concurrent.future,
+ org.glassfish.jersey;version="2.30.1",
+ org.glassfish.jersey.inject.hk2;version="2.30.1",
+ org.glassfish.jersey.internal.inject;version="2.30.1",
  org.glassfish.jersey.jackson;version="2.22.1",
  org.glassfish.jersey.message.filtering;version="2.22.1",
  org.glassfish.jersey.server;version="2.14.0",
@@ -30,16 +37,22 @@ Import-Package: com.fasterxml.jackson.core;version="2.6.2",
  org.glassfish.jersey.server.spi;version="2.14.0",
  org.glassfish.jersey.server.spi.internal;version="2.22.1",
  org.glassfish.jersey.servlet;version="2.22.1",
+ org.glassfish.jersey.servlet.async;version="2.30.1",
+ org.glassfish.jersey.servlet.init;version="2.30.1",
+ org.glassfish.jersey.servlet.internal;version="2.30.1",
+ org.glassfish.jersey.servlet.internal.spi;version="2.30.1",
+ org.glassfish.jersey.servlet.spi;version="2.30.1",
+ org.jvnet.hk2.external.runtime;version="2.6.1",
  org.osgi.framework,
  org.osgi.service.component.annotations;version="1.2.0";resolution:=optional,
  org.osgi.service.http;version="1.2.1"
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ecf,
- org.eclipse.equinox.common,
- org.eclipse.ecf.identity,
- org.glassfish.jersey.core.jersey-common;bundle-version="2.30.1"
+ org.eclipse.equinox.common
 Provide-Capability: osgi.remoteserviceadmin.distribution; configs:List<String>="ecf.jaxrs.jersey.server"; version:Version=1.0
 Export-Package: org.eclipse.ecf.provider.jersey.server;version="1.0.0"
 Automatic-Module-Name: org.eclipse.ecf.provider.jersey.server
 DynamicImport-Package: *
 Service-Component: OSGI-INF/org.eclipse.ecf.provider.jersey.server.JerseyServerDistributionProvider.xml
+Require-Capability: osgi.service;filter:="(objectClass=org.osgi.service.http.HttpService)";effective:=active
+Bundle-Activator: org.eclipse.ecf.provider.jersey.server.Activator

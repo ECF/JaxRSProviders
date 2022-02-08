@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicyOption;
 
-@Component(immediate=true,service = IRemoteServiceDistributionProvider.class)
+@Component(service = IRemoteServiceDistributionProvider.class)
 public class JerseyClientDistributionProvider extends JaxRSClientDistributionProvider {
 	
 	public static final String CLIENT_PROVIDER_NAME = "ecf.jaxrs.jersey.client";
