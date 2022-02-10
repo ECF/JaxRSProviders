@@ -179,7 +179,11 @@
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
 			<version>2.10.1</version>
 		</dependency>
-
+		<dependency>
+		  <groupId>javax.xml.ws</groupId>
+		  <artifactId>jaxws-api</artifactId>
+		  <version>2.3.1</version>
+		</dependency>
 	</dependencies>
 
 	<modules>
@@ -197,12 +201,12 @@
 		<module>bundles/org.eclipse.ecf.provider.jaxrs.client</module>
 		<module>bundles/org.eclipse.ecf.provider.jersey.server</module>
 		<module>bundles/org.eclipse.ecf.provider.jersey.client</module>
-		<module>bundles/org.eclipse.ecf.provider.cxf.server</module>
-		<module>bundles/org.eclipse.ecf.provider.cxf.client</module>
+<!--		<module>bundles/org.eclipse.ecf.provider.cxf.server</module>
+		<module>bundles/org.eclipse.ecf.provider.cxf.client</module> -->
 		<module>features/org.eclipse.ecf.provider.jersey.server.feature</module>
 		<module>features/org.eclipse.ecf.provider.jersey.client.feature</module>
-		<module>features/org.eclipse.ecf.provider.cxf.server.feature</module>
-		<module>features/org.eclipse.ecf.provider.cxf.client.feature</module>
+<!--		<module>features/org.eclipse.ecf.provider.cxf.server.feature</module>
+		<module>features/org.eclipse.ecf.provider.cxf.client.feature</module> -->
 		<module>features/org.eclipse.ecf.provider.jaxrs.examples.student.feature</module>
 		<module>features/org.eclipse.ecf.example.spacex.launch.consumer.feature</module>
 	    <module>examples/org.eclipse.ecf.example.jersey.server.basicauth</module>
