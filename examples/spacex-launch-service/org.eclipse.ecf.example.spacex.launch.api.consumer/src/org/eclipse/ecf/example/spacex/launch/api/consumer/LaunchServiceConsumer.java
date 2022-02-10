@@ -12,7 +12,7 @@ import org.osgi.service.component.annotations.Reference;
 public class LaunchServiceConsumer {
 
 	@Reference
-	LaunchService launchService;
+	private LaunchService launchService;
 
 	@Activate
 	void activate() {
