@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" activate="activate" name="org.eclipse.ecf.example.spacex.launch.api.consumer.LaunchServiceConsumer">
-   <reference cardinality="1..1" field="launchService" interface="org.eclipse.ecf.example.spacex.launch.api.LaunchService" name="launchService"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="org.eclipse.ecf.example.spacex.launch.api.consumer.LaunchServiceConsumer">
+   <reference bind="bindLaunchService" interface="org.eclipse.ecf.example.spacex.launch.api.LaunchService" name="LaunchService" unbind="unbindLaunchService"/>
    <implementation class="org.eclipse.ecf.example.spacex.launch.api.consumer.LaunchServiceConsumer"/>
 </scr:component>

@@ -11,9 +11,16 @@ import org.osgi.service.component.annotations.Reference;
 @Component
 public class LaunchServiceConsumer {
 
-	@Reference
 	private LaunchService launchService;
 
+	@Reference
+	void bindLaunchService(LaunchService svc) {
+		this.launchService = svc;
+	}
+	
+	void unbindLaunchService(LaunchService svc) {
+		this.launchService = null;
+	}
 	@Activate
 	void activate() {
 		// Call some methods on injected launch service
