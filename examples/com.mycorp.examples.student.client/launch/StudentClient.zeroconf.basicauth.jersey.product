@@ -99,11 +99,7 @@
 
    <configurations>
       <plugin id="com.mycorp.examples.student.client" autoStart="true" startLevel="0" />
-      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.console" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
    </configurations>
 
 </product>
