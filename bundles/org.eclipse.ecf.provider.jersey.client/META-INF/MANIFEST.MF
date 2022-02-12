@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ECF Jersey Remote Services Client
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.client
-Bundle-Version: 1.8.1.qualifier
+Bundle-Version: 1.8.2.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -11,6 +11,7 @@ Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  com.fasterxml.jackson.jaxrs.base;version="2.9.2",
  com.fasterxml.jackson.jaxrs.json;version="2.9.2",
  javax.annotation;version="1.2",
+ javax.inject;version="1.0.0",
  javax.ws.rs.client;version="2.0.1",
  javax.ws.rs.core;version="2.0.1",
  javax.ws.rs.ext;version="2.0.1",
