@@ -4,7 +4,7 @@ Bundle-Name: ECF Distribution Provider - Jax RS Support
 Bundle-SymbolicName: org.eclipse.ecf.provider.jaxrs
 Bundle-Version: 1.7.1.qualifier
 Bundle-Vendor: Eclipse.org - ECF
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  com.fasterxml.jackson.databind;version="2.9.2",

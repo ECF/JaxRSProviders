@@ -23,7 +23,7 @@ Import-Package: com.fasterxml.jackson.core;version="2.9.2",
  org.eclipse.ecf.remoteservice.util;version="8.3.0",
  org.eclipse.equinox.concurrent.future;version="1.1.0",
  org.osgi.framework
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.ecf.provider.jaxrs.client;version="1.1.0"
 Automatic-Module-Name: org.eclipse.ecf.provider.jaxrs.client

@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.ecf.example.jersey.server.basicauth
 Bundle-Version: 1.0.2.qualifier
 Bundle-Vendor: Eclipse.org - ECF
 Automatic-Module-Name: org.eclipse.ecf.example.jersey.server.basicauth
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Import-Package: javax.ws.rs.container,
  javax.ws.rs.core,

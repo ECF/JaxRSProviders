@@ -4,7 +4,7 @@ Bundle-Name: ECF Dist Provider - Jersey Jax RS Server
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server
 Bundle-Version: 1.11.1.qualifier
 Bundle-Vendor: Eclipse.org - ECF
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: com.fasterxml.jackson.annotation;version="2.10.1",
  com.fasterxml.jackson.core;version="2.6.2",
  com.fasterxml.jackson.databind;version="2.6.2",

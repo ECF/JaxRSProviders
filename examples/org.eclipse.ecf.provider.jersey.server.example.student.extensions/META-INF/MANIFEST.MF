@@ -4,7 +4,7 @@ Bundle-Name: Example Jersey Extensions for Student API
 Bundle-SymbolicName: org.eclipse.ecf.provider.jersey.server.example.student.extensions
 Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Eclipse.org - ECF
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: com.mycorp.examples.student;version="1.0.0",
  javax.ws.rs;version="2.0.1",
  javax.ws.rs.core;version="2.0.1",

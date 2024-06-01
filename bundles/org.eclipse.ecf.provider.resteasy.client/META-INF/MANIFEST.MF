@@ -4,7 +4,7 @@ Bundle-Name: ECF Remote Service Distribution Provider based upon RestEasy
 Bundle-SymbolicName: org.eclipse.ecf.provider.resteasy.client
 Bundle-Version: 3.0.9.qualifier
 Bundle-Vendor: Eclipse.org - ECF
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.equinox.common;bundle-version="3.7.0",
  org.eclipse.ecf;bundle-version="3.5.0"
